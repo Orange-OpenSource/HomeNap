@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+* Module Name : global-coordinator
+* Version : 0.1-SNAPSHOT
+*
+* Software Name : HomeNap
+* Version : 0.1-SNAPSHOT
+*
+* Copyright © 28/06/2012 – 28/06/2012 France Télécom
+* This software is distributed under the Apache 2.0 license,
+* the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+* or see the "LICENSE-2.0.txt" file for more details.
+*
+* File Name   : metadata.xml
+*
+* Created     : 28/06/2012
+* Author(s)   : Remi Druilhe
+*
+* Description :
+*
+-->
+
+<ipojo xmlns:ev="org.apache.felix.ipojo.handlers.event">
+
+    <!-- ============================================================== -->
+    <!--                           Components                           -->
+    <!-- ============================================================== -->
+
+    <!-- HomeManager -->
+    <component classname="com.olnc.made.homenap.globalcoordinator.HomeManager" name="home-manager">
+        <provides/>
+
+        <requires field="deviceInfoDBItf"/>
+        <requires field="controlPointManagerItf"/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <!-- DeviceInfoDB -->
+    <component classname="com.olnc.made.homenap.globalcoordinator.DeviceInfoDB" name="device-info-db">
+        <provides/>
+
+        <callback transition="validate" method="start"/>
+
+        <properties>
+            <property field="stateful" mandatory="true" value="true"/>
+            <property field="deviceInfoMap"/>
+        </properties>
+    </component>
+
+    <!-- GCDevice -->
+    <component classname="com.olnc.made.homenap.globalcoordinator.GCDevice" name="gc-device">
+        <provides/>
+
+        <requires field="deviceInfoDBItf"/>
+        <requires field="globalCoordinatorEvent"/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <!-- ControlPointManager -->
+    <component classname="com.olnc.made.homenap.globalcoordinator.ControlPointManager" name="gc-control-point-manager">
+        <provides/>
+
+        <requires field="factory" filter="(factory.name=local-manager-control-point)"/>
+
+        <callback transition="validate" method="start"/>
+
+        <properties>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <!-- LocalManagerControlPoint -->
+    <component classname="com.olnc.made.homenap.globalcoordinator.LocalManagerControlPoint" name="local-manager-control-point">
+        <provides/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="udnLocalManager" mandatory="true"/>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <!-- ============================================================== -->
+    <!--                           Instances                            -->
+    <!-- ============================================================== -->
+
+    <instance component="home-manager"/>
+    <instance component="device-info-db">
+        <property name="deviceInfoMap" type="map"/>
+    </instance>
+    <instance component="gc-control-point-manager"/>
+    <instance component="gc-device"/>
+</ipojo>

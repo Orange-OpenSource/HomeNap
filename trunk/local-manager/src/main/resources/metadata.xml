@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~  Module Name : local-manager
+  ~  Version : 0.1-SNAPSHOT
+  ~
+  ~  Software Name : HomeNap
+  ~  Version : 0.1-SNAPSHOT
+  ~
+  ~  Copyright © 28/06/2012 – 28/06/2012 France Télécom
+  ~  This software is distributed under the Apache 2.0 license,
+  ~  the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+  ~  or see the "LICENSE-2.0.txt" file for more details.
+  ~
+  ~  File Name   : metadata.xml
+  ~
+  ~  Created     : 28/06/2012
+  ~  Author(s)   : Remi Druilhe
+  ~
+  ~  Description :
+  ~
+  -->
+
+<ipojo xmlns:ev="org.apache.felix.ipojo.handlers.event">
+
+    <!-- ============================================================== -->
+    <!--                           Components                           -->
+    <!-- ============================================================== -->
+
+    <!-- DeviceManager -->
+    <component classname="com.olnc.made.homenap.localmanager.DeviceManager" name="device-manager">
+        <provides/>
+
+        <requires field="serviceManagerItf"/>
+        <requires field="powerStateManagerItf" optional="true"/>
+        <requires field="deviceInfoItf"/>
+        <requires field="globalCoordinatorControlPointItf" optional="true"/>
+        <requires field="controlPointManagerItf" optional="true"/>
+
+        <ev:subscriber name="powerStateSubscriber" callback="notifyPowerStateChange" topics="state"/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <!-- ServiceManager -->
+    <component classname="com.olnc.made.homenap.localmanager.ServiceManager" name="service-manager">
+        <provides/>
+
+        <requires field="serviceInfoDBItf"/>
+
+        <callback transition="validate" method="start"/>
+
+        <properties>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <!-- ServiceManagerEvent -->
+    <component classname="com.olnc.made.homenap.localmanager.ServiceManagerEvent" name="service-manager-event">
+        <provides/>
+
+        <requires field="serviceInfoDBItf"/>
+        <requires field="serviceManagerEventItf"/>
+        <requires field="stateFileManagerItf"/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <!-- ServiceInfoDB -->
+    <component classname="com.olnc.made.homenap.localmanager.ServiceInfoDB" name="service-info-db">
+        <provides/>
+
+        <properties>
+            <property field="stateful" mandatory="true" value="false"/>
+            <property field="serviceInfoMap"/>
+        </properties>
+    </component>
+
+    <!-- DeviceInfo -->
+    <component classname="com.olnc.made.homenap.localmanager.DeviceInfo" name="device-info">
+        <provides/>
+
+        <callback transition="validate" method="start"/>
+
+        <properties>
+            <property field="deviceInfoFile"
+                      value="/home/kxzj6354/workspace/These/homenap-ipojo/infos/device.json"
+                      mandatory="true"/>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <!-- GlobalCoordinator UPnP components -->
+    <!-- GlobalCoordinatorControlPoint -->
+    <component classname="com.olnc.made.homenap.localmanager.GlobalCoordinatorControlPoint" name="global-coordinator-control-point">
+        <provides/>
+
+        <requires field="deviceInfoItf"/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="typeGlobalCoordinator" mandatory="true" value="urn:schemas-upnp-org:device:GlobalCoordinator:1"/>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <!-- LMDevice -->
+    <component classname="com.olnc.made.homenap.localmanager.LMDevice" name="lm-device">
+        <provides/>
+
+        <requires field="deviceInfoItf"/>
+        <requires field="localManagerEvent"/>
+        <requires field="deployerEvent"/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <!-- ControlPointManager -->
+    <component classname="com.olnc.made.homenap.localmanager.ControlPointManager" name="lm-control-point-manager">
+        <provides/>
+
+        <requires field="factory" filter="(factory.name=deployer-control-point)"/>
+
+        <callback transition="validate" method="start"/>
+
+        <properties>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <!-- LocalManagers UPnP components -->
+    <!-- DeployerControlPoint -->
+    <component classname="com.olnc.made.homenap.localmanager.DeployerControlPoint" name="deployer-control-point">
+        <provides/>
+
+        <requires field="wakeOnLanItf"/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="udnDeployer" mandatory="true"/>
+            <property field="wakeUpAddress" mandatory="true"/>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <!-- MigrationManager -->
+    <component classname="com.olnc.made.homenap.localmanager.MigrationManager" name="migration-manager" immediat="true">
+        <provides/>
+
+        <requires field="serviceInfoDBItf"/>
+        <!--<requires field="xmlManagerItf"/>-->
+
+        <properties>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+    <component classname="com.olnc.made.homenap.localmanager.StateFileManager" name="state-file-manager">
+        <provides/>
+
+        <requires field="serviceInfoDBItf"/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="directory" mandatory="true" value="/tmp/homenap"/>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>
+
+<!--    <component classname="com.olnc.made.homenap.localmanager.XMLManager" name="xml-manager" immediat="true">
+        <provides/>
+
+        <properties>
+            <property field="directory" value="/tmp/homenap/" mandatory="true"/>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+    </component>-->
+
+    <!-- ============================================================== -->
+    <!--                           Instances                            -->
+    <!-- ============================================================== -->
+
+    <instance component="service-info-db">
+        <property name="serviceInfoMap" type="map"/>
+    </instance>
+    <instance component="state-file-manager"/>
+    <instance component="service-manager"/>
+    <instance component="service-manager-event"/>
+    <instance component="device-info"/>
+    <instance component="lm-control-point-manager"/>
+    <instance component="lm-device"/>
+    <!--<instance component="xml-manager"/>-->
+    <instance component="migration-manager"/>
+    <instance component="global-coordinator-control-point"/>
+    <instance component="device-manager"/>
+</ipojo>

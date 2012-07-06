@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ --------------------------------------------------------
+  ~  Module Name : power-state
+  ~  Version : 0.1-SNAPSHOT
+  ~
+  ~  Software Name : HomeNap
+  ~  Version : 0.1-SNAPSHOT
+  ~
+  ~  Copyright © 28/06/2012 – 28/06/2012 France Télécom
+  ~  This software is distributed under the Apache 2.0 license,
+  ~  the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+  ~  or see the "LICENSE-2.0.txt" file for more details.
+  ~
+  ~ --------------------------------------------------------
+  ~  File Name   : metadata.xml
+  ~
+  ~  Created     : 28/06/2012
+  ~  Author(s)   : Remi Druilhe
+  ~
+  ~  Description :
+  ~
+  ~ --------------------------------------------------------
+  -->
+
+<ipojo xmlns:ev="org.apache.felix.ipojo.handlers.event">
+    <!-- PowerState -->
+    <component classname="com.olnc.made.homenap.powerstate.PowerStateManager" name="power-state">
+        <provides specification="com.olnc.made.homenap.powerstate.PowerStateManagerItf"/>
+
+        <properties>
+            <!-- Values in seconds -->
+            <property field="timer" value="30" mandatory="true"/>
+            <property field="grace" value="30" mandatory="true"/>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <ev:publisher name="powerStatePublisher" field="publisher" topics="state"/>
+    </component>
+
+    <component classname="com.olnc.made.homenap.powerstate.PowerStateEvent" name="power-state-event">
+        <provices/>
+
+        <properties>
+            <!-- Values in seconds -->
+            <property field="stateFile" value="/tmp/state" mandatory="true"/>
+            <property field="stateful" mandatory="true" value="false"/>
+        </properties>
+
+        <callback transition="validate" method="start"/>
+
+        <ev:publisher name="powerEventPublisher" field="publisher" topics="state-event"/>
+    </component>
+
+    <instance component="power-state"/>
+</ipojo>

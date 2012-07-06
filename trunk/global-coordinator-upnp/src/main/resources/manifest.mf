@@ -1,0 +1,10 @@
+Bundle-Activator: com.olnc.made.homenap.globalcoordinator.upnp.drivers.Activator
+Import-Package: org.osgi.framework, org.osgi.service.upnp
+Export-Package: com.olnc.made.homenap.globalcoordinator.upnp.devices, com.olnc.made.homenap.globalcoordinator.upnp.services, com.olnc.made.homenap.globalcoordinator.upnp.holders, com.olnc.made.homenap.globalcoordinator.upnp.listeners
+Bundle-ClassPath: .
+Bundle-Name: GlobalCoordinator - Driver
+Bundle-Description: A UPnP GlobalCoordinator - DeviceDriver
+Bundle-Version: 1.0.0
+Bundle-Date: 21-3-2012
+Bundle-Vendor: France Telecom
+Service-Component: metadata.xml
