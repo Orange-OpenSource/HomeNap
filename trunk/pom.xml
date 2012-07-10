@@ -37,6 +37,7 @@
         <maven.ipojo.version>1.8.0</maven.ipojo.version>
         <ipojo.version>1.8.0</ipojo.version>
         <felix.version>4.1.0-SNAPSHOT</felix.version>
+        <choco.version>2.1.4</choco.version>
     </properties>
 
     <!-- ============ -->

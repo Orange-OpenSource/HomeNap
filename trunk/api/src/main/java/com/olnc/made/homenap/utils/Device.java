@@ -23,6 +23,8 @@
 
 package com.olnc.made.homenap.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +37,10 @@ public class Device
     private DeviceState deviceState;
     private List<DeviceState> statesSupported;
     private Map<String, Service.ServiceState> servicesState;
-    private long consumption;
+    private int consumptionOff;
+    private int consumptionOn;
+    private List<Service> servicesOnDevice = new ArrayList<Service>();
+    private Map<String, Integer> qorDeviceMax = new HashMap<String, Integer>();
 
     public Device() {}
 
@@ -61,9 +66,39 @@ public class Device
 
     public Map<String, Service.ServiceState> getServicesState() { return this.servicesState; }
 
-    public void setConsumption(long consumption) { this.consumption = consumption; }
+    public void setConsumptionOff(int consumptionOff) { this.consumptionOff = consumptionOff; }
 
-    public long getConsumption() { return this.consumption; }
+    public int getConsumptionOff() { return this.consumptionOff; }
+
+    public void setConsumptionOn(int consumptionOn) { this.consumptionOn = consumptionOn; }
+
+    public int getConsumptionOn() { return this.consumptionOn; }
+
+    public void addService(Service service) { servicesOnDevice.add(service); }
+
+    public List<Service> getServicesOnDevice() { return servicesOnDevice; }
+
+    public void setQorDeviceMax(Map<String, Integer> qorDeviceMax) { this.qorDeviceMax = qorDeviceMax; }
+
+    public Map<String, Integer> getQorDeviceMax() { return qorDeviceMax; }
+
+    public Map<String, Integer> getQorDeviceAvailable()
+    {
+        Map<String, Integer> qorDeviceAvailable = qorDeviceMax;
+
+        for(int i = 0 ; i < servicesOnDevice.size(); i++)
+        {
+            Service service = servicesOnDevice.get(i);
+
+            for(Map.Entry<String, Integer> map : service.getQorService().entrySet())
+            {
+                qorDeviceAvailable.put(map.getKey(),
+                        qorDeviceAvailable.get(map.getKey()) - service.getQorService().get(map.getKey()));
+            }
+        }
+
+        return qorDeviceAvailable;
+    }
 
     //TODO: stocker la politique de mise en veille ?
 }

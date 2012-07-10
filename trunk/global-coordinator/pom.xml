@@ -57,7 +57,13 @@
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
                         <Export-Package>com.olnc.made.homenap.globalcoordinator</Export-Package>
-                        <Import-Package>*</Import-Package>
+                        <Import-Package>
+                            !com.sun.*,
+                            !javax.*,
+                            org.xml.sax.*,
+                            !org.jgraph.*,
+                            !com.touchgraph.graphlayout.*
+                        </Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                         <Owner>system</Owner>
                         <Migration>true</Migration>
@@ -122,6 +128,19 @@
             <artifactId>global-coordinator-upnp</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Choco -->
+        <dependency>
+            <groupId>choco</groupId>
+            <artifactId>choco-kernel</artifactId>
+            <version>${choco.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>choco</groupId>
+            <artifactId>choco-cp</artifactId>
+            <version>${choco.version}</version>
         </dependency>
     </dependencies>
 </project>

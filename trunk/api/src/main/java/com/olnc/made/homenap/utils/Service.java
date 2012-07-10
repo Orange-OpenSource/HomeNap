@@ -35,6 +35,8 @@ public class Service
     private String bundleUrl;
     private ServiceState serviceState;
     private Map<String, StatefulComponent> components;
+    private int migrability;
+    private Map<String, Integer> qorService = new HashMap<String, Integer>();
 
     public Service()
     {
@@ -67,6 +69,14 @@ public class Service
     public ServiceState getServiceState() { return this.serviceState; }
 
     public void setComponents(Map<String, StatefulComponent> components) { this.components = components; }
-    
+
     public Map<String, StatefulComponent> getComponents() { return this.components; }
+
+    public void setMigrability(int migrability) { this.migrability = migrability; }
+
+    public int getMigrability() { return migrability; }
+
+    public void setQorService(Map<String, Integer> qorService) { this.qorService = qorService; }
+
+    public Map<String, Integer> getQorService() { return qorService; }
 }
