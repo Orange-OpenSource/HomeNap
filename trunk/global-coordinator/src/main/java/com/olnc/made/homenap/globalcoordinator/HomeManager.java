@@ -97,9 +97,9 @@ public class HomeManager implements GlobalCoordinatorEvent
             qorD3.put("ROM", 2500);
     */
 
-            Device d1 = new Device("D1", qorD1, 2, 50);
+            /*Device d1 = new Device("D1", qorD1, 2, 50);
             Device d2 = new Device("D2", qorD2, 5, 40);
-            Device d3 = new Device("D3", qorD3, 4, 25);
+            Device d3 = new Device("D3", qorD3, 4, 25);*/
 
             Map<String, Integer> qorS1 = new HashMap<String, Integer>();
             Map<String, Integer> qorS2 = new HashMap<String, Integer>();
@@ -168,7 +168,7 @@ public class HomeManager implements GlobalCoordinatorEvent
             qorS7.put("ROM", 50);
     //*/
 
-            Service s1 = new Service("S1", 1, qorS1);
+            /*Service s1 = new Service("S1", 1, qorS1);
             Service s2 = new Service("S2", 0, qorS2);
             Service s3 = new Service("S3", 1, qorS3);
             Service s4 = new Service("S4", 0, qorS4);
@@ -182,13 +182,13 @@ public class HomeManager implements GlobalCoordinatorEvent
             d1.addService(s4);
             d2.addService(s5);
             d2.addService(s6);
-            d3.addService(s7);
+            d3.addService(s7);*/
 
             List<Device> devices = new ArrayList<Device>();
 
-            devices.add(d1);
+            /*devices.add(d1);
             devices.add(d2);
-            devices.add(d3);
+            devices.add(d3);*/
 
             // Creation de la liste des services
             List<Service> services = new ArrayList<Service>();

@@ -62,7 +62,8 @@
                             !javax.*,
                             org.xml.sax.*,
                             !org.jgraph.*,
-                            !com.touchgraph.graphlayout.*
+                            !com.touchgraph.graphlayout.*,
+                            *
                         </Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                         <Owner>system</Owner>

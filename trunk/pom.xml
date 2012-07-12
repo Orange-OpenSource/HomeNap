@@ -92,9 +92,15 @@
     <!-- ====================== -->
 
     <distributionManagement>
-        <repository>
+        <!--<repository>
             <id>g-smithp4</id>
             <url>scp://g-smithp4/home/kxzj6354/.m2/repository</url>
+            <uniqueVersion>false</uniqueVersion>
+        </repository>-->
+
+        <repository>
+            <id>ls-wxla26</id>
+            <url>scp://ls-wxla26/home/kxzj6354/.m2/repository</url>
             <uniqueVersion>false</uniqueVersion>
         </repository>
     </distributionManagement>
