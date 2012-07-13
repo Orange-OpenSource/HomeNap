@@ -27,10 +27,7 @@ package com.olnc.made.homenap.localmanager;
 import com.google.gson.Gson;
 import com.olnc.made.homenap.utils.Device;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class DeviceInfo implements DeviceInfoItf
 {
@@ -99,4 +96,54 @@ public class DeviceInfo implements DeviceInfoItf
     {
         return this.device;
     }
+
+    private int getBogoMips()
+    {
+        int bogomips = 0;
+
+        try {
+            Process process = Runtime.getRuntime().exec("cat /proc/cpuinfo | grep bogomips | sed 's/[^0-9. ]*//g'");
+
+            InputStream in = process.getInputStream();
+
+            int c;
+
+            while((c = in.read()) != -1)
+            {
+                bogomips = c;
+            }
+
+            in .close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return bogomips;
+    }
+
+    private int getRam()
+    {
+        int ram = 0;
+
+        try {
+            Process process = Runtime.getRuntime().exec("free -t | grep Mem | sed 's/[^0-9]//g'");
+
+            InputStream in = process.getInputStream();
+
+            int c;
+
+            while((c = in.read()) != -1)
+            {
+                ram = c;
+            }
+
+            in .close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ram;
+    }
+
+    //TODO: see oshi -> https://github.com/dblock/oshi or sigar -> http://sourceforge.net/projects/sigar/files/
 }

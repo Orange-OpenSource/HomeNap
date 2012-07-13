@@ -188,11 +188,11 @@
         </properties>
     </component>
 
-<!--    <component classname="com.olnc.made.homenap.localmanager.XMLManager" name="xml-manager" immediat="true">
+<!--    <component classname="com.olnc.made.device-state.localmanager.XMLManager" name="xml-manager" immediat="true">
         <provides/>
 
         <properties>
-            <property field="directory" value="/tmp/homenap/" mandatory="true"/>
+            <property field="directory" value="/tmp/device-state/" mandatory="true"/>
             <property field="stateful" mandatory="true" value="false"/>
         </properties>
     </component>-->

@@ -48,7 +48,7 @@ public class ServiceManager implements ServiceManagerItf
     protected void start()
     {
         // Attach handler to iPOJO components
-        System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.olnc.made.homenap.handler:migration-handler");
+        System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.olnc.made.device-state.handler:migration-handler");
     }
 
     public void startService(String bundleUrl, String migrationState)
