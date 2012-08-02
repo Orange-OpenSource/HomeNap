@@ -23,11 +23,11 @@
 
 <ipojo>
     <!-- Migration Handler -->
-    <handler classname="com.olnc.made.homenap.handler.MigrationHandler"
+    <handler classname="com.orange.homenap.handler.MigrationHandler"
              name="migration-handler"
-             namespace="com.olnc.made.homenap.handler">
+             namespace="com.orange.homenap.handler">
 
         <requires field="migrationHandlerManagerItf"
-                  default-implentation="com.olnc.made.homenap.api.MigrationHandlerManagerItf"/>
+                  default-implentation="com.orange.homenap.api.MigrationHandlerManagerItf"/>
     </handler>
 </ipojo>

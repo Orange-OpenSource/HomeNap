@@ -23,7 +23,7 @@
 <component name="LocalManager">
 
 <!-- component class -->
-  <implementation class="com.olnc.made.homenap.localmanager.upnp.drivers.LocalManagerDriver"/>
+  <implementation class="com.orange.homenap.localmanager.upnp.drivers.LocalManagerDriver"/>
 
   <!-- referenced services -->
   <reference

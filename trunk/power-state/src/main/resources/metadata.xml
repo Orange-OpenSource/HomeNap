@@ -22,8 +22,8 @@
 
 <ipojo xmlns:ev="org.apache.felix.ipojo.handlers.event">
     <!-- PowerState -->
-    <component classname="com.olnc.made.homenap.powerstate.PowerStateManager" name="power-state">
-        <provides specification="com.olnc.made.homenap.powerstate.PowerStateManagerItf"/>
+    <component classname="com.orange.homenap.powerstate.PowerStateManager" name="power-state">
+        <provides specification="com.orange.homenap.powerstate.PowerStateManagerItf"/>
 
         <properties>
             <!-- Values in seconds -->
@@ -38,7 +38,7 @@
         <ev:publisher name="powerStatePublisher" field="publisher" topics="state"/>
     </component>
 
-    <component classname="com.olnc.made.homenap.powerstate.PowerStateEvent" name="power-state-event">
+    <component classname="com.orange.homenap.powerstate.PowerStateEvent" name="power-state-event">
         <provices/>
 
         <properties>

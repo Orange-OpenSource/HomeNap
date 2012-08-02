@@ -24,14 +24,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.olnc.made.homenap</groupId>
+    <groupId>com.orange.homenap</groupId>
     <artifactId>global-coordinator</artifactId>
     <version>${parent.version}</version>
     <name>Global Coordinator of HomeNap</name>
 
     <parent>
         <artifactId>homenap</artifactId>
-        <groupId>com.olnc.made.homenap</groupId>
+        <groupId>com.orange.homenap</groupId>
         <version>0.1-SNAPSHOT</version>
     </parent>
 
@@ -56,13 +56,13 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Export-Package>com.olnc.made.homenap.globalcoordinator</Export-Package>
+                        <Export-Package>com.orange.homenap.globalcoordinator.*</Export-Package>
                         <Import-Package>
                             !com.sun.*,
-                            !javax.*,
+                            <!--!javax.*,
                             org.xml.sax.*,
                             !org.jgraph.*,
-                            !com.touchgraph.graphlayout.*,
+                            !com.touchgraph.graphlayout.*,-->
                             *
                         </Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
@@ -103,7 +103,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.olnc.made.homenap</groupId>
+            <groupId>com.orange.homenap</groupId>
             <artifactId>api</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
@@ -125,7 +125,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.olnc.made.homenap</groupId>
+            <groupId>com.orange.homenap</groupId>
             <artifactId>global-coordinator-upnp</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>

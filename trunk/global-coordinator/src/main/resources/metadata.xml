@@ -27,12 +27,18 @@
     <!--                           Components                           -->
     <!-- ============================================================== -->
 
+    <!-- Plan -->
+    <component classname="com.orange.homenap.globalcoordinator.Plan" name="plan">
+        <provides />
+    </component>
+
     <!-- HomeManager -->
-    <component classname="com.olnc.made.homenap.globalcoordinator.HomeManager" name="home-manager">
+    <component classname="com.orange.homenap.globalcoordinator.HomeManager" name="home-manager">
         <provides/>
 
         <requires field="deviceInfoDBItf"/>
         <requires field="controlPointManagerItf"/>
+        <requires field="planItf" />
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>
@@ -43,7 +49,7 @@
     </component>
 
     <!-- DeviceInfoDB -->
-    <component classname="com.olnc.made.homenap.globalcoordinator.DeviceInfoDB" name="device-info-db">
+    <component classname="com.orange.homenap.globalcoordinator.DeviceInfoDB" name="device-info-db">
         <provides/>
 
         <callback transition="validate" method="start"/>
@@ -55,7 +61,7 @@
     </component>
 
     <!-- GCDevice -->
-    <component classname="com.olnc.made.homenap.globalcoordinator.GCDevice" name="gc-device">
+    <component classname="com.orange.homenap.globalcoordinator.GCDevice" name="gc-device">
         <provides/>
 
         <requires field="deviceInfoDBItf"/>
@@ -70,7 +76,7 @@
     </component>
 
     <!-- ControlPointManager -->
-    <component classname="com.olnc.made.homenap.globalcoordinator.ControlPointManager" name="gc-control-point-manager">
+    <component classname="com.orange.homenap.globalcoordinator.ControlPointManager" name="gc-control-point-manager">
         <provides/>
 
         <requires field="factory" filter="(factory.name=local-manager-control-point)"/>
@@ -83,7 +89,7 @@
     </component>
 
     <!-- LocalManagerControlPoint -->
-    <component classname="com.olnc.made.homenap.globalcoordinator.LocalManagerControlPoint" name="local-manager-control-point">
+    <component classname="com.orange.homenap.globalcoordinator.LocalManagerControlPoint" name="local-manager-control-point">
         <provides/>
 
         <callback transition="validate" method="start"/>
@@ -99,6 +105,7 @@
     <!--                           Instances                            -->
     <!-- ============================================================== -->
 
+    <instance component="plan"/>
     <instance component="home-manager"/>
     <instance component="device-info-db">
         <property name="deviceInfoMap" type="map"/>

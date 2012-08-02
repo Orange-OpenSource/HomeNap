@@ -24,14 +24,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.olnc.made.homenap</groupId>
+    <groupId>com.orange.homenap</groupId>
     <artifactId>api</artifactId>
     <version>${parent.version}</version>
     <name>API of HomeNap</name>
 
     <parent>
         <artifactId>homenap</artifactId>
-        <groupId>com.olnc.made.homenap</groupId>
+        <groupId>com.orange.homenap</groupId>
         <version>0.1-SNAPSHOT</version>
     </parent>
 
@@ -57,9 +57,10 @@
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
                         <Export-Package>
-                            com.olnc.made.homenap.api,
-                            com.olnc.made.homenap.utils,
-                            com.olnc.made.homenap.handler
+                            com.orange.homenap.api,
+                            com.orange.homenap.utils,
+                            com.orange.homenap.handler,
+                            com.orange.homenap.json
                         </Export-Package>
                         <Import-Package>*</Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>

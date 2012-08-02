@@ -24,14 +24,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.olnc.made.homenap</groupId>
+    <groupId>com.orange.homenap</groupId>
     <artifactId>local-manager</artifactId>
     <version>${parent.version}</version>
     <name>Local Manager of HomeNap</name>
 
     <parent>
         <artifactId>homenap</artifactId>
-        <groupId>com.olnc.made.homenap</groupId>
+        <groupId>com.orange.homenap</groupId>
         <version>0.1-SNAPSHOT</version>
     </parent>
 
@@ -56,7 +56,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Export-Package>com.olnc.made.homenap.*</Export-Package>
+                        <Export-Package>com.orange.homenap.*</Export-Package>
                         <Import-Package>*</Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                         <Owner>system</Owner>
@@ -91,21 +91,21 @@
 
         <!-- HomeNap -->
         <dependency>
-            <groupId>com.olnc.made.homenap</groupId>
+            <groupId>com.orange.homenap</groupId>
             <artifactId>api</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.olnc.made.homenap</groupId>
+            <groupId>com.orange.homenap</groupId>
             <artifactId>wakeonlan</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.olnc.made.homenap</groupId>
+            <groupId>com.orange.homenap</groupId>
             <artifactId>power-state</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
@@ -120,7 +120,7 @@
 
         <!-- UPnP -->
         <dependency>
-            <groupId>com.olnc.made.homenap</groupId>
+            <groupId>com.orange.homenap</groupId>
             <artifactId>local-manager-upnp</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>

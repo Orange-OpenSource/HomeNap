@@ -26,7 +26,7 @@
 <component name="GlobalCoordinator">
 
 <!-- component class -->
-  <implementation class="com.olnc.made.homenap.globalcoordinator.upnp.drivers.GlobalCoordinatorDriver"/>
+  <implementation class="com.orange.homenap.globalcoordinator.upnp.drivers.GlobalCoordinatorDriver"/>
 
   <!-- referenced services -->
   <reference

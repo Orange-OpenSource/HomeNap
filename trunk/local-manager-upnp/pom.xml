@@ -24,14 +24,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.olnc.made.homenap</groupId>
+    <groupId>com.orange.homenap</groupId>
     <artifactId>local-manager-upnp</artifactId>
     <version>${parent.version}</version>
     <name>Local Manager - driver</name>
 
     <parent>
         <artifactId>homenap</artifactId>
-        <groupId>com.olnc.made.homenap</groupId>
+        <groupId>com.orange.homenap</groupId>
         <version>0.1-SNAPSHOT</version>
     </parent>
 
@@ -48,14 +48,14 @@
                     <instructions>
                         <!-- docs in http://cwiki.apache.org/FELIX/bundle-plugin-for-maven-bnd.html and http://cwiki.apache.org/FELIX/osgi-plugin-for-maven-2.html -->
                         <Export-Package>
-                            com.olnc.made.homenap.localmanager.upnp.devices,
-                            com.olnc.made.homenap.localmanager.upnp.services,
-                            com.olnc.made.homenap.localmanager.upnp.holders,
-                            com.olnc.made.homenap.localmanager.upnp.listeners
+                            com.orange.homenap.localmanager.upnp.devices,
+                            com.orange.homenap.localmanager.upnp.services,
+                            com.orange.homenap.localmanager.upnp.holders,
+                            com.orange.homenap.localmanager.upnp.listeners
                         </Export-Package>
-                        <Private-Package>com.olnc.made.homenap.localmanager.upnp.drivers</Private-Package>
+                        <Private-Package>com.orange.homenap.localmanager.upnp.drivers</Private-Package>
                         <Import-Package>*</Import-Package>
-                        <Bundle-Activator>com.olnc.made.homenap.localmanager.upnp.drivers.Activator</Bundle-Activator>
+                        <Bundle-Activator>com.orange.homenap.localmanager.upnp.drivers.Activator</Bundle-Activator>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
                         <Service-Component>metadata.xml</Service-Component>
                         <Owner>system</Owner>
@@ -82,7 +82,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.olnc.made.homenap</groupId>
+            <groupId>com.orange.homenap</groupId>
             <artifactId>api</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>

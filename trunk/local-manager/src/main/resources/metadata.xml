@@ -28,7 +28,7 @@
     <!-- ============================================================== -->
 
     <!-- DeviceManager -->
-    <component classname="com.olnc.made.homenap.localmanager.DeviceManager" name="device-manager">
+    <component classname="com.orange.homenap.localmanager.localmanager.DeviceManager" name="device-manager">
         <provides/>
 
         <requires field="serviceManagerItf"/>
@@ -48,7 +48,7 @@
     </component>
 
     <!-- ServiceManager -->
-    <component classname="com.olnc.made.homenap.localmanager.ServiceManager" name="service-manager">
+    <component classname="com.orange.homenap.localmanager.localmanager.ServiceManager" name="service-manager">
         <provides/>
 
         <requires field="serviceInfoDBItf"/>
@@ -61,7 +61,7 @@
     </component>
 
     <!-- ServiceManagerEvent -->
-    <component classname="com.olnc.made.homenap.localmanager.ServiceManagerEvent" name="service-manager-event">
+    <component classname="com.orange.homenap.localmanager.localmanager.ServiceManagerEvent" name="service-manager-event">
         <provides/>
 
         <requires field="serviceInfoDBItf"/>
@@ -77,7 +77,7 @@
     </component>
 
     <!-- ServiceInfoDB -->
-    <component classname="com.olnc.made.homenap.localmanager.ServiceInfoDB" name="service-info-db">
+    <component classname="com.orange.homenap.localmanager.localmanager.ServiceInfoDB" name="service-info-db">
         <provides/>
 
         <properties>
@@ -87,7 +87,7 @@
     </component>
 
     <!-- DeviceInfo -->
-    <component classname="com.olnc.made.homenap.localmanager.DeviceInfo" name="device-info">
+    <component classname="com.orange.homenap.localmanager.localmanager.DeviceInfo" name="device-info">
         <provides/>
 
         <callback transition="validate" method="start"/>
@@ -102,7 +102,7 @@
 
     <!-- GlobalCoordinator UPnP components -->
     <!-- GlobalCoordinatorControlPoint -->
-    <component classname="com.olnc.made.homenap.localmanager.GlobalCoordinatorControlPoint" name="global-coordinator-control-point">
+    <component classname="com.orange.homenap.localmanager.localmanager.GlobalCoordinatorControlPoint" name="global-coordinator-control-point">
         <provides/>
 
         <requires field="deviceInfoItf"/>
@@ -117,7 +117,7 @@
     </component>
 
     <!-- LMDevice -->
-    <component classname="com.olnc.made.homenap.localmanager.LMDevice" name="lm-device">
+    <component classname="com.orange.homenap.localmanager.localmanager.LMDevice" name="lm-device">
         <provides/>
 
         <requires field="deviceInfoItf"/>
@@ -133,7 +133,7 @@
     </component>
 
     <!-- ControlPointManager -->
-    <component classname="com.olnc.made.homenap.localmanager.ControlPointManager" name="lm-control-point-manager">
+    <component classname="com.orange.homenap.localmanager.localmanager.ControlPointManager" name="lm-control-point-manager">
         <provides/>
 
         <requires field="factory" filter="(factory.name=deployer-control-point)"/>
@@ -147,7 +147,7 @@
 
     <!-- LocalManagers UPnP components -->
     <!-- DeployerControlPoint -->
-    <component classname="com.olnc.made.homenap.localmanager.DeployerControlPoint" name="deployer-control-point">
+    <component classname="com.orange.homenap.localmanager.localmanager.DeployerControlPoint" name="deployer-control-point">
         <provides/>
 
         <requires field="wakeOnLanItf"/>
@@ -163,7 +163,7 @@
     </component>
 
     <!-- MigrationManager -->
-    <component classname="com.olnc.made.homenap.localmanager.MigrationManager" name="migration-manager" immediat="true">
+    <component classname="com.orange.homenap.localmanager.localmanager.MigrationManager" name="migration-manager" immediat="true">
         <provides/>
 
         <requires field="serviceInfoDBItf"/>
@@ -174,7 +174,7 @@
         </properties>
     </component>
 
-    <component classname="com.olnc.made.homenap.localmanager.StateFileManager" name="state-file-manager">
+    <component classname="com.orange.homenap.localmanager.localmanager.StateFileManager" name="state-file-manager">
         <provides/>
 
         <requires field="serviceInfoDBItf"/>

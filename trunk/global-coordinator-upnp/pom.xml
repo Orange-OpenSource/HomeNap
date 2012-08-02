@@ -24,14 +24,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.olnc.made.homenap</groupId>
+    <groupId>com.orange.homenap</groupId>
     <artifactId>global-coordinator-upnp</artifactId>
     <version>${parent.version}</version>
     <name>Global Coordinator - driver</name>
 
     <parent>
         <artifactId>homenap</artifactId>
-        <groupId>com.olnc.made.homenap</groupId>
+        <groupId>com.orange.homenap</groupId>
         <version>0.1-SNAPSHOT</version>
     </parent>
 
@@ -48,14 +48,14 @@
                     <instructions>
                         <!-- docs in http://cwiki.apache.org/FELIX/bundle-plugin-for-maven-bnd.html and http://cwiki.apache.org/FELIX/osgi-plugin-for-maven-2.html -->
                         <Export-Package>
-                            com.olnc.made.homenap.globalcoordinator.upnp.devices,
-                            com.olnc.made.homenap.globalcoordinator.upnp.services,
-                            com.olnc.made.homenap.globalcoordinator.upnp.holders,
-                            com.olnc.made.homenap.globalcoordinator.upnp.listeners
+                            com.orange.homenap.globalcoordinator.upnp.devices,
+                            com.orange.homenap.globalcoordinator.upnp.services,
+                            com.orange.homenap.globalcoordinator.upnp.holders,
+                            com.orange.homenap.globalcoordinator.upnp.listeners
                         </Export-Package>
-                        <Private-Package>com.olnc.made.homenap.globalcoordinator.upnp.drivers</Private-Package>
+                        <Private-Package>com.orange.homenap.globalcoordinator.upnp.drivers</Private-Package>
                         <Import-Package>*</Import-Package>
-                        <Bundle-Activator>com.olnc.made.homenap.globalcoordinator.upnp.drivers.Activator</Bundle-Activator>
+                        <Bundle-Activator>com.orange.homenap.globalcoordinator.upnp.drivers.Activator</Bundle-Activator>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
                         <Service-Component>metadata.xml</Service-Component>
                         <Owner>system</Owner>
@@ -82,7 +82,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.olnc.made.homenap</groupId>
+            <groupId>com.orange.homenap</groupId>
             <artifactId>api</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>

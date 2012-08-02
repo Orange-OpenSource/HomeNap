@@ -22,8 +22,8 @@
 
 <ipojo>
     <!-- WakeOnLan -->
-    <component classname="com.olnc.made.homenap.wol.WakeOnLan" name="wake-on-lan">
-        <provides specification="com.olnc.made.homenap.wol.WakeOnLanItf"/>
+    <component classname="com.orange.homenap.wol.WakeOnLan" name="wake-on-lan">
+        <provides specification="com.orange.homenap.wol.WakeOnLanItf"/>
 
         <!--<requires field="log"/>-->
 
