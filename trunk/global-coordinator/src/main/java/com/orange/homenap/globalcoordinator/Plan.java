@@ -33,16 +33,17 @@ import java.util.Map;
 
 public class Plan implements PlanItf
 {
+    // iPOJO properties
+    private boolean stateful;
     private List<Device> devices;
     private List<Service> services;
     private List<String> resources;
 
-
     public Plan()
     {
-        devices = new ArrayList<Device>();
+        /*devices = new ArrayList<Device>();
         services = new ArrayList<Service>();
-        resources = new ArrayList<String>();
+        resources = new ArrayList<String>();*/
     }
 
     public void addDevice(Device device)
@@ -56,9 +57,9 @@ public class Plan implements PlanItf
                 resources.add(map.getKey());
     }
 
-    public void addService(Service service, Device device)
+    public void addService(Service service, String deviceId)
     {
-        System.out.println("Adding service: " + service.getName() + " on " + device.getId());
+        System.out.println("Adding service: " + service.getId() + " on " + deviceId);
 
         services.add(service);
 
@@ -72,14 +73,14 @@ public class Plan implements PlanItf
         {
             Device tmp = iterator.next();
 
-            if(tmp.getId().equals(device.getId()))
+            if(tmp.getId().equals(deviceId))
                 tmp.addService(service);
         }
     }
 
-    public void removeDevice(Device device)
+    public void removeDevice(String deviceId)
     {
-        System.out.println("Removing device: " + device.getId());
+        System.out.println("Removing device: " + deviceId);
 
         Iterator<Device> iterator = devices.iterator();
 
@@ -87,23 +88,27 @@ public class Plan implements PlanItf
         {
             Device tmp = iterator.next();
 
-            if(tmp.getId().equals(device.getId()))
+            if(tmp.getId().equals(deviceId))
                 iterator.remove();
         }
     }
 
-    public void removeService(Service service)
+    public void removeService(String serviceId)
     {
-        System.out.println("Removing service: " + service.getName());
+        System.out.println("Removing service: " + serviceId);
 
         Iterator<Service> servIterator = services.iterator();
+        Service service = null;
 
         while(servIterator.hasNext())
         {
             Service tmp = servIterator.next();
 
-            if(tmp.getName().equals(service.getName()))
+            if(tmp.getId().equals(serviceId))
+            {
+                service = tmp;
                 servIterator.remove();
+            }
         }
 
         Iterator<Device> devIterator = devices.iterator();
@@ -177,7 +182,7 @@ public class Plan implements PlanItf
 
         for (int j = 0; j < m; j++)
         {
-            System.out.print(services.get(j).getName() + "\t");
+            System.out.print(services.get(j).getId() + "\t");
 
             for (int i = 0; i < n; i++)
             {
@@ -225,7 +230,7 @@ public class Plan implements PlanItf
         return consumption;
     }
 
-    public void migrateService(Service service, Device device)
+/*    public void migrateService(Service service, Device device)
     {
         Iterator<Device> devIterator = devices.iterator();
 
@@ -245,5 +250,5 @@ public class Plan implements PlanItf
             if(tmp.getId().equals(device.getId()))
                 tmp.addService(service);
         }
-    }
+    }*/
 }

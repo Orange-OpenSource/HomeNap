@@ -16,7 +16,8 @@
 * Created     : 28/06/2012
 * Author(s)   : Remi Druilhe
 *
-* Description :
+* Description : Input of the GC. Listen for pre-defined events in order to start
+* reconfiguration.
 *
 *--------------------------------------------------------
 */
@@ -27,16 +28,16 @@ import com.google.gson.Gson;
 import com.orange.homenap.api.IGlobalCoordinatorService;
 import com.orange.homenap.globalcoordinator.upnp.devices.GlobalCoordinatorDevice;
 import com.orange.homenap.utils.Device;
+import com.orange.homenap.utils.Service;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
-
-import java.util.HashMap;
 
 public class GCDevice implements IGlobalCoordinatorService
 {
     // iPOJO requires
-    private DeviceInfoDBItf deviceInfoDBItf;
-    private GlobalCoordinatorEvent globalCoordinatorEvent;
+    private OptimizerItf optimizerItf;
+    private PlanItf planItf;
+    private ControlPointManagerItf controlPointManagerItf;
 
     // iPOJO properties
     private boolean stateful;
@@ -71,55 +72,33 @@ public class GCDevice implements IGlobalCoordinatorService
 
         Device device = gson.fromJson(deviceInfo, Device.class);
 
-        deviceInfoDBItf.put(device.getId(), device);
+        planItf.addDevice(device);
 
-        //controlPointManagerItf.createCP(device.getId());
-
-        System.out.println("Device " + device.getId() + " registered");
-
-        globalCoordinatorEvent.newDevice(device);
+        controlPointManagerItf.createCP(device.getId());
 
         return true;
     }
 
     public boolean unRegister(String deviceId) throws Exception
     {
-        if(deviceInfoDBItf.containsKey(deviceId))
-        {
-            deviceInfoDBItf.remove(deviceId);
+        planItf.removeDevice(deviceId);
 
-            //controlPointManagerItf.removeCP(deviceId);
-
-            globalCoordinatorEvent.goodbyeDevice(deviceInfoDBItf.get(deviceId));
-        }
+        controlPointManagerItf.removeCP(deviceId);
 
         return true;
     }
 
-    public void updateServicesState(String deviceId, String servicesState) throws Exception
+    public void startService(String serviceInfo, String deviceId) throws Exception
     {
         Gson gson = new Gson();
 
-        System.out.println(deviceId + " | " + servicesState);
+        Service service = gson.fromJson(serviceInfo, Service.class);
 
-        deviceInfoDBItf.get(deviceId).setServicesState(gson.fromJson(servicesState, HashMap.class));
-
-        globalCoordinatorEvent.servicesStateChange(deviceInfoDBItf.get(deviceId));
+        planItf.addService(service, deviceId);
     }
 
-    public void updateDeviceState(String deviceId, String state) throws Exception
+    public void stopService(String serviceId) throws Exception
     {
-        if(state.equals("ON"))
-            deviceInfoDBItf.get(deviceId).setDeviceState(Device.DeviceState.ON);
-        else if(state.equals("SLEEP"))
-            deviceInfoDBItf.get(deviceId).setDeviceState(Device.DeviceState.SLEEP);
-        else if(state.equals("HIBERNATE"))
-            deviceInfoDBItf.get(deviceId).setDeviceState(Device.DeviceState.HIBERNATE);
-        else if(state.equals("OFF"))
-            deviceInfoDBItf.get(deviceId).setDeviceState(Device.DeviceState.OFF);
-        else
-            System.out.println("State " + state + " doesn't exist");
-
-        globalCoordinatorEvent.deviceStateChange(deviceInfoDBItf.get(deviceId));
+        planItf.removeService(serviceId);
     }
 }

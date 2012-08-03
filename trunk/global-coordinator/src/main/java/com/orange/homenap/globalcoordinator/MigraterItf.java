@@ -11,9 +11,9 @@
 * or see the "LICENSE-2.0.txt" file for more details.
 *
 *--------------------------------------------------------
-* File Name   : GlobalCoordinatorEvent.java
+* File Name   : MigraterItf.java
 *
-* Created     : 28/06/2012
+* Created     : 03/08/2012
 * Author(s)   : Remi Druilhe
 *
 * Description :
@@ -23,15 +23,7 @@
 
 package com.orange.homenap.globalcoordinator;
 
-import com.orange.homenap.utils.Device;
-
-public interface GlobalCoordinatorEvent
+public interface MigraterItf
 {
-    public void newDevice(Device device);
-
-    public void servicesStateChange(Device device);
-
-    public void deviceStateChange(Device device);
-
-    public void goodbyeDevice(Device device);
+    public void migrate(int[][] migrationPlan);
 }

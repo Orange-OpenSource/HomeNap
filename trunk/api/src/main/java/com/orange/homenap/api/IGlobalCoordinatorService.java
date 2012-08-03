@@ -25,24 +25,24 @@
 
 package com.orange.homenap.api;
 
-    /**
-	* This is the interface for a GlobalCoordinatorService
-	*/
+/**
+ * This is the interface for a GlobalCoordinatorService
+ */
 public interface IGlobalCoordinatorService {
-	/**
-	* Interface declaration for UPnP action: UpdateServicesState
-	*/
-	public void updateServicesState(java.lang.String deviceId, java.lang.String servicesState) throws Exception;
-	/**
-	* Interface declaration for UPnP action: UpdateDeviceState
-	*/
-	public void updateDeviceState(java.lang.String deviceId, java.lang.String state) throws Exception;
-	/**
-	* Interface declaration for UPnP action: Register
-	*/
-	public boolean register(java.lang.String deviceInfo) throws Exception;
-	/**
-	* Interface declaration for UPnP action: UnRegister
-	*/
-	public boolean unRegister(java.lang.String deviceId) throws Exception;
+    /**
+     * Interface declaration for UPnP action: StopService
+     */
+    public void stopService(String serviceId) throws Exception;
+    /**
+     * Interface declaration for UPnP action: Register
+     */
+    public boolean register(String deviceInfo) throws Exception;
+    /**
+     * Interface declaration for UPnP action: StartService
+     */
+    public void startService(String serviceInfo, String deviceId) throws Exception;
+    /**
+     * Interface declaration for UPnP action: UnRegister
+     */
+    public boolean unRegister(String deviceId) throws Exception;
 }

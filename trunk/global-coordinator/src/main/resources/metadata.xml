@@ -30,33 +30,37 @@
     <!-- Plan -->
     <component classname="com.orange.homenap.globalcoordinator.Plan" name="plan">
         <provides />
+
+        <properties>
+            <property field="stateful" mandatory="true" value="true"/>
+            <property field="devices"/>
+            <property field="services"/>
+            <property field="resources"/>
+        </properties>
     </component>
 
-    <!-- HomeManager -->
-    <component classname="com.orange.homenap.globalcoordinator.HomeManager" name="home-manager">
+    <!-- Optimizer -->
+    <component classname="com.orange.homenap.globalcoordinator.Optimizer" name="optimizer">
         <provides/>
 
-        <requires field="deviceInfoDBItf"/>
         <requires field="controlPointManagerItf"/>
         <requires field="planItf" />
-
-        <callback transition="validate" method="start"/>
-        <callback transition="invalidate" method="stop"/>
+        <requires field="migraterItf" />
 
         <properties>
             <property field="stateful" mandatory="true" value="false"/>
         </properties>
     </component>
 
-    <!-- DeviceInfoDB -->
-    <component classname="com.orange.homenap.globalcoordinator.DeviceInfoDB" name="device-info-db">
+    <!-- Migrater -->
+    <component classname="com.orange.homenap.globalcoordinator.Migrater" name="migrater">
         <provides/>
 
-        <callback transition="validate" method="start"/>
+        <requires field="controlPointManagerItf"/>
+        <requires field="planItf" />
 
         <properties>
-            <property field="stateful" mandatory="true" value="true"/>
-            <property field="deviceInfoMap"/>
+            <property field="stateful" mandatory="true" value="false"/>
         </properties>
     </component>
 
@@ -64,8 +68,9 @@
     <component classname="com.orange.homenap.globalcoordinator.GCDevice" name="gc-device">
         <provides/>
 
-        <requires field="deviceInfoDBItf"/>
-        <requires field="globalCoordinatorEvent"/>
+        <requires field="optimizerItf"/>
+        <requires field="controlPointManagerItf"/>
+        <requires field="planItf" />
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>
@@ -80,6 +85,7 @@
         <provides/>
 
         <requires field="factory" filter="(factory.name=local-manager-control-point)"/>
+        <requires field="planItf" />
 
         <callback transition="validate" method="start"/>
 
@@ -105,11 +111,13 @@
     <!--                           Instances                            -->
     <!-- ============================================================== -->
 
-    <instance component="plan"/>
-    <instance component="home-manager"/>
-    <instance component="device-info-db">
-        <property name="deviceInfoMap" type="map"/>
+    <instance component="plan">
+        <property name="devices" type="list"/>
+        <property name="services" type="list"/>
+        <property name="resources" type="list"/>
     </instance>
+    <instance component="optimizer"/>
+    <instance component="migrater"/>
     <instance component="gc-control-point-manager"/>
     <instance component="gc-device"/>
 </ipojo>

@@ -32,9 +32,6 @@ import java.util.Hashtable;
 
 public class LocalManagerControlPoint implements ServiceListener, LocalManagerControlPointItf
 {
-    // iPOJO requires
-    private DeviceInfoDBItf deviceInfoDBItf;
-
     // iPOJO properties
     private String udnLocalManager;
     private boolean stateful;

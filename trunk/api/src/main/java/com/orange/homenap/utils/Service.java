@@ -57,7 +57,9 @@ public class Service
 
     public Long getId() { return this.id; }
 
-    public void setName(String bundleName) { this.bundleName = bundleName; }
+    public void setBundleName(String bundleName) { this.bundleName = bundleName; }
+
+    public String getBundleName() { return this.bundleName; }
 
     public String getName() { return this.bundleName; }
 

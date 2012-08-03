@@ -30,11 +30,11 @@ public interface PlanItf
 {
     public void addDevice(Device device);
 
-    public void addService(Service service, Device device);
+    public void addService(Service service, String deviceId);
 
-    public void removeDevice(Device device);
+    public void removeDevice(String deviceId);
 
-    public void removeService(Service service);
+    public void removeService(String serviceId);
     
     public Service getService(int i);
     
@@ -54,5 +54,5 @@ public interface PlanItf
 
     public int getPlanConsumption();
 
-    public void migrateService(Service service, Device device);
+    /*public void migrateService(Service service, Device device);*/
 }

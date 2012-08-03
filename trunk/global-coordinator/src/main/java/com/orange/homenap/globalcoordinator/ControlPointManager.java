@@ -16,7 +16,8 @@
 * Created     : 28/06/2012
 * Author(s)   : Remi Druilhe
 *
-* Description :
+* Description : Component managing local manager control point of devices
+* appearing or disappearing from the network.
 *
 *--------------------------------------------------------
 */
@@ -36,6 +37,7 @@ public class ControlPointManager implements ControlPointManagerItf
 {
     // iPOJO requires
     private Factory factory;
+    private PlanItf planItf;
 
     // iPOJO properties
     private boolean stateful;
@@ -56,6 +58,9 @@ public class ControlPointManager implements ControlPointManagerItf
     {
         lMcontrolPointMap = new HashMap<String, ComponentInstance>();
         instanceNumber = 0;
+        
+        for(int i = 0; i < planItf.getDevicesSize(); i++)
+            this.createCP(planItf.getDevice(i).getId());
     }
 
     public LocalManagerControlPointItf createCP(String udn)

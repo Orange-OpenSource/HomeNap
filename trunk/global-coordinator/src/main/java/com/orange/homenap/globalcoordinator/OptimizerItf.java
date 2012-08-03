@@ -11,7 +11,7 @@
 * or see the "LICENSE-2.0.txt" file for more details.
 *
 *--------------------------------------------------------
-* File Name   : DeviceInfoDBItf.java
+* File Name   : GlobalCoordinatorEvent.java
 *
 * Created     : 28/06/2012
 * Author(s)   : Remi Druilhe
@@ -25,17 +25,9 @@ package com.orange.homenap.globalcoordinator;
 
 import com.orange.homenap.utils.Device;
 
-import java.util.Collection;
-
-public interface DeviceInfoDBItf
+public interface OptimizerItf
 {
-    public void put(String deviceId, Device device);
+    //public void optimize(int[][] plan);
 
-    public Device get(String deviceId);
-    
-    public boolean containsKey(String deviceId);
-    
-    public void remove(String deviceId);
-
-    public Collection<Device> values();
+    public void optimize();
 }
