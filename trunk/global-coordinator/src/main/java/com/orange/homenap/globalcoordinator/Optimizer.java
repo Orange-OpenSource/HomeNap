@@ -40,7 +40,6 @@ import java.util.*;
 public class Optimizer implements OptimizerItf
 {
     // iPOJO requires
-    private ControlPointManagerItf controlPointManagerItf;
     private PlanItf planItf;
     private MigraterItf migraterItf;
 

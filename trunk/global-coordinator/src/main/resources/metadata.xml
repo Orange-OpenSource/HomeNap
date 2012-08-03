@@ -43,7 +43,6 @@
     <component classname="com.orange.homenap.globalcoordinator.Optimizer" name="optimizer">
         <provides/>
 
-        <requires field="controlPointManagerItf"/>
         <requires field="planItf" />
         <requires field="migraterItf" />
 
