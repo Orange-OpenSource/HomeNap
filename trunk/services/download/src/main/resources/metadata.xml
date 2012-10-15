@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipojo>
+
+    <!-- ============================================================== -->
+    <!--                           Components                           -->
+    <!-- ============================================================== -->
+
+    <!-- ServiceCoordinator -->
+    <component classname="com.orange.services.ServiceCoordinator" name="service-coordinator">
+        <provides/>
+
+        <!--<requires field="concatenateItf"/>-->
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="url"/>
+            <property field="httpRange"/>
+            <property field="fileList"/>
+            <property field="stateful" mandatory="true" value="true"/>
+        </properties>
+    </component>
+
+    <!-- ============================================================== -->
+    <!--                           Instances                            -->
+    <!-- ============================================================== -->
+
+    <instance component="service-coordinator">
+        <!--<property name="file-list"/>-->
+        <!--<property name="url" value="http://download.blender.org/demo/movies/Sintel.2010.1080p.mkv"/>-->
+        <!--<property name="url" value="http://g-e6400-55/Sintel.2010.1080p.mkv"/>-->
+        <property name="url" value="http://ls-wxla26/sintel/Sintel.2010.1080p.mkv"/>
+        <property name="httpRange" value="0"/>
+        <property name="fileList" type="list"/>
+        <property name="stateful" value="true"/>
+    </instance>
+</ipojo>
