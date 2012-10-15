@@ -1,5 +1,23 @@
 #!/bin/sh
 
+#  Module Name : download
+#  Version : 1.0-SNAPSHOT
+#
+#  Software Name : HomeNap
+#  Version : 0.1-SNAPSHOT
+#
+#  Copyright © 28/06/2012 – 28/06/2012 France Télécom
+#  This software is distributed under the Apache 2.0 license,
+#  the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+#  or see the "LICENSE-2.0.txt" file for more details.
+#
+#  File Name   : concatenate
+#
+#  Created     : 15/10/2012
+#  Author(s)   : Remi Druilhe
+#
+#  Description : This script needs to be copied into /etc/pm/sleep.d
+
 wakeonlan 00:1C:23:1D:9B:AD
 
 sleep 10

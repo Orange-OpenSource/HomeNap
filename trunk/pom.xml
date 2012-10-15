@@ -113,9 +113,8 @@
         <module>local-manager</module>
         <module>local-manager-upnp</module>
         <module>api</module>
-        <module>wakeonlan</module>
         <module>global-coordinator</module>
         <module>global-coordinator-upnp</module>
-        <module>power-state</module>
+        <module>services</module>
     </modules>
 </project>

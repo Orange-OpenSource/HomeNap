@@ -25,7 +25,7 @@
 package com.orange.homenap.localmanager.localmanager;
 
 import com.google.gson.Gson;
-import com.orange.homenap.powerstate.PowerStateManagerItf;
+import com.orange.homenap.services.PowerStateManagerItf;
 import com.orange.homenap.utils.Device;
 import com.orange.homenap.utils.Service;
 import org.osgi.framework.*;

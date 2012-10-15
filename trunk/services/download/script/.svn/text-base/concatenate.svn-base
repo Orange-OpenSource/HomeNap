@@ -1,9 +1,0 @@
-#!/bin/sh
-
-wakeonlan 00:1C:23:1D:9B:AD
-
-sleep 10
-
-scp 10.194.3.223:/tmp/Sintel.2010.1080p.mkv.* /tmp
-
-cat /tmp/Sintel.2010.1080p.mkv.* > /tmp/Sintel.mkv

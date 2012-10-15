@@ -24,7 +24,7 @@
 
 package com.orange.homenap.localmanager.localmanager;
 
-import com.orange.homenap.wol.WakeOnLanItf;
+import com.orange.homenap.services.WakeOnLanItf;
 import org.osgi.framework.*;
 import org.osgi.service.upnp.UPnPAction;
 import org.osgi.service.upnp.UPnPDevice;

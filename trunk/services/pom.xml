@@ -1,79 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~  Module Name : services
+  ~  Version : 0.1-SNAPSHOT
+  ~
+  ~  Software Name : HomeNap
+  ~  Version : 0.1-SNAPSHOT
+  ~
+  ~  Copyright © 28/06/2012 – 28/06/2012 France Télécom
+  ~  This software is distributed under the Apache 2.0 license,
+  ~  the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+  ~  or see the "LICENSE-2.0.txt" file for more details.
+  ~
+  ~  File Name   : pom.xml
+  ~
+  ~  Created     : 15/10/2012
+  ~  Author(s)   : Remi Druilhe
+  ~
+  ~  Description :
+  ~
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.orange.services</groupId>
+    <groupId>com.orange.homenap</groupId>
     <artifactId>services</artifactId>
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
     <name>Services (iPOJO version)</name>
 
-    <!-- ========== -->
-    <!-- Properties -->
-    <!-- ========== -->
-
-    <properties>
-        <maven.ipojo.version>1.8.0</maven.ipojo.version>
-    </properties>
-
-    <!-- ============ -->
-    <!-- Repositories -->
-    <!-- ============ -->
-
-    <repositories>
-        <repository>
-            <id>Apache Snapshots</id>
-            <url>http://repository.apache.org/snapshots/</url>
-            <releases>
-                <updatePolicy>daily</updatePolicy>
-            </releases>
-            <snapshots>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>HomeNap-snapshot</id>
-            <name>HomeNap Snapshot Repository</name>
-            <url>http://g-nerv/maven2</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <!--                <updatePolicy>always</updatePolicy>-->
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <!-- ================== -->
-    <!-- PluginRepositories -->
-    <!-- ================== -->
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>Apache Snapshots</id>
-            <url>http://repository.apache.org/snapshots/</url>
-            <releases>
-                <updatePolicy>daily</updatePolicy>
-            </releases>
-            <snapshots>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <!-- ====================== -->
-    <!-- DistributionManagement -->
-    <!-- ====================== -->
-
-    <distributionManagement>
-        <repository>
-            <id>ls-wxla26</id>
-            <url>scp://ls-wxla26/home/kxzj6354/.m2/repository</url>
-            <uniqueVersion>false</uniqueVersion>
-        </repository>
-    </distributionManagement>
+    <parent>
+        <artifactId>homenap</artifactId>
+        <groupId>com.orange.homenap</groupId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
 
     <!-- ======= -->
     <!-- Modules -->
@@ -82,5 +42,7 @@
     <modules>
         <module>download</module>
         <module>concatenate</module>
+        <module>wakeonlan</module>
+        <module>power-state</module>
     </modules>
 </project>
