@@ -31,9 +31,7 @@ import choco.kernel.model.constraints.Constraint;
 import choco.kernel.model.variables.integer.IntegerExpressionVariable;
 import choco.kernel.model.variables.integer.IntegerVariable;
 import choco.kernel.solver.Solver;
-import com.orange.homenap.utils.Device;
 import com.orange.homenap.utils.Service;
-import org.osgi.framework.BundleContext;
 
 import java.util.*;
 

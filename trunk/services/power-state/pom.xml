@@ -56,7 +56,8 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Export-Package>com.orange.homenap.*</Export-Package>
+                        <Private-Package>com.orange.homenap.services.powerstate.*</Private-Package>
+                        <Import-Package>*</Import-Package>
                         <Owner>system</Owner>
                         <Migration>false</Migration>
                     </instructions>

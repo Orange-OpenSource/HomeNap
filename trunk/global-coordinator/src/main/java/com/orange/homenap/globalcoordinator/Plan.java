@@ -26,7 +26,6 @@ package com.orange.homenap.globalcoordinator;
 import com.orange.homenap.utils.Device;
 import com.orange.homenap.utils.Service;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;

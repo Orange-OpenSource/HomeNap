@@ -24,9 +24,9 @@
 
 package com.orange.homenap.globalcoordinator;
 
-import com.google.gson.Gson;
 import com.orange.homenap.api.IGlobalCoordinatorService;
 import com.orange.homenap.globalcoordinator.upnp.devices.GlobalCoordinatorDevice;
+import com.orange.homenap.services.json.GsonServiceItf;
 import com.orange.homenap.utils.Device;
 import com.orange.homenap.utils.Service;
 import org.osgi.framework.BundleContext;
@@ -38,6 +38,7 @@ public class GCDevice implements IGlobalCoordinatorService
     private OptimizerItf optimizerItf;
     private PlanItf planItf;
     private ControlPointManagerItf controlPointManagerItf;
+    private GsonServiceItf gsonServiceItf;
 
     // iPOJO properties
     private boolean stateful;
@@ -66,11 +67,9 @@ public class GCDevice implements IGlobalCoordinatorService
 
     public boolean register(String deviceInfo) throws Exception
     {
-        Gson gson = new Gson();
-
         System.out.println(deviceInfo);
 
-        Device device = gson.fromJson(deviceInfo, Device.class);
+        Device device = gsonServiceItf.fromJson(deviceInfo, Device.class);
 
         planItf.addDevice(device);
 
@@ -90,9 +89,7 @@ public class GCDevice implements IGlobalCoordinatorService
 
     public void startService(String serviceInfo, String deviceId) throws Exception
     {
-        Gson gson = new Gson();
-
-        Service service = gson.fromJson(serviceInfo, Service.class);
+        Service service = gsonServiceItf.fromJson(serviceInfo, Service.class);
 
         planItf.addService(service, deviceId);
     }

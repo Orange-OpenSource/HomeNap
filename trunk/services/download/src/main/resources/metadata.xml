@@ -27,7 +27,7 @@
     <!-- ============================================================== -->
 
     <!-- ServiceCoordinator -->
-    <component classname="com.orange.homenap.services.ServiceCoordinator" name="service-coordinator">
+    <component classname="com.orange.homenap.services.download.ServiceCoordinator" name="service-coordinator">
         <provides/>
 
         <!--<requires field="concatenateItf"/>-->

@@ -22,7 +22,7 @@
 
 <ipojo>
     <!-- Concatenate -->
-    <component classname="com.orange.homenap.services.Concatenate" name="concatenate">
+    <component classname="com.orange.homenap.services.concatenate.Concatenate" name="concatenate">
         <provides/>
     </component>
 

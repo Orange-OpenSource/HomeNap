@@ -40,9 +40,11 @@
     <!-- ======= -->
 
     <modules>
+        <module>json-service</module>
         <module>download</module>
         <module>concatenate</module>
         <module>wakeonlan</module>
         <module>power-state</module>
+        <module>device-info</module>
     </modules>
 </project>

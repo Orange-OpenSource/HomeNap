@@ -56,6 +56,8 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+                        <Private-Package>com.orange.homenap.services.json.*</Private-Package>
+                        <Import-Package>*</Import-Package>
                         <Owner>system</Owner>
                         <Migration>false</Migration>
                     </instructions>

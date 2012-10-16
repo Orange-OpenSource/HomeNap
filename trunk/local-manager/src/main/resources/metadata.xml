@@ -28,7 +28,7 @@
     <!-- ============================================================== -->
 
     <!-- DeviceManager -->
-    <component classname="com.orange.homenap.localmanager.localmanager.DeviceManager" name="device-manager">
+    <component classname="com.orange.homenap.localmanager.DeviceManager" name="device-manager">
         <provides/>
 
         <requires field="serviceManagerItf"/>
@@ -36,6 +36,7 @@
         <requires field="deviceInfoItf"/>
         <requires field="globalCoordinatorControlPointItf" optional="true"/>
         <requires field="controlPointManagerItf" optional="true"/>
+        <requires field="gsonServiceItf"/>
 
         <ev:subscriber name="powerStateSubscriber" callback="notifyPowerStateChange" topics="state"/>
 
@@ -48,7 +49,7 @@
     </component>
 
     <!-- ServiceManager -->
-    <component classname="com.orange.homenap.localmanager.localmanager.ServiceManager" name="service-manager">
+    <component classname="com.orange.homenap.localmanager.ServiceManager" name="service-manager">
         <provides/>
 
         <requires field="serviceInfoDBItf"/>
@@ -61,7 +62,7 @@
     </component>
 
     <!-- ServiceManagerEvent -->
-    <component classname="com.orange.homenap.localmanager.localmanager.ServiceManagerEvent" name="service-manager-event">
+    <component classname="com.orange.homenap.localmanager.ServiceManagerEvent" name="service-manager-event">
         <provides/>
 
         <requires field="serviceInfoDBItf"/>
@@ -77,7 +78,7 @@
     </component>
 
     <!-- ServiceInfoDB -->
-    <component classname="com.orange.homenap.localmanager.localmanager.ServiceInfoDB" name="service-info-db">
+    <component classname="com.orange.homenap.localmanager.ServiceInfoDB" name="service-info-db">
         <provides/>
 
         <properties>
@@ -86,26 +87,13 @@
         </properties>
     </component>
 
-    <!-- DeviceInfo -->
-    <component classname="com.orange.homenap.localmanager.localmanager.DeviceInfo" name="device-info">
-        <provides/>
-
-        <callback transition="validate" method="start"/>
-
-        <properties>
-            <property field="deviceInfoFile"
-                      value="/home/kxzj6354/workspace/These/homenap-ipojo/infos/device.json"
-                      mandatory="true"/>
-            <property field="stateful" mandatory="true" value="false"/>
-        </properties>
-    </component>
-
     <!-- GlobalCoordinator UPnP components -->
     <!-- GlobalCoordinatorControlPoint -->
-    <component classname="com.orange.homenap.localmanager.localmanager.GlobalCoordinatorControlPoint" name="global-coordinator-control-point">
+    <component classname="com.orange.homenap.localmanager.GlobalCoordinatorControlPoint" name="global-coordinator-control-point">
         <provides/>
 
         <requires field="deviceInfoItf"/>
+        <requires field="gsonServiceItf"/>
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>
@@ -117,7 +105,7 @@
     </component>
 
     <!-- LMDevice -->
-    <component classname="com.orange.homenap.localmanager.localmanager.LMDevice" name="lm-device">
+    <component classname="com.orange.homenap.localmanager.LMDevice" name="lm-device">
         <provides/>
 
         <requires field="deviceInfoItf"/>
@@ -133,7 +121,7 @@
     </component>
 
     <!-- ControlPointManager -->
-    <component classname="com.orange.homenap.localmanager.localmanager.ControlPointManager" name="lm-control-point-manager">
+    <component classname="com.orange.homenap.localmanager.ControlPointManager" name="lm-control-point-manager">
         <provides/>
 
         <requires field="factory" filter="(factory.name=deployer-control-point)"/>
@@ -147,7 +135,7 @@
 
     <!-- LocalManagers UPnP components -->
     <!-- DeployerControlPoint -->
-    <component classname="com.orange.homenap.localmanager.localmanager.DeployerControlPoint" name="deployer-control-point">
+    <component classname="com.orange.homenap.localmanager.DeployerControlPoint" name="deployer-control-point">
         <provides/>
 
         <requires field="wakeOnLanItf"/>
@@ -163,21 +151,21 @@
     </component>
 
     <!-- MigrationManager -->
-    <component classname="com.orange.homenap.localmanager.localmanager.MigrationManager" name="migration-manager" immediat="true">
+    <component classname="com.orange.homenap.localmanager.MigrationManager" name="migration-manager" immediat="true">
         <provides/>
 
         <requires field="serviceInfoDBItf"/>
-        <!--<requires field="xmlManagerItf"/>-->
 
         <properties>
             <property field="stateful" mandatory="true" value="false"/>
         </properties>
     </component>
 
-    <component classname="com.orange.homenap.localmanager.localmanager.StateFileManager" name="state-file-manager">
+    <component classname="com.orange.homenap.localmanager.StateFileManager" name="state-file-manager">
         <provides/>
 
         <requires field="serviceInfoDBItf"/>
+        <requires field="gsonServiceItf"/>
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>
@@ -187,15 +175,6 @@
             <property field="stateful" mandatory="true" value="false"/>
         </properties>
     </component>
-
-<!--    <component classname="com.olnc.made.device-state.localmanager.XMLManager" name="xml-manager" immediat="true">
-        <provides/>
-
-        <properties>
-            <property field="directory" value="/tmp/device-state/" mandatory="true"/>
-            <property field="stateful" mandatory="true" value="false"/>
-        </properties>
-    </component>-->
 
     <!-- ============================================================== -->
     <!--                           Instances                            -->
@@ -207,10 +186,8 @@
     <instance component="state-file-manager"/>
     <instance component="service-manager"/>
     <instance component="service-manager-event"/>
-    <instance component="device-info"/>
     <instance component="lm-control-point-manager"/>
     <instance component="lm-device"/>
-    <!--<instance component="xml-manager"/>-->
     <instance component="migration-manager"/>
     <instance component="global-coordinator-control-point"/>
     <instance component="device-manager"/>

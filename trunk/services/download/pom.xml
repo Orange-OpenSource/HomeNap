@@ -56,7 +56,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Private-Package>com.orange.services</Private-Package>
+                        <Private-Package>com.orange.services.download.*</Private-Package>
                         <Import-Package>*</Import-Package>
                         <Owner>user</Owner>
                         <Migration>true</Migration>
