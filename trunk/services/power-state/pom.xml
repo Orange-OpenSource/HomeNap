@@ -24,14 +24,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.orange.homenap</groupId>
+    <groupId>com.orange.homenap.services</groupId>
     <artifactId>power-state</artifactId>
     <version>${parent.version}</version>
     <name>Power State</name>
 
     <parent>
-        <artifactId>homenap</artifactId>
-        <groupId>com.orange.homenap</groupId>
+        <artifactId>services</artifactId>
+        <groupId>com.orange.homenap.services</groupId>
         <version>0.1-SNAPSHOT</version>
     </parent>
 

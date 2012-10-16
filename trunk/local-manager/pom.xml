@@ -98,14 +98,14 @@
         </dependency>
 
         <dependency>
-            <groupId>com.orange.homenap</groupId>
+            <groupId>com.orange.homenap.services</groupId>
             <artifactId>wakeonlan</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.orange.homenap</groupId>
+            <groupId>com.orange.homenap.services</groupId>
             <artifactId>power-state</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>

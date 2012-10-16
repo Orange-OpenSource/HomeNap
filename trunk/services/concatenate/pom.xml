@@ -24,14 +24,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.orange.homenap</groupId>
+    <groupId>com.orange.homenap.services</groupId>
     <artifactId>concatenate</artifactId>
     <version>0.1-SNAPSHOT</version>
     <name>Concatenate Service</name>
 
     <parent>
         <artifactId>services</artifactId>
-        <groupId>com.orange.homenap</groupId>
+        <groupId>com.orange.homenap.services</groupId>
         <version>0.1-SNAPSHOT</version>
     </parent>
 
