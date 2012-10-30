@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*  Module Name : global-database
+*  Version : 0.1-SNAPSHOT
+*
+*  Software Name : HomeNap
+*  Version : 0.1-SNAPSHOT
+*
+*  Copyright © 28/06/2012 – 28/06/2012 France Télécom
+*  This software is distributed under the Apache 2.0 license,
+*  the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+*  or see the "LICENSE-2.0.txt" file for more details.
+*
+*  File Name   : metadata.xml
+*
+*  Created     : 16/10/2012
+*  Author(s)   : Remi Druilhe
+*
+*  Description :
+*
+  -->
+
+<ipojo>
+    <!-- LocalDatabase -->
+    <component classname="com.orange.homenap.services.globaldatabase.GlobalDatabase" name="global-db">
+        <provides/>
+
+        <properties>
+            <property field="devices"/>
+            <property field="services"/>
+            <property field="resources"/>
+        </properties>
+    </component>
+
+    <instance component="global-db">
+        <property name="devices" type="list"/>
+        <property name="services" type="list"/>
+        <property name="resources" type="list"/>
+    </instance>
+</ipojo>
