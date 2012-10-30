@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~  Module Name : bundle-manager
+  ~  Version : 0.1-SNAPSHOT
+  ~
+  ~  Software Name : HomeNap
+  ~  Version : 0.1-SNAPSHOT
+  ~
+  ~  Copyright © 28/06/2012 – 28/06/2012 France Télécom
+  ~  This software is distributed under the Apache 2.0 license,
+  ~  the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+  ~  or see the "LICENSE-2.0.txt" file for more details.
+  ~
+  ~  File Name   : pom.xml
+  ~
+  ~  Created     : 16/10/2012
+  ~  Author(s)   : Remi Druilhe
+  ~
+  ~  Description :
+  ~
+  -->
+
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>bundle-listener</artifactId>
+    <groupId>com.orange.homenap.localmanager</groupId>
+    <version>${parent.version}</version>
+    <name>Bundle Listener</name>
+
+    <parent>
+        <artifactId>local-manager</artifactId>
+        <groupId>com.orange.homenap.localmanager</groupId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+
+    <packaging>bundle</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${maven.bundle.plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+                        <Private-Package>com.orange.homenap.services.bundlelistener.*</Private-Package>
+                        <Import-Package>
+                            org.osgi.framework;version=1.5,
+                            *
+                        </Import-Package>
+                        <Deployment>localised</Deployment>
+                        <Migration>static</Migration>
+                        <State>stateless</State>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-ipojo-plugin</artifactId>
+                <version>${maven.ipojo.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>ipojo-bundle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.framework</artifactId>
+            <version>${felix.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.homenap</groupId>
+            <artifactId>api</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.homenap.localmanager</groupId>
+            <artifactId>local-database</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.homenap.localmanager</groupId>
+            <artifactId>migration-service</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
