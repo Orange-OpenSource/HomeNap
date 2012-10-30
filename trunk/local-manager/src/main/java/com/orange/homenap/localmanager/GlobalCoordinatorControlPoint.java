@@ -49,7 +49,6 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
 
     // iPOJO properties
     private String typeGlobalCoordinator;
-    private boolean stateful;
 
     // iPOJO injection
     private BundleContext bundleContext;

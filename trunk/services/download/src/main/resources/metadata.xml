@@ -39,7 +39,6 @@
             <property field="url"/>
             <property field="httpRange"/>
             <property field="fileList"/>
-            <property field="stateful" mandatory="true" value="true"/>
         </properties>
     </component>
 
@@ -54,6 +53,5 @@
         <property name="url" value="http://ls-wxla26/sintel/Sintel.2010.1080p.mkv"/>
         <property name="httpRange" value="0"/>
         <property name="fileList" type="list"/>
-        <property name="stateful" value="true"/>
     </instance>
 </ipojo>

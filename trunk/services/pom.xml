@@ -40,11 +40,15 @@
     <!-- ======= -->
 
     <modules>
-        <module>json-service</module>
         <module>download</module>
         <module>concatenate</module>
         <module>wakeonlan</module>
         <module>power-state</module>
         <module>device-info</module>
+        <module>json-service</module>
+        <module>bundle-manager</module>
+        <module>local-database</module>
+        <module>migration-manager</module>
+        <module>global-database</module>
     </modules>
 </project>

@@ -24,6 +24,7 @@
 
 package com.orange.homenap.localmanager;
 
+import com.orange.homenap.services.servicedatabase.ServiceDatabaseItf;
 import com.orange.homenap.utils.Service;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
@@ -35,11 +36,8 @@ public class ServiceManagerEvent implements BundleListener
 {
     // iPOJO requires
     private ServiceManagerEventItf serviceManagerEventItf;
-    private ServiceInfoDBItf serviceInfoDBItf;
+    private ServiceDatabaseItf serviceDatabaseItf;
     private StateFileManagerItf stateFileManagerItf;
-
-    // iPOJO properties
-    private boolean stateful;
 
     // iPOJO injection
     private BundleContext bundleContext;    
@@ -71,26 +69,26 @@ public class ServiceManagerEvent implements BundleListener
                         be.getBundle().getLocation(),
                         Service.ServiceState.INSTALLED);
 
-                serviceInfoDBItf.put(service.getId(), service);
+                serviceDatabaseItf.put(service.getId(), service);
                 serviceManagerEventItf.updateService(service);
                 stateFileManagerItf.load(service.getName());
                 break;
 
             case BundleEvent.STARTED:
-                service = serviceInfoDBItf.get(be.getBundle().getBundleId());
+                service = serviceDatabaseItf.get(be.getBundle().getBundleId());
                 service.setServiceState(Service.ServiceState.STARTED);
                 serviceManagerEventItf.updateService(service);
                 break;
 
             case BundleEvent.STOPPED:
-                service = serviceInfoDBItf.get(be.getBundle().getBundleId());
+                service = serviceDatabaseItf.get(be.getBundle().getBundleId());
                 service.setServiceState(Service.ServiceState.STOPPED);
                 serviceManagerEventItf.updateService(service);
                 stateFileManagerItf.save(service.getName());
                 break;
 
             case BundleEvent.UNINSTALLED:
-                service = serviceInfoDBItf.get(be.getBundle().getBundleId());
+                service = serviceDatabaseItf.get(be.getBundle().getBundleId());
                 service.setServiceState(Service.ServiceState.UNINSTALLED);
                 serviceManagerEventItf.updateService(service);
                 break;

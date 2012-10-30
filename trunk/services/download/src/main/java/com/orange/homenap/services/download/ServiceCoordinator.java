@@ -41,7 +41,6 @@ public class ServiceCoordinator implements ThreadCompleteListener
     public String url;
     public String httpRange;
     public List<String> fileList;
-    private boolean stateful;
 
     // Global variables
     private NotifyingThread thread;

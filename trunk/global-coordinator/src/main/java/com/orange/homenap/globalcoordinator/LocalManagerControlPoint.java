@@ -34,7 +34,6 @@ public class LocalManagerControlPoint implements ServiceListener, LocalManagerCo
 {
     // iPOJO properties
     private String udnLocalManager;
-    private boolean stateful;
 
     // iPOJO injection
     private BundleContext bundleContext;

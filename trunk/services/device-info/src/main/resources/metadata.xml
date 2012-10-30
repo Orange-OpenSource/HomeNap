@@ -33,7 +33,6 @@
             <property field="deviceInfoFile"
                       value="/home/kxzj6354/workspace/These/homenap/device.json"
                       mandatory="true"/>
-            <property field="stateful" mandatory="true" value="false"/>
         </properties>
     </component>
 

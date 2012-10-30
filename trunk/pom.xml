@@ -34,10 +34,12 @@
     <!-- ========== -->
 
     <properties>
+        <maven.bundle.plugin.version>2.0.1</maven.bundle.plugin.version>
         <maven.ipojo.version>1.8.0</maven.ipojo.version>
         <ipojo.version>1.8.0</ipojo.version>
         <felix.version>4.1.0-SNAPSHOT</felix.version>
         <choco.version>2.1.4</choco.version>
+        <frascati.version>1.5-SNAPSHOT</frascati.version>
     </properties>
 
     <!-- ============ -->

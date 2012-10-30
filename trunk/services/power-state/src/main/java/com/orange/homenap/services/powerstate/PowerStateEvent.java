@@ -34,7 +34,6 @@ public class PowerStateEvent
 {
     // iPOJO properties
     public String stateFile;
-    public boolean stateful;
 
     // iPOJO Publish-Subscribe
     public Publisher publisher;

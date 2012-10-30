@@ -39,9 +39,6 @@ public class ControlPointManager implements ControlPointManagerItf
     // iPOJO requires
     private Factory factory;
 
-    // iPOJO properties
-    private boolean stateful;
-
     // iPOJO injection
     private BundleContext bundleContext;
 

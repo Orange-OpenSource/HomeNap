@@ -38,7 +38,6 @@ public class WakeOnLan implements WakeOnLanItf
     // iPOJO properties
     public String broadcast;
     public Integer port;
-    private boolean stateful;
 
     public boolean wakeUp(String mac)
     {

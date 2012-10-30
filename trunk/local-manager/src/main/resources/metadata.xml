@@ -31,7 +31,7 @@
     <component classname="com.orange.homenap.localmanager.DeviceManager" name="device-manager">
         <provides/>
 
-        <requires field="serviceManagerItf"/>
+        <requires field="bundleManagerItf"/>
         <requires field="powerStateManagerItf" optional="true"/>
         <requires field="deviceInfoItf"/>
         <requires field="globalCoordinatorControlPointItf" optional="true"/>
@@ -42,49 +42,18 @@
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>
-
-        <properties>
-            <property field="stateful" mandatory="true" value="false"/>
-        </properties>
-    </component>
-
-    <!-- ServiceManager -->
-    <component classname="com.orange.homenap.localmanager.ServiceManager" name="service-manager">
-        <provides/>
-
-        <requires field="serviceInfoDBItf"/>
-
-        <callback transition="validate" method="start"/>
-
-        <properties>
-            <property field="stateful" mandatory="true" value="false"/>
-        </properties>
     </component>
 
     <!-- ServiceManagerEvent -->
     <component classname="com.orange.homenap.localmanager.ServiceManagerEvent" name="service-manager-event">
         <provides/>
 
-        <requires field="serviceInfoDBItf"/>
+        <requires field="serviceDatabaseItf"/>
         <requires field="serviceManagerEventItf"/>
         <requires field="stateFileManagerItf"/>
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>
-
-        <properties>
-            <property field="stateful" mandatory="true" value="false"/>
-        </properties>
-    </component>
-
-    <!-- ServiceInfoDB -->
-    <component classname="com.orange.homenap.localmanager.ServiceInfoDB" name="service-info-db">
-        <provides/>
-
-        <properties>
-            <property field="stateful" mandatory="true" value="false"/>
-            <property field="serviceInfoMap"/>
-        </properties>
     </component>
 
     <!-- GlobalCoordinator UPnP components -->
@@ -100,7 +69,6 @@
 
         <properties>
             <property field="typeGlobalCoordinator" mandatory="true" value="urn:schemas-upnp-org:device:GlobalCoordinator:1"/>
-            <property field="stateful" mandatory="true" value="false"/>
         </properties>
     </component>
 
@@ -114,10 +82,6 @@
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>
-
-        <properties>
-            <property field="stateful" mandatory="true" value="false"/>
-        </properties>
     </component>
 
     <!-- ControlPointManager -->
@@ -127,10 +91,6 @@
         <requires field="factory" filter="(factory.name=deployer-control-point)"/>
 
         <callback transition="validate" method="start"/>
-
-        <properties>
-            <property field="stateful" mandatory="true" value="false"/>
-        </properties>
     </component>
 
     <!-- LocalManagers UPnP components -->
@@ -146,25 +106,13 @@
         <properties>
             <property field="udnDeployer" mandatory="true"/>
             <property field="wakeUpAddress" mandatory="true"/>
-            <property field="stateful" mandatory="true" value="false"/>
-        </properties>
-    </component>
-
-    <!-- MigrationManager -->
-    <component classname="com.orange.homenap.localmanager.MigrationManager" name="migration-manager" immediat="true">
-        <provides/>
-
-        <requires field="serviceInfoDBItf"/>
-
-        <properties>
-            <property field="stateful" mandatory="true" value="false"/>
         </properties>
     </component>
 
     <component classname="com.orange.homenap.localmanager.StateFileManager" name="state-file-manager">
         <provides/>
 
-        <requires field="serviceInfoDBItf"/>
+        <requires field="serviceDatabaseItf"/>
         <requires field="gsonServiceItf"/>
 
         <callback transition="validate" method="start"/>
@@ -172,7 +120,6 @@
 
         <properties>
             <property field="directory" mandatory="true" value="/tmp/homenap"/>
-            <property field="stateful" mandatory="true" value="false"/>
         </properties>
     </component>
 
@@ -180,15 +127,10 @@
     <!--                           Instances                            -->
     <!-- ============================================================== -->
 
-    <instance component="service-info-db">
-        <property name="serviceInfoMap" type="map"/>
-    </instance>
     <instance component="state-file-manager"/>
-    <instance component="service-manager"/>
     <instance component="service-manager-event"/>
     <instance component="lm-control-point-manager"/>
     <instance component="lm-device"/>
-    <instance component="migration-manager"/>
     <instance component="global-coordinator-control-point"/>
     <instance component="device-manager"/>
 </ipojo>

@@ -29,7 +29,6 @@
             <!-- Values in seconds -->
             <property field="timer" value="300" mandatory="true"/>
             <property field="grace" value="30" mandatory="true"/>
-            <property field="stateful" mandatory="true" value="false"/>
         </properties>
 
         <callback transition="validate" method="start"/>
@@ -42,9 +41,7 @@
         <provices/>
 
         <properties>
-            <!-- Values in seconds -->
             <property field="stateFile" value="/tmp/state" mandatory="true"/>
-            <property field="stateful" mandatory="true" value="false"/>
         </properties>
 
         <callback transition="validate" method="start"/>

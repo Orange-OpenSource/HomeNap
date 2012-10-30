@@ -39,7 +39,6 @@ public class DeviceInfo implements DeviceInfoItf
 
     // iPOJO properties
     private String deviceInfoFile;
-    private boolean stateful;
 
     // Global variables
     private Device device;

@@ -32,7 +32,6 @@
         <provides />
 
         <properties>
-            <property field="stateful" mandatory="true" value="true"/>
             <property field="devices"/>
             <property field="services"/>
             <property field="resources"/>
@@ -45,10 +44,6 @@
 
         <requires field="planItf" />
         <requires field="migraterItf" />
-
-        <properties>
-            <property field="stateful" mandatory="true" value="false"/>
-        </properties>
     </component>
 
     <!-- Migrater -->
@@ -57,10 +52,6 @@
 
         <requires field="controlPointManagerItf"/>
         <requires field="planItf" />
-
-        <properties>
-            <property field="stateful" mandatory="true" value="false"/>
-        </properties>
     </component>
 
     <!-- GCDevice -->
@@ -74,10 +65,6 @@
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>
-
-        <properties>
-            <property field="stateful" mandatory="true" value="false"/>
-        </properties>
     </component>
 
     <!-- ControlPointManager -->
@@ -88,10 +75,6 @@
         <requires field="planItf" />
 
         <callback transition="validate" method="start"/>
-
-        <properties>
-            <property field="stateful" mandatory="true" value="false"/>
-        </properties>
     </component>
 
     <!-- LocalManagerControlPoint -->
@@ -103,7 +86,6 @@
 
         <properties>
             <property field="udnLocalManager" mandatory="true"/>
-            <property field="stateful" mandatory="true" value="false"/>
         </properties>
     </component>
 

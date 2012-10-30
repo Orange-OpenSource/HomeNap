@@ -41,9 +41,6 @@ public class Optimizer implements OptimizerItf
     private PlanItf planItf;
     private MigraterItf migraterItf;
 
-    // iPOJO properties
-    private boolean stateful;
-
     public void optimize()
     {
         System.out.println("Reconfiguration started");

@@ -27,9 +27,9 @@ package com.orange.homenap.localmanager;
 import com.orange.homenap.services.deviceinfo.DeviceInfoItf;
 import com.orange.homenap.services.json.GsonServiceItf;
 import com.orange.homenap.services.powerstate.PowerStateManagerItf;
+import com.orange.homenap.services.bundlemanager.BundleManagerItf;
 import com.orange.homenap.utils.Device;
 import com.orange.homenap.utils.Service;
-import org.osgi.framework.*;
 import org.osgi.service.event.Event;
 
 import java.io.ByteArrayInputStream;
@@ -38,23 +38,12 @@ import java.io.IOException;
 public class DeviceManager implements LocalManagerEvent, DeployerEvent, ServiceManagerEventItf
 {
     // iPOJO requires
-    private ServiceManagerItf serviceManagerItf;
+    private BundleManagerItf bundleManagerItf;
     private PowerStateManagerItf powerStateManagerItf;
     private DeviceInfoItf deviceInfoItf;
     private GlobalCoordinatorControlPointItf globalCoordinatorControlPointItf;
     private ControlPointManagerItf controlPointManagerItf;
     private GsonServiceItf gsonServiceItf;
-
-    // iPOJO properties
-    private boolean stateful;
-
-    // iPOJO injection
-    private BundleContext bundleContext;
-
-    public DeviceManager(BundleContext bc)
-    {
-        this.bundleContext = bc;
-    }
 
     public void start()
     {
@@ -73,7 +62,7 @@ public class DeviceManager implements LocalManagerEvent, DeployerEvent, ServiceM
     {
         System.out.println("Starting migration");
 
-        serviceManagerItf.startService(bundleUrl, migrationState);
+        bundleManagerItf.start(bundleUrl);
     }
 
     public void migrateService(String serviceName, String toDeviceId, String wakeUpAddress)
@@ -84,7 +73,7 @@ public class DeviceManager implements LocalManagerEvent, DeployerEvent, ServiceM
 
         DeployerControlPointItf deployerControlPointItf = controlPointManagerItf.createCP(toDeviceId, wakeUpAddress);
 
-        Service service = serviceManagerItf.stopService(serviceName);
+        Service service = bundleManagerItf.stop(serviceName);
 
         deployerControlPointItf.start(service.getBundleUrl(), gsonServiceItf.toJson(service.getComponents()));
 

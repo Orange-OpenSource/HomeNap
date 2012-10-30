@@ -33,17 +33,9 @@ import java.util.Map;
 public class Plan implements PlanItf
 {
     // iPOJO properties
-    private boolean stateful;
     private List<Device> devices;
     private List<Service> services;
     private List<String> resources;
-
-    public Plan()
-    {
-        /*devices = new ArrayList<Device>();
-        services = new ArrayList<Service>();
-        resources = new ArrayList<String>();*/
-    }
 
     public void addDevice(Device device)
     {

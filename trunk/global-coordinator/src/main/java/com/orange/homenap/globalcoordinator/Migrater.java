@@ -32,9 +32,6 @@ public class Migrater implements MigraterItf
     private PlanItf planItf;
     private ControlPointManagerItf controlPointManagerItf;
 
-    // iPOJO properties
-    private boolean stateful;
-
     public void migrate(int[][] migrationPlan)
     {
         int n = migrationPlan.length;

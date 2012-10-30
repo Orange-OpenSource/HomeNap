@@ -40,9 +40,6 @@ public class GCDevice implements IGlobalCoordinatorService
     private ControlPointManagerItf controlPointManagerItf;
     private GsonServiceItf gsonServiceItf;
 
-    // iPOJO properties
-    private boolean stateful;
-
     // iPOJO injection
     private BundleContext bundleContext;
 

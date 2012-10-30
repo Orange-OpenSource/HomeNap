@@ -39,7 +39,6 @@ public class PowerStateManager implements PowerStateManagerItf, ThreadCompleteLi
     // iPOJO properties
     private Integer timer;
     private Integer grace;
-    private boolean stateful;
 
     // iPOJO Publish-Subscribe
     private Publisher publisher;

@@ -22,17 +22,18 @@
 
 <component name="LocalManager">
 
-<!-- component class -->
-  <implementation class="com.orange.homenap.localmanager.upnp.drivers.LocalManagerDriver"/>
+    <!-- component class -->
+    <implementation class="com.orange.homenap.localmanager.upnp.drivers.LocalManagerDriver"/>
 
-  <!-- referenced services -->
-  <reference
-     name="LocalManager"
-	 interface="org.osgi.service.upnp.UPnPDevice"
-	 target="(upnp.device.type=urn:schemas-upnp-org:device:LocalManager:1)"
-	 cardinality="0..n"
-	 policy="dynamic"
-	 bind="bindUPnPDevice"
-	 unbind="unbindUPnPDevice"
-  />
+    <!-- referenced services -->
+    <reference name="LocalManager"
+               interface="org.osgi.service.upnp.UPnPDevice"
+               target="(upnp.device.type=urn:schemas-upnp-org:device:LocalManager:1)"
+               cardinality="0..n"
+               policy="dynamic"
+               bind="bindUPnPDevice"
+               unbind="unbindUPnPDevice"
+            />
 </component>
+
+

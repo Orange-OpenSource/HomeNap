@@ -25,6 +25,8 @@
 package com.orange.homenap.localmanager;
 
 import com.orange.homenap.services.json.GsonServiceItf;
+import com.orange.homenap.services.servicedatabase.ServiceDatabase;
+import com.orange.homenap.services.servicedatabase.ServiceDatabaseItf;
 import com.orange.homenap.utils.Service;
 import com.orange.homenap.utils.StatefulComponent;
 
@@ -35,12 +37,11 @@ import java.util.Map;
 public class StateFileManager implements StateFileManagerItf
 {
     // iPOJO requires
-    private ServiceInfoDBItf serviceInfoDBItf;
+    private ServiceDatabaseItf serviceDatabaseItf;
     private GsonServiceItf gsonServiceItf;
 
     // iPOJO properties
     private String directory;
-    private boolean stateful;
 
     public void start()
     {
@@ -74,7 +75,7 @@ public class StateFileManager implements StateFileManagerItf
     {
         System.out.println("Saving state to file " + directory + "/" + bundleName + ".json");
 
-        Service service = serviceInfoDBItf.get(serviceInfoDBItf.getServiceId(bundleName));
+        Service service = serviceDatabaseItf.get(serviceDatabaseItf.getServiceId(bundleName));
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(directory + "/" + bundleName + ".json"));
@@ -91,7 +92,7 @@ public class StateFileManager implements StateFileManagerItf
     {
         System.out.println("Loading state from file " + directory + "/" + bundleName + ".json");
 
-        Service service = serviceInfoDBItf.get(serviceInfoDBItf.getServiceId(bundleName));
+        Service service = serviceDatabaseItf.get(serviceDatabaseItf.getServiceId(bundleName));
 
         Map<String, StatefulComponent> components = new HashMap<String, StatefulComponent>();
         StringBuilder json = new StringBuilder();

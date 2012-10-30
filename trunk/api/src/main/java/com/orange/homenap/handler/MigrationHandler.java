@@ -45,24 +45,23 @@ public class MigrationHandler extends PrimitiveHandler
     // Global variables
     private Map<String, Object> properties = new HashMap<String, Object>();
     private Long bundleId;
-    private boolean stateful;
+    private String stateful;
 
     public void configure(Element metadata, Dictionary config) throws ConfigurationException
     {
         InstanceManager im = getInstanceManager();
 
         bundleId = im.getContext().getBundle().getBundleId();
-        stateful = false;
+        stateful = (String) im.getContext().getBundle().getHeaders().get("State");
 
         System.out.println("Configure Migration Handler for " + im.getInstanceName());
 
         PropertyDescription[] propDesc = im.getInstanceDescription().getComponentDescription().getProperties();
 
         for(PropertyDescription property : propDesc)
-            if(!property.getName().equals("stateful"))
-                properties.put(property.getName(), null);
+            properties.put(property.getName(), property.getValue());
 
-        if(!properties.isEmpty())
+        /*if(!properties.isEmpty())
         {
             Enumeration<String> key = config.keys();
 
@@ -70,19 +69,17 @@ public class MigrationHandler extends PrimitiveHandler
             {
                 String tempKey = key.nextElement();
 
-                if(tempKey.equals("stateful"))
-                    stateful = Boolean.valueOf(config.get("stateful").toString()).booleanValue();
-                else if(properties.containsKey(tempKey))
+                if(properties.containsKey(tempKey))
                     properties.put(tempKey, config.get(tempKey));
             }
-        }
+        }*/
     }
 
     public void start()
     {
         System.out.println("Starting " + getInstanceManager().getInstanceName());
 
-        if(stateful)
+        if(stateful.equals("stateful"))
         {
             Map<String, Object> migrationProp = migrationHandlerManagerItf.registerComponent(bundleId, getInstanceManager().getInstanceName());
 
@@ -112,7 +109,7 @@ public class MigrationHandler extends PrimitiveHandler
 
         System.out.println("Stopping " + im.getInstanceName());
 
-        if(stateful)
+        if(stateful.equals("stateful"))
             migrationHandlerManagerItf.unRegisterComponent(bundleId, properties, im.getInstanceName());
     }
 

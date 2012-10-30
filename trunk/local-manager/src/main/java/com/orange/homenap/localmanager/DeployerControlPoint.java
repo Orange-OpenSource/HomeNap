@@ -40,7 +40,6 @@ public class DeployerControlPoint implements ServiceListener, DeployerControlPoi
     // iPOJO properties
     private String udnDeployer;
     private String wakeUpAddress;
-    private boolean stateful;
 
     // iPOJO injection
     private BundleContext bundleContext;

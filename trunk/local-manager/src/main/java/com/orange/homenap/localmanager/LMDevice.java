@@ -38,9 +38,6 @@ public class LMDevice implements IDeployerService, ILocalManagerService
     private LocalManagerEvent localManagerEvent;
     private DeployerEvent deployerEvent;
 
-    // iPOJO properties
-    private boolean stateful;
-
     // iPOJO injection
     private BundleContext bundleContext;
 
