@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*  Module Name : upnp-control-point-manager
+*  Version : 0.1-SNAPSHOT
+*
+*  Software Name : HomeNap
+*  Version : 0.1-SNAPSHOT
+*
+*  Copyright © 28/06/2012 – 28/06/2012 France Télécom
+*  This software is distributed under the Apache 2.0 license,
+*  the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+*  or see the "LICENSE-2.0.txt" file for more details.
+*
+*  File Name   : metadata.xml
+*
+*  Created     : 30/10/2012
+*  Author(s)   : Remi Druilhe
+*
+*  Description :
+*
+  -->
+
+<ipojo>
+    <!-- GlobalCoordinatorControlPoint -->
+    <component classname="com.orange.homenap.localmanager.upnpcpmanager.GlobalCoordinatorControlPoint" name="global-coordinator-control-point">
+        <provides/>
+
+        <requires field="deviceInfoItf"/>
+        <requires field="gsonServiceItf"/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="typeGlobalCoordinator" mandatory="true" value="urn:schemas-upnp-org:device:GlobalCoordinator:1"/>
+        </properties>
+    </component>
+
+    <!-- ControlPointManager -->
+    <component classname="com.orange.homenap.localmanager.upnpcpmanager.ControlPointManager" name="lm-control-point-manager">
+        <provides/>
+
+        <requires field="factory" filter="(factory.name=deployer-control-point)"/>
+
+        <callback transition="validate" method="start"/>
+    </component>
+
+    <!-- LocalManagers UPnP components -->
+    <!-- DeployerControlPoint -->
+    <component classname="com.orange.homenap.localmanager.upnpcpmanager.DeployerControlPoint" name="deployer-control-point">
+        <provides/>
+
+        <requires field="wakeOnLanItf"/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="udnDeployer" mandatory="true"/>
+            <property field="wakeUpAddress" mandatory="true"/>
+        </properties>
+    </component>
+
+    <!-- ============================================================== -->
+    <!--                           Instances                            -->
+    <!-- ============================================================== -->
+
+    <instance component="lm-control-point-manager"/>
+    <instance component="global-coordinator-control-point"/>
+</ipojo>

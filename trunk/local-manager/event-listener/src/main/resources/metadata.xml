@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*  Module Name : event-listener
+*  Version : 0.1-SNAPSHOT
+*
+*  Software Name : HomeNap
+*  Version : 0.1-SNAPSHOT
+*
+*  Copyright © 28/06/2012 – 28/06/2012 France Télécom
+*  This software is distributed under the Apache 2.0 license,
+*  the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+*  or see the "LICENSE-2.0.txt" file for more details.
+*
+*  File Name   : metadata.xml
+*
+*  Created     : 16/10/2012
+*  Author(s)   : Remi Druilhe
+*
+*  Description :
+*
+  -->
+
+<ipojo xmlns:ev="org.apache.felix.ipojo.handlers.event">
+    <!-- DeviceManager -->
+    <component classname="com.orange.homenap.localmanager.eventlistener.DeviceManager" name="device-manager">
+        <provides/>
+
+        <requires field="bundleManagerItf"/>
+        <requires field="powerStateManagerItf" optional="true"/>
+        <requires field="deviceInfoItf"/>
+        <requires field="globalCoordinatorControlPointItf" optional="true"/>
+        <requires field="controlPointManagerItf" optional="true"/>
+        <requires field="gsonServiceItf"/>
+
+        <ev:subscriber name="powerStateSubscriber" callback="notifyPowerStateChange" topics="state"/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+    </component>
+
+    <instance component="device-manager"/>
+</ipojo>
