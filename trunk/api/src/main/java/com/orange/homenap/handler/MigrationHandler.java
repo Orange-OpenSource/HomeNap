@@ -61,7 +61,7 @@ public class MigrationHandler extends PrimitiveHandler
         for(PropertyDescription property : propDesc)
             properties.put(property.getName(), property.getValue());
 
-        /*if(!properties.isEmpty())
+        if(!properties.isEmpty())
         {
             Enumeration<String> key = config.keys();
 
@@ -72,7 +72,7 @@ public class MigrationHandler extends PrimitiveHandler
                 if(properties.containsKey(tempKey))
                     properties.put(tempKey, config.get(tempKey));
             }
-        }*/
+        }
     }
 
     public void start()

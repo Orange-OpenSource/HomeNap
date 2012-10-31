@@ -72,54 +72,60 @@ public class StateFileManager implements StateFileManagerItf
 
     public void save(String bundleName)
     {
-        System.out.println("Saving state to file " + directory + "/" + bundleName + ".json");
-
         Service service = localDatabaseItf.get(localDatabaseItf.getServiceId(bundleName));
 
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(directory + "/" + bundleName + ".json"));
+        if (service.getServiceState().equals(Service.ServiceState.STATEFUL))
+        {
+            System.out.println("Saving state to file " + directory + "/" + bundleName + ".json");
 
-            writer.write(gsonServiceItf.toJson(service.getComponents()));
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(directory + "/" + bundleName + ".json"));
 
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+                writer.write(gsonServiceItf.toJson(service.getComponents()));
+
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void load(String bundleName)
     {
-        System.out.println("Loading state from file " + directory + "/" + bundleName + ".json");
-
         Service service = localDatabaseItf.get(localDatabaseItf.getServiceId(bundleName));
 
-        Map<String, StatefulComponent> components = new HashMap<String, StatefulComponent>();
-        StringBuilder json = new StringBuilder();
-
-        if (stateFileExist(bundleName))
+        if (service.getServiceState().equals(Service.ServiceState.STATEFUL))
         {
-            try {
-                BufferedReader reader = new BufferedReader(new FileReader(directory + "/" + bundleName + ".json"));
+            if (stateFileExist(bundleName))
+            {
+                Map<String, StatefulComponent> components = new HashMap<String, StatefulComponent>();
+                StringBuilder json = new StringBuilder();
 
-                String strLine;
+                System.out.println("Loading state from file " + directory + "/" + bundleName + ".json");
 
-                while((strLine = reader.readLine()) != null)
-                    json.append(strLine);
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader(directory + "/" + bundleName + ".json"));
 
-                reader.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                    String strLine;
+
+                    while((strLine = reader.readLine()) != null)
+                        json.append(strLine);
+
+                    reader.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                components = gsonServiceItf.fromJson(json.toString(), Map.class);
+
+                service.setComponents(components);
             }
-
-            components = gsonServiceItf.fromJson(json.toString(), Map.class);
-
-            service.setComponents(components);
-        }
-        else
-        {
-            System.out.println(directory + "/" + bundleName + ".json does not exist");
+            else
+            {
+                System.out.println(directory + "/" + bundleName + ".json does not exist. Starting from beginning");
+            }
         }
     }
 

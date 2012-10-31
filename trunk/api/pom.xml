@@ -63,9 +63,10 @@
                         </Export-Package>
                         <Import-Package>*</Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
-                        <Deployment>localised</Deployment>
+                        <Deployment>localized</Deployment>
                         <Migration>static</Migration>
                         <State>stateless</State>
+                        <Execution>optional</Execution>
                     </instructions>
                 </configuration>
             </plugin>

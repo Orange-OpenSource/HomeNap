@@ -161,7 +161,7 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
         }
     }
 
-    public void updateServicesState(String deviceId, Map<String, Service.ServiceState> servicesState)
+    public void updateServicesState(String deviceId, Map<String, Service.BundleState> servicesState)
     {
         System.out.println("Updating services state");
 

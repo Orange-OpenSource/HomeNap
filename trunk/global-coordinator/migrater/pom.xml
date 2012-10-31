@@ -59,9 +59,10 @@
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
                         <Private-Package>com.orange.homenap.globalcoordinator.migrater.*</Private-Package>
                         <Import-Package>*</Import-Package>
-                        <Deployment>alocalised</Deployment>
+                        <Deployment>alocalized</Deployment>
                         <Migration>migratable</Migration>
                         <State>stateless</State>
+                        <Execution>mandatory</Execution>
                     </instructions>
                 </configuration>
             </plugin>

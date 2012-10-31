@@ -57,9 +57,10 @@
                         <Import-Package>*</Import-Package>
                         <Bundle-Activator>com.orange.homenap.globalcoordinator.upnp.drivers.Activator</Bundle-Activator>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Deployment>alocalised</Deployment>
+                        <Deployment>alocalized</Deployment>
                         <Migration>migratable</Migration>
                         <State>stateless</State>
+                        <Execution>mandatory</Execution>
                     </instructions>
                 </configuration>
             </plugin>

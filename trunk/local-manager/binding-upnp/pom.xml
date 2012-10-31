@@ -57,9 +57,10 @@
                         <Import-Package>*</Import-Package>
                         <Bundle-Activator>com.orange.homenap.localmanager.upnp.drivers.Activator</Bundle-Activator>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Deployment>localised</Deployment>
+                        <Deployment>localized</Deployment>
                         <Migration>static</Migration>
                         <State>stateless</State>
+                        <Execution>optional</Execution>
                     </instructions>
                 </configuration>
             </plugin>

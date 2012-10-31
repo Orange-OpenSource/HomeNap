@@ -28,15 +28,21 @@ import java.util.Map;
 
 public class Service
 {
-    public static enum ServiceState {INSTALLED, STARTED, STOPPED, UNINSTALLED, UNAVAILABLE}
+    public static enum BundleState {INSTALLED, STARTED, STOPPED, UNINSTALLED, UNAVAILABLE}
+    public static enum ServiceDeployment {LOCALIZED, ALOCALIZED}
+    public static enum ServiceMigrability {MIGRATABLE, STATIC}
+    public static enum ServiceState {STATEFUL, STATELESS}
+    public static enum Execution { MANDATORY, OPTIONAL }
 
     private Long id;
     private String bundleName;
     private String bundleUrl;
+    private BundleState bundleState;
+    private ServiceDeployment serviceDeployment;
+    private ServiceMigrability serviceMigrability;
     private ServiceState serviceState;
+    private Execution execution;
     private Map<String, StatefulComponent> components;
-    private boolean localized;
-    private boolean unmigratable;
     private Map<String, Integer> resources = new HashMap<String, Integer>();
 
     public Service()
@@ -44,12 +50,12 @@ public class Service
         this.components = new HashMap<String, StatefulComponent>();
     }
 
-    public Service(Long id, String bundleName, String bundleUrl, ServiceState serviceState)
+    public Service(Long id, String bundleName, String bundleUrl, BundleState bundleState)
     {
         this.id = id;
         this.bundleName = bundleName;
         this.bundleUrl = bundleUrl;
-        this.serviceState = serviceState;
+        this.bundleState = bundleState;
         this.components = new HashMap<String, StatefulComponent>();
     }
 
@@ -67,21 +73,29 @@ public class Service
 
     public String getBundleUrl() { return this.bundleUrl; }
 
-    public void setServiceState(ServiceState serviceState) { this.serviceState = serviceState; }
+    public void setBundleState(BundleState bundleState) { this.bundleState = bundleState; }
 
-    public ServiceState getServiceState() { return this.serviceState; }
+    public BundleState getBundleState() { return this.bundleState; }
 
     public void setComponents(Map<String, StatefulComponent> components) { this.components = components; }
 
     public Map<String, StatefulComponent> getComponents() { return this.components; }
 
-    public void setLocalized(boolean localized) { this.localized = localized; }
+    public void setServiceDeployment(ServiceDeployment serviceDeployment) { this.serviceDeployment = serviceDeployment; }
 
-    public boolean getLocalized() { return localized; }
+    public ServiceDeployment getServiceDeployment() { return serviceDeployment; }
 
-    public void setUnmigratable(boolean unmigratable) { this.unmigratable = unmigratable; }
+    public void setServiceMigrability(ServiceMigrability serviceMigrability) { this.serviceMigrability = serviceMigrability; }
 
-    public boolean getUnmigratable() { return unmigratable; }
+    public ServiceMigrability getServiceMigrability() { return serviceMigrability; }
+
+    public void setServiceState(ServiceState serviceState) { this.serviceState = serviceState; }
+
+    public ServiceState getServiceState() { return serviceState; }
+
+    public void setExecution(Execution execution) { this.execution = execution; }
+
+    public Execution getExecution() { return execution; }
 
     public void setResources(Map<String, Integer> resources) { this.resources = resources; }
 

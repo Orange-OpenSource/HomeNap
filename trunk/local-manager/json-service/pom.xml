@@ -63,9 +63,10 @@
                         <Private-Package>com.orange.homenap.localmanager.json.*</Private-Package>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                         <Import-Package>*</Import-Package>
-                        <Deployment>localised</Deployment>
+                        <Deployment>localized</Deployment>
                         <Migration>static</Migration>
                         <State>stateless</State>
+                        <Execution>optional</Execution>
                     </instructions>
                 </configuration>
             </plugin>

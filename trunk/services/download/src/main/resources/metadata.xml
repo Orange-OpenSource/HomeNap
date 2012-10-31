@@ -50,7 +50,7 @@
         <!--<property name="file-list"/>-->
         <!--<property name="url" value="http://download.blender.org/demo/movies/Sintel.2010.1080p.mkv"/>-->
         <!--<property name="url" value="http://g-e6400-55/Sintel.2010.1080p.mkv"/>-->
-        <property name="url" value="http://ls-wxla26/sintel/Sintel.2010.1080p.mkv"/>
+        <property name="url" value="http://g-nerv/Sintel.2010.1080p.mkv"/>
         <property name="httpRange" value="0"/>
         <property name="fileList" type="list"/>
     </instance>

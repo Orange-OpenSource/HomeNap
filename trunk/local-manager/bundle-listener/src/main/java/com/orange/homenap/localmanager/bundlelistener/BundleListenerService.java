@@ -27,11 +27,15 @@ package com.orange.homenap.localmanager.bundlelistener;
 import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
 import com.orange.homenap.localmanager.migrationservice.StateFileManagerItf;
 import com.orange.homenap.utils.Service;
+import org.apache.felix.framework.util.manifestparser.ManifestParser;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.BundleListener;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Dictionary;
+import java.util.Enumeration;
 
 public class BundleListenerService implements BundleListener
 {
@@ -40,18 +44,18 @@ public class BundleListenerService implements BundleListener
     private StateFileManagerItf stateFileManagerItf;
 
     // iPOJO injection
-    private BundleContext bundleContext;    
-    
+    private BundleContext bundleContext;
+
     public BundleListenerService(BundleContext bc)
     {
         this.bundleContext = bc;
     }
-    
+
     public void start()
     {
         bundleContext.addBundleListener(this);
     }
-    
+
     public void stop()
     {
         bundleContext.removeBundleListener(this);
@@ -67,7 +71,17 @@ public class BundleListenerService implements BundleListener
                 service = new Service(be.getBundle().getBundleId(),
                         be.getBundle().getSymbolicName(),
                         be.getBundle().getLocation(),
-                        Service.ServiceState.INSTALLED);
+                        Service.BundleState.INSTALLED);
+
+                Service.ServiceDeployment serviceDeployment = Service.ServiceDeployment.valueOf(be.getBundle().getHeaders().get("Deployment").toUpperCase());
+                Service.ServiceMigrability serviceMigrability = Service.ServiceMigrability.valueOf(be.getBundle().getHeaders().get("Migration").toUpperCase());
+                Service.ServiceState serviceState = Service.ServiceState.valueOf(be.getBundle().getHeaders().get("State").toUpperCase());
+                Service.Execution execution = Service.Execution.valueOf(be.getBundle().getHeaders().get("Execution").toUpperCase());
+
+                service.setServiceDeployment(serviceDeployment);
+                service.setServiceMigrability(serviceMigrability);
+                service.setServiceState(serviceState);
+                service.setExecution(execution);
 
                 localDatabaseItf.put(service.getId(), service);
                 stateFileManagerItf.load(service.getName());
@@ -75,20 +89,20 @@ public class BundleListenerService implements BundleListener
 
             case BundleEvent.STARTED:
                 service = localDatabaseItf.get(be.getBundle().getBundleId());
-                service.setServiceState(Service.ServiceState.STARTED);
+                service.setBundleState(Service.BundleState.STARTED);
                 localDatabaseItf.put(service.getId(), service);
                 break;
 
             case BundleEvent.STOPPED:
                 service = localDatabaseItf.get(be.getBundle().getBundleId());
-                service.setServiceState(Service.ServiceState.STOPPED);
+                service.setBundleState(Service.BundleState.STOPPED);
                 localDatabaseItf.put(service.getId(), service);
                 stateFileManagerItf.save(service.getName());
                 break;
 
             case BundleEvent.UNINSTALLED:
                 service = localDatabaseItf.get(be.getBundle().getBundleId());
-                service.setServiceState(Service.ServiceState.UNINSTALLED);
+                service.setBundleState(Service.BundleState.UNINSTALLED);
                 localDatabaseItf.put(service.getId(), service);
                 break;
 

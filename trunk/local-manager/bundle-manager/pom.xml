@@ -61,9 +61,10 @@
                             org.osgi.framework;version=1.5,
                             *
                         </Import-Package>
-                        <Deployment>localised</Deployment>
+                        <Deployment>localized</Deployment>
                         <Migration>static</Migration>
                         <State>stateless</State>
+                        <Execution>optional</Execution>
                     </instructions>
                 </configuration>
             </plugin>

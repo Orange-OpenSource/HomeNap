@@ -36,7 +36,7 @@ public class Device
     private String mac;
     private DeviceState deviceState;
     private List<DeviceState> statesSupported;
-    private Map<String, Service.ServiceState> servicesState;
+    private Map<String, Service.BundleState> servicesState;
     private int consumptionOff;
     private int consumptionOn;
     private List<Service> servicesOnDevice = new ArrayList<Service>();
@@ -62,9 +62,9 @@ public class Device
 
     public List<DeviceState> getStatesSupported() { return this.statesSupported; }
 
-    public void setServicesState(Map<String, Service.ServiceState> servicesState) { this.servicesState = servicesState; }
+    public void setServicesState(Map<String, Service.BundleState> servicesState) { this.servicesState = servicesState; }
 
-    public Map<String, Service.ServiceState> getServicesState() { return this.servicesState; }
+    public Map<String, Service.BundleState> getServicesState() { return this.servicesState; }
 
     public void setConsumptionOff(int consumptionOff) { this.consumptionOff = consumptionOff; }
 

@@ -36,9 +36,6 @@ public class MigrationManager implements MigrationHandlerManagerItf
     // iPOJO requires
     private LocalDatabaseItf localDatabaseItf;
 
-    // iPOJO properties
-    private String directory;
-
     protected void start()
     {
         // Attach handler to iPOJO components (TODO: to move to pom.xml?)
@@ -47,30 +44,38 @@ public class MigrationManager implements MigrationHandlerManagerItf
 
     public Map<String, Object> registerComponent(Long bundleId, String instanceName)
     {
-        System.out.println("Adding component " + instanceName + " to bundle " + bundleId);
-
         Service service = localDatabaseItf.get(bundleId);
 
-        if (service.getComponents().get(instanceName) == null)
+        if (service.getServiceState().equals(Service.ServiceState.STATEFUL))
         {
-            StatefulComponent statefulComponent = new StatefulComponent();
+            System.out.println("Adding component " + instanceName + " to bundle " + bundleId);
 
-            statefulComponent.setComponentName(instanceName);
+            if (service.getComponents().get(instanceName) == null)
+            {
+                StatefulComponent statefulComponent = new StatefulComponent();
 
-            service.getComponents().put(instanceName, statefulComponent);
+                statefulComponent.setComponentName(instanceName);
 
-            return null;
+                service.getComponents().put(instanceName, statefulComponent);
+
+                return null;
+            }
+            else
+                return service.getComponents().get(instanceName).getProperties();
         }
-
-        return service.getComponents().get(instanceName).getProperties();
+        else
+            return null;
     }
 
     public void unRegisterComponent(Long bundleId, Map<String, Object> propertiesMap, String instanceName)
     {
-        System.out.println("Removing component " + instanceName + " from bundle " + bundleId);
-
         Service service = localDatabaseItf.get(bundleId);
 
-        service.getComponents().get(instanceName).setProperties(propertiesMap);
+        if (service.getServiceState().equals(Service.ServiceState.STATEFUL))
+        {
+            System.out.println("Removing component " + instanceName + " from bundle " + bundleId);
+
+            service.getComponents().get(instanceName).setProperties(propertiesMap);
+        }
     }
 }

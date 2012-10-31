@@ -58,9 +58,10 @@
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
                         <Private-Package>com.orange.services.concatenate.*</Private-Package>
                         <Import-Package>*</Import-Package>
-                        <Deployment>alocalised</Deployment>
+                        <Deployment>alocalized</Deployment>
                         <Migration>static</Migration>
                         <State>stateless</State>
+                        <Execution>mandatory</Execution>
                     </instructions>
                 </configuration>
             </plugin>
