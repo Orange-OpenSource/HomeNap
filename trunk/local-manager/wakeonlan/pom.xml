@@ -56,7 +56,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Private-Package>com.orange.homenap.localmanager.json.*</Private-Package>
+                        <Private-Package>com.orange.homenap.localmanager.wakeonlan.*</Private-Package>
                         <Import-Package>*</Import-Package>
                         <Deployment>localized</Deployment>
                         <Migration>static</Migration>

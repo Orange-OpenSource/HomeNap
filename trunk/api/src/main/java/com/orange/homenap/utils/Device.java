@@ -34,6 +34,7 @@ public class Device
 
     private String id;
     private String mac;
+    private String ip;
     private DeviceState deviceState;
     private List<DeviceState> statesSupported;
     private Map<String, Service.BundleState> servicesState;
@@ -53,6 +54,10 @@ public class Device
     public void setMac(String mac) { this.mac = mac; }
 
     public String getMac() { return this.mac; }
+
+    public void setIp(String ip) { this.ip = ip; }
+
+    public String getIp() { return this.ip; }
 
     public void setDeviceState(DeviceState deviceState) { this.deviceState = deviceState; }
 
