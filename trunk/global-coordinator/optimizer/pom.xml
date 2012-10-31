@@ -57,8 +57,17 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Private-Package>com.orange.homenap.globalcoordinator.globaldatabase.*</Private-Package>
-                        <Import-Package>*</Import-Package>
+                        <Export-Package>com.orange.homenap.globalcoordinator.optimizer.*</Export-Package>
+                        <Import-Package>
+                            !com.sun.*,
+                            !javax.*,
+                            org.xml.sax.*,
+                            !org.jgraph.*,
+                            !com.touchgraph.graphlayout.*,
+                            *
+                        </Import-Package>
+                        <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
+                        <Embed-Transitive>true</Embed-Transitive>
                         <Deployment>alocalised</Deployment>
                         <Migration>migratable</Migration>
                         <State>stateful</State>
