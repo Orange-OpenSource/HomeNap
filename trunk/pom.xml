@@ -39,7 +39,6 @@
         <ipojo.version>1.8.0</ipojo.version>
         <felix.version>4.1.0-SNAPSHOT</felix.version>
         <choco.version>2.1.4</choco.version>
-        <frascati.version>1.5-SNAPSHOT</frascati.version>
     </properties>
 
     <!-- ============ -->
@@ -141,10 +140,8 @@
 
     <modules>
         <module>local-manager</module>
-        <module>local-manager-upnp</module>
         <module>api</module>
         <module>global-coordinator</module>
-        <module>global-coordinator-upnp</module>
         <module>services</module>
     </modules>
 </project>

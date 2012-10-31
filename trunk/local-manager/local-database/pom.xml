@@ -56,7 +56,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Private-Package>com.orange.homenap.services.localdatabase.*</Private-Package>
+                        <Private-Package>com.orange.homenap.localmanager.localdatabase.*</Private-Package>
                         <Import-Package>*</Import-Package>
                         <Deployment>localised</Deployment>
                         <Migration>static</Migration>

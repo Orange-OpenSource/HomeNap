@@ -56,7 +56,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Private-Package>com.orange.homenap.services.bundlemanager.*</Private-Package>
+                        <Private-Package>com.orange.homenap.localmanager.bundlemanager.*</Private-Package>
                         <Import-Package>
                             org.osgi.framework;version=1.5,
                             *

@@ -60,7 +60,6 @@
                             com.orange.homenap.api,
                             com.orange.homenap.utils,
                             com.orange.homenap.handler,
-                            com.orange.homenap.json
                         </Export-Package>
                         <Import-Package>*</Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>

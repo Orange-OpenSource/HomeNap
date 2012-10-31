@@ -43,7 +43,7 @@ public class BundleManager implements BundleManagerItf
         this.bundleContext = bundleContext;
     }
 
-    public void start(String url)
+    public void start(String url, String migrationState)
     {
         Bundle bundle = null;
 

@@ -28,7 +28,7 @@ import com.orange.homenap.utils.Service;
 
 public interface BundleManagerItf
 {
-    public void start(String url);
-
+    public void start(String url, String migrationState);
+    
     public Service stop(String serviceId);
 }

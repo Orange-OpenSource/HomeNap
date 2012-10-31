@@ -60,7 +60,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Private-Package>com.orange.homenap.services.json.*</Private-Package>
+                        <Private-Package>com.orange.homenap.localmanager.json.*</Private-Package>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                         <Import-Package>*</Import-Package>
                         <Deployment>localised</Deployment>
