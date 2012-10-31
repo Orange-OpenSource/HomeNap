@@ -57,11 +57,11 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Private-Package>com.orange.homenap.globalcoordinator.globaldatabase.*</Private-Package>
+                        <Private-Package>com.orange.homenap.globalcoordinator.migrater.*</Private-Package>
                         <Import-Package>*</Import-Package>
                         <Deployment>alocalised</Deployment>
                         <Migration>migratable</Migration>
-                        <State>stateful</State>
+                        <State>stateless</State>
                     </instructions>
                 </configuration>
             </plugin>

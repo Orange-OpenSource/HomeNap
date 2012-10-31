@@ -70,7 +70,7 @@
                         <Embed-Transitive>true</Embed-Transitive>
                         <Deployment>alocalised</Deployment>
                         <Migration>migratable</Migration>
-                        <State>stateful</State>
+                        <State>stateless</State>
                     </instructions>
                 </configuration>
             </plugin>

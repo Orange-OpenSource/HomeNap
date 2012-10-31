@@ -22,7 +22,7 @@
 
 <ipojo xmlns:ev="org.apache.felix.ipojo.handlers.event">
     <!-- DeviceManager -->
-    <component classname="com.orange.homenap.localmanager.eventlistener.DeviceManager" name="device-manager">
+    <component classname="com.orange.homenap.localmanager.eventlistener.DeviceManager" name="event-listener">
         <provides/>
 
         <requires field="bundleManagerItf"/>
@@ -38,5 +38,5 @@
         <callback transition="invalidate" method="stop"/>
     </component>
 
-    <instance component="device-manager"/>
+    <instance component="event-listener"/>
 </ipojo>
