@@ -89,7 +89,7 @@
         </dependency>-->
 
         <dependency>
-            <groupId>com.olnc.made.services</groupId>
+            <groupId>com.orange.homenap.services</groupId>
             <artifactId>concatenate</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
