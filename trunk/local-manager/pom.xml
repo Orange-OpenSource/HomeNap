@@ -50,5 +50,6 @@
         <module>upnp-controlpoint-manager</module>
         <module>upnp-device-manager</module>
         <module>repository-manager</module>
+        <module>manifest-reader</module>
     </modules>
 </project>

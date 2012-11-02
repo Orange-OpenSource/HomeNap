@@ -115,6 +115,13 @@
 
         <dependency>
             <groupId>com.orange.homenap.localmanager</groupId>
+            <artifactId>manifest-reader</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.homenap.localmanager</groupId>
             <artifactId>migration-service</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>

@@ -25,10 +25,10 @@
 package com.orange.homenap.localmanager.bundlelistener;
 
 import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
+import com.orange.homenap.localmanager.manifestreader.ManifestReaderItf;
 import com.orange.homenap.localmanager.migrationservice.StateFileManagerItf;
 import com.orange.homenap.localmanager.repositorymanager.RepositoryManagerItf;
 import com.orange.homenap.utils.Service;
-import org.apache.felix.framework.util.manifestparser.ManifestParser;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.BundleListener;
@@ -44,6 +44,7 @@ public class BundleListenerService implements BundleListener
     private LocalDatabaseItf localDatabaseItf;
     private StateFileManagerItf stateFileManagerItf;
     private RepositoryManagerItf repositoryManagerItf;
+    private ManifestReaderItf manifestReaderItf;
 
     // iPOJO injection
     private BundleContext bundleContext;
@@ -79,15 +80,10 @@ public class BundleListenerService implements BundleListener
                         bundleLocation,
                         Service.BundleState.INSTALLED);
 
-                Service.ServiceDeployment serviceDeployment = Service.ServiceDeployment.valueOf(be.getBundle().getHeaders().get("Deployment").toUpperCase());
-                Service.ServiceMigrability serviceMigrability = Service.ServiceMigrability.valueOf(be.getBundle().getHeaders().get("Migration").toUpperCase());
-                Service.ServiceState serviceState = Service.ServiceState.valueOf(be.getBundle().getHeaders().get("State").toUpperCase());
-                Service.Execution execution = Service.Execution.valueOf(be.getBundle().getHeaders().get("Execution").toUpperCase());
-
-                service.setServiceDeployment(serviceDeployment);
-                service.setServiceMigrability(serviceMigrability);
-                service.setServiceState(serviceState);
-                service.setExecution(execution);
+                service.setServiceDeployment(manifestReaderItf.getServiceDeployment(be.getBundle()));
+                service.setServiceMigrability(manifestReaderItf.getServiceMigrability(be.getBundle()));
+                service.setServiceState(manifestReaderItf.getServiceState(be.getBundle()));
+                service.setExecution(manifestReaderItf.getExecution(be.getBundle()));
 
                 localDatabaseItf.put(service.getId(), service);
                 stateFileManagerItf.load(service.getName());
