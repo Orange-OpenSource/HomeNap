@@ -161,7 +161,55 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
         }
     }
 
-    public void updateServicesState(String deviceId, Map<String, Service.BundleState> servicesState)
+    public void startService(String deviceId, Service service)
+    {
+        System.out.println("Updating services state");
+
+        if (globalCoordinator != null)
+        {
+            try {
+                UPnPService uPnPService = globalCoordinator.getService("urn:upnp-org:serviceId:GlobalCoordinator.1");
+                UPnPAction action = uPnPService.getAction("StartService");
+
+                Hashtable<String, Object> dico = new Hashtable<String, Object>();
+
+                dico.put("ServiceInfo", gsonServiceItf.toJson(service));
+                dico.put("DeviceId", deviceId);
+
+                action.invoke(dico);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else
+            System.out.println("GlobalCoordinator not connected");
+    }
+
+    public void stopService(String deviceId, String serviceId)
+    {
+        System.out.println("Updating services state");
+
+        if (globalCoordinator != null)
+        {
+            try {
+                UPnPService uPnPService = globalCoordinator.getService("urn:upnp-org:serviceId:GlobalCoordinator.1");
+                UPnPAction action = uPnPService.getAction("StopService");
+
+                Hashtable<String, Object> dico = new Hashtable<String, Object>();
+
+                dico.put("ServiceId", serviceId);
+                dico.put("DeviceId", deviceId);
+
+                action.invoke(dico);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else
+            System.out.println("GlobalCoordinator not connected");
+    }
+
+    /*public void updateServicesState(String deviceId, Map<String, Service.BundleState> servicesState)
     {
         System.out.println("Updating services state");
 
@@ -183,7 +231,7 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
         }
         else
             System.out.println("GlobalCoordinator not connected");
-    }
+    }*/
 
     public void updateDeviceState(String deviceId, Device.DeviceState state)
     {

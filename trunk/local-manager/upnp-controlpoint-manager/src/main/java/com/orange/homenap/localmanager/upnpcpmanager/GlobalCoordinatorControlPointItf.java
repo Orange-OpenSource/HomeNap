@@ -31,7 +31,11 @@ import java.util.Map;
 
 public interface GlobalCoordinatorControlPointItf
 {
-    public void updateServicesState(String deviceId, Map<String, Service.BundleState> servicesState);
+    public void startService(String deviceId, Service service);
+
+    public void stopService(String deviceId, String serviceId);
+
+    //public void updateServicesState(String deviceId, Map<String, Service.BundleState> servicesState);
 
     public void updateDeviceState(String deviceId, Device.DeviceState state);
 }
