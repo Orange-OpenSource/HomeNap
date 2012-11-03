@@ -31,7 +31,7 @@
 
         <properties>
             <property field="deviceInfoFile"
-                      value="/home/kxzj6354/workspace/These/homenap/device.json"
+                      value="DEVICE_FILE"
                       mandatory="true"/>
         </properties>
     </component>

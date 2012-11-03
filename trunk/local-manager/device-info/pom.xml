@@ -37,8 +37,35 @@
 
     <packaging>bundle</packaging>
 
+    <properties>
+        <device.file>${env.DEVICE_FILE}</device.file>
+    </properties>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.1</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <file>target/classes/metadata.xml</file>
+                    <replacements>
+                        <replacement>
+                            <token>DEVICE_FILE</token>
+                            <value>${device.file}</value>
+                        </replacement>
+                    </replacements>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -62,6 +89,7 @@
                         <Migration>static</Migration>
                         <State>stateless</State>
                         <Execution>optional</Execution>
+                        <Include-Resource>target/classes/metadata.xml</Include-Resource>
                     </instructions>
                 </configuration>
             </plugin>
@@ -70,6 +98,9 @@
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-ipojo-plugin</artifactId>
                 <version>${maven.ipojo.version}</version>
+                <configuration>
+                    <metadata>target/classes/metadata.xml</metadata>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
