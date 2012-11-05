@@ -57,7 +57,10 @@
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
                         <Private-Package>com.orange.homenap.localmanager.manifestreader.*</Private-Package>
-                        <Import-Package>*</Import-Package>
+                        <Import-Package>
+                            org.osgi.framework;version=1.5,
+                            *
+                        </Import-Package>
                         <Deployment>localized</Deployment>
                         <Migration>static</Migration>
                         <State>stateless</State>
