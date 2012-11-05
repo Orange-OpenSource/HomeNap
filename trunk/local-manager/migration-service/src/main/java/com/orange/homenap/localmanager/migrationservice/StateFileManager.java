@@ -63,11 +63,24 @@ public class StateFileManager implements StateFileManagerItf
         // Deleting temporaries files and directories
         if ((new File(directory)).exists())
         {
-            boolean result = (new File(directory)).delete();
-
-            if(!result)
-                System.out.println("Unable to remove " + directory + " directory");
+            try {
+                delete(new File(directory));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    private void delete(File f) throws IOException
+    {
+        if (f.isDirectory())
+        {
+            for (File c : f.listFiles())
+                delete(c);
+        }
+
+        if (!f.delete())
+            System.out.println("Unable to remove " + directory + " directory");
     }
 
     public void save(String bundleName)
