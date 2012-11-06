@@ -1,6 +1,6 @@
 /*
  * --------------------------------------------------------
- *  Module Name : manifest-reader
+ *  Module Name : event-listener
  *  Version : 0.1-SNAPSHOT
  *
  *  Software Name : HomeNap
@@ -12,7 +12,7 @@
  *  or see the "LICENSE-2.0.txt" file for more details.
  *
  * --------------------------------------------------------
- *  File Name   : WakeOnLanItf.java
+ *  File Name   : MigrationEvent.java
  *
  *  Created     : 28/06/2012
  *  Author(s)   : Remi Druilhe
@@ -22,22 +22,9 @@
  * --------------------------------------------------------
  */
 
-package com.orange.homenap.localmanager.manifestreader;
+package com.orange.homenap.localmanager.eventlistener;
 
-import com.orange.homenap.utils.Service;
-import org.osgi.framework.Bundle;
-
-import java.util.Map;
-
-public interface ManifestReaderItf
+public interface MigrationEvent
 {
-    public Service.ServiceDeployment getServiceDeployment(Bundle bundle);
-
-    public Service.ServiceMigrability getServiceMigrability(Bundle bundle);
-
-    public Service.ServiceState getServiceState(Bundle bundle);
-
-    public Service.Execution getExecution(Bundle bundle);
-
-    public Map<String, String> getServiceResources(Bundle bundle);
+    public void migrateComponent(String componentName, String toDeviceId, String wakeUpAddress);
 }

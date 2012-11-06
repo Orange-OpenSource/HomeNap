@@ -21,8 +21,8 @@
   -->
 
 <ipojo xmlns:ev="org.apache.felix.ipojo.handlers.event">
-    <!-- DeviceManager -->
-    <component classname="com.orange.homenap.localmanager.eventlistener.DeviceManager" name="event-listener">
+    <!-- EventListener -->
+    <component classname="com.orange.homenap.localmanager.eventlistener.EventListener" name="event-listener">
         <provides/>
 
         <requires field="bundleManagerItf"/>

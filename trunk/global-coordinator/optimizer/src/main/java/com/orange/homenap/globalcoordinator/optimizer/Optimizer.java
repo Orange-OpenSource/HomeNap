@@ -110,7 +110,7 @@ public class Optimizer implements OptimizerItf
         // Management of mobility: fix values of unmigratable services to aij = 1
         for(int j = 0; j < m; j++)
         {
-            if(globalDatabaseItf.getService(j).getServiceMigrability().equals(Service.ServiceMigrability.MIGRATABLE))
+            if(globalDatabaseItf.getService(j).getMigrability().equals(Service.Migrability.MIGRATABLE))
             {
                 for(int i = 0; i < n; i++)
                 {

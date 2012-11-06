@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-*  Module Name : wakeonlan
+*  Module Name : bundle-manager
 *  Version : 0.1-SNAPSHOT
 *
 *  Software Name : HomeNap
@@ -13,7 +13,7 @@
 *
 *  File Name   : metadata.xml
 *
-*  Created     : 28/06/2012
+*  Created     : 16/10/2012
 *  Author(s)   : Remi Druilhe
 *
 *  Description :
@@ -21,10 +21,13 @@
   -->
 
 <ipojo>
-    <!-- ManifestReader -->
-    <component classname="com.orange.homenap.localmanager.manifestreader.ManifestReader" name="manifest-reader">
-        <provides />
+    <!-- BundleManager -->
+    <component classname="com.orange.homenap.localmanager.architecturereader.ArchitectureReader" name="architecture-reader">
+        <provides/>
+
+        <requires field="gsonServiceItf"/>
+        <requires field="bundleManagerItf"/>
     </component>
 
-    <instance component="manifest-reader"/>
+    <instance component="architecture-reader"/>
 </ipojo>

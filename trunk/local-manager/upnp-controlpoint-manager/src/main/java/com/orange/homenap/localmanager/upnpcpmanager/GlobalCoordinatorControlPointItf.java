@@ -24,6 +24,7 @@
 
 package com.orange.homenap.localmanager.upnpcpmanager;
 
+import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Device;
 import com.orange.homenap.utils.Service;
 
@@ -31,11 +32,9 @@ import java.util.Map;
 
 public interface GlobalCoordinatorControlPointItf
 {
-    public void startService(String deviceId, Service service);
+    public void startArchitecture(Architecture architecture);
 
-    public void stopService(String deviceId, String serviceId);
-
-    //public void updateServicesState(String deviceId, Map<String, Service.BundleState> servicesState);
+    public void stopArchitecture(Architecture architecture);
 
     public void updateDeviceState(String deviceId, Device.DeviceState state);
 }

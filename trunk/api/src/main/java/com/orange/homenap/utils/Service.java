@@ -28,19 +28,17 @@ import java.util.Map;
 
 public class Service
 {
-    public static enum BundleState {INSTALLED, STARTED, STOPPED, UNINSTALLED, UNAVAILABLE}
-    public static enum ServiceDeployment {LOCALIZED, ALOCALIZED}
-    public static enum ServiceMigrability {MIGRATABLE, STATIC}
-    public static enum ServiceState {STATEFUL, STATELESS}
+    public static enum Deployement {LOCALIZED, ALOCALIZED}
+    public static enum Migrability {MIGRATABLE, STATIC}
+    public static enum State {STATEFUL, STATELESS}
     public static enum Execution { MANDATORY, OPTIONAL }
 
     private Long id;
-    private String bundleName;
-    private String bundleUrl;
-    private BundleState bundleState;
-    private ServiceDeployment serviceDeployment;
-    private ServiceMigrability serviceMigrability;
-    private ServiceState serviceState;
+    private String name;
+    private String url;
+    private Deployement deployement;
+    private Migrability migrability;
+    private State state;
     private Execution execution;
     private Map<String, StatefulComponent> components;
     private Map<String, Integer> resources = new HashMap<String, Integer>();
@@ -50,12 +48,11 @@ public class Service
         this.components = new HashMap<String, StatefulComponent>();
     }
 
-    public Service(Long id, String bundleName, String bundleUrl, BundleState bundleState)
+    public Service(Long id, String name, String bundleUrl)
     {
         this.id = id;
-        this.bundleName = bundleName;
-        this.bundleUrl = bundleUrl;
-        this.bundleState = bundleState;
+        this.name = name;
+        this.url = bundleUrl;
         this.components = new HashMap<String, StatefulComponent>();
     }
 
@@ -63,39 +60,19 @@ public class Service
 
     public Long getId() { return this.id; }
 
-    public void setBundleName(String bundleName) { this.bundleName = bundleName; }
+    public void setName(String name) { this.name = name; }
 
-    public String getBundleName() { return this.bundleName; }
+    public String getName() { return this.name; }
 
-    public String getName() { return this.bundleName; }
+    public void setUrl(String url) { this.url = url; }
 
-    public void setBundleUrl(String bundleUrl) { this.bundleUrl = bundleUrl; }
-
-    public String getBundleUrl() { return this.bundleUrl; }
-
-    public void setBundleState(BundleState bundleState) { this.bundleState = bundleState; }
-
-    public BundleState getBundleState() { return this.bundleState; }
+    public String getUrl() { return this.url; }
 
     public void setComponents(Map<String, StatefulComponent> components) { this.components = components; }
 
     public Map<String, StatefulComponent> getComponents() { return this.components; }
 
-    public void setServiceDeployment(ServiceDeployment serviceDeployment) { this.serviceDeployment = serviceDeployment; }
-
-    public ServiceDeployment getServiceDeployment() { return serviceDeployment; }
-
-    public void setServiceMigrability(ServiceMigrability serviceMigrability) { this.serviceMigrability = serviceMigrability; }
-
-    public ServiceMigrability getServiceMigrability() { return serviceMigrability; }
-
-    public void setServiceState(ServiceState serviceState) { this.serviceState = serviceState; }
-
-    public ServiceState getServiceState() { return serviceState; }
-
-    public void setExecution(Execution execution) { this.execution = execution; }
-
-    public Execution getExecution() { return execution; }
+    public State getState() { return state; }
 
     public void setResources(Map<String, Integer> resources) { this.resources = resources; }
 

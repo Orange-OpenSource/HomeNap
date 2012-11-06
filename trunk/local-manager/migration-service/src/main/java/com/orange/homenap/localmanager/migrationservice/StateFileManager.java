@@ -26,8 +26,7 @@ package com.orange.homenap.localmanager.migrationservice;
 
 import com.orange.homenap.localmanager.json.GsonServiceItf;
 import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
-import com.orange.homenap.utils.Service;
-import com.orange.homenap.utils.StatefulComponent;
+import com.orange.homenap.utils.Component;
 
 import java.io.*;
 import java.util.HashMap;
@@ -83,18 +82,18 @@ public class StateFileManager implements StateFileManagerItf
             System.out.println("Unable to remove " + directory + " directory");
     }
 
-    public void save(String bundleName)
+    public void save(String componentName)
     {
-        Service service = localDatabaseItf.get(localDatabaseItf.getServiceId(bundleName));
+        Component component = localDatabaseItf.getComponent(componentName);
 
-        if (service.getServiceState().equals(Service.ServiceState.STATEFUL))
+        if (component.getState().equals(Component.State.STATEFUL))
         {
-            System.out.println("Saving state to file " + directory + "/" + bundleName + ".json");
+            System.out.println("Saving state to file " + directory + "/" + component.getName() + ".json");
 
             try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(directory + "/" + bundleName + ".json"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter(directory + "/" + component.getName() + ".json"));
 
-                writer.write(gsonServiceItf.toJson(service.getComponents()));
+                writer.write(gsonServiceItf.toJson(component.getProperties()));
 
                 writer.close();
             } catch (IOException e) {
@@ -103,21 +102,20 @@ public class StateFileManager implements StateFileManagerItf
         }
     }
 
-    public void load(String bundleName)
+    public void load(String componentName)
     {
-        Service service = localDatabaseItf.get(localDatabaseItf.getServiceId(bundleName));
+        Component component = localDatabaseItf.getComponent(componentName);
 
-        if (service.getServiceState().equals(Service.ServiceState.STATEFUL))
+        if (component.getState().equals(Component.State.STATEFUL))
         {
-            if (stateFileExist(bundleName))
+            if (stateFileExist(component.getName()))
             {
-                Map<String, StatefulComponent> components = new HashMap<String, StatefulComponent>();
                 StringBuilder json = new StringBuilder();
 
-                System.out.println("Loading state from file " + directory + "/" + bundleName + ".json");
+                System.out.println("Loading state from file " + directory + "/" + component.getName() + ".json");
 
                 try {
-                    BufferedReader reader = new BufferedReader(new FileReader(directory + "/" + bundleName + ".json"));
+                    BufferedReader reader = new BufferedReader(new FileReader(directory + "/" + component.getName() + ".json"));
 
                     String strLine;
 
@@ -131,13 +129,15 @@ public class StateFileManager implements StateFileManagerItf
                     e.printStackTrace();
                 }
 
-                components = gsonServiceItf.fromJson(json.toString(), Map.class);
+                Map<String, Object> properties = new HashMap<String, Object>();
 
-                service.setComponents(components);
+                properties = gsonServiceItf.fromJson(json.toString(), Map.class);
+
+                component.setProperties(properties);
             }
             else
             {
-                System.out.println(directory + "/" + bundleName + ".json does not exist. Starting from beginning");
+                System.out.println(directory + "/" + component.getName() + ".json does not exist. Starting from beginning");
             }
         }
     }

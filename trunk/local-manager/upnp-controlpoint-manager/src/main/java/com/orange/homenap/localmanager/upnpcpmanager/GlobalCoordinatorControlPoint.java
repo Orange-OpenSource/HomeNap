@@ -26,6 +26,7 @@ package com.orange.homenap.localmanager.upnpcpmanager;
 
 import com.orange.homenap.localmanager.deviceinfo.DeviceInfoItf;
 import com.orange.homenap.localmanager.json.GsonServiceItf;
+import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Device;
 import com.orange.homenap.utils.Service;
 import org.osgi.framework.*;
@@ -35,13 +36,11 @@ import org.osgi.service.upnp.UPnPService;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
-import java.util.Map;
 
 public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoordinatorControlPointItf
 {
     // TODO: iPOJO properties ?
     //private String UDN_GLOBAL_COORDINATOR = "uuid:FTRD-MAPS-GlobalCoordinator-UPnPGEN";
-    //private String TYPE_GLOBAL_COORDINATOR = "urn:schemas-upnp-org:device:GlobalCoordinator:1";
 
     // iPOJO requires
     private DeviceInfoItf deviceInfoItf;
@@ -65,10 +64,7 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
     {
         // Add service listener to GlobalCoordinator
         String globalCoordinatorFilter = "(&" + "(" + Constants.OBJECTCLASS + "=" + UPnPDevice.class.getName() + ")"
-                //+ "(" + UPnPDevice.UDN + "=" + UDN_GLOBAL_COORDINATOR + ")" + ")";
                 + "(" + UPnPDevice.TYPE + "=" + typeGlobalCoordinator + ")" + ")";
-
-        //System.out.println("Filtering on " + globalCoordinatorFilter);
 
         try {
             bundleContext.addServiceListener(this, globalCoordinatorFilter);
@@ -161,7 +157,7 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
         }
     }
 
-    public void startService(String deviceId, Service service)
+    public void startArchitecture(Architecture architecture)
     {
         System.out.println("Updating services state");
 
@@ -173,8 +169,8 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
 
                 Hashtable<String, Object> dico = new Hashtable<String, Object>();
 
-                dico.put("ServiceInfo", gsonServiceItf.toJson(service));
-                dico.put("DeviceId", deviceId);
+                dico.put("ServiceInfo", gsonServiceItf.toJson(architecture));
+                dico.put("DeviceId", deviceInfoItf.getDevice().getId());
 
                 action.invoke(dico);
             } catch (Exception e) {
@@ -185,7 +181,7 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
             System.out.println("GlobalCoordinator not connected");
     }
 
-    public void stopService(String deviceId, String serviceId)
+    public void stopArchitecture(Architecture architecture)
     {
         System.out.println("Updating services state");
 
@@ -197,8 +193,8 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
 
                 Hashtable<String, Object> dico = new Hashtable<String, Object>();
 
-                dico.put("ServiceId", serviceId);
-                dico.put("DeviceId", deviceId);
+                dico.put("ServiceId", architecture.getName());
+                dico.put("DeviceId", deviceInfoItf.getDevice().getId());
 
                 action.invoke(dico);
             } catch (Exception e) {
@@ -208,30 +204,6 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
         else
             System.out.println("GlobalCoordinator not connected");
     }
-
-    /*public void updateServicesState(String deviceId, Map<String, Service.BundleState> servicesState)
-    {
-        System.out.println("Updating services state");
-
-        if (globalCoordinator != null)
-        {
-            try {
-                UPnPService uPnPService = globalCoordinator.getService("urn:upnp-org:serviceId:GlobalCoordinator.1");
-                UPnPAction action = uPnPService.getAction("UpdateServicesState");
-
-                Hashtable<String, Object> dico = new Hashtable<String, Object>();
-
-                dico.put("DeviceId", deviceId);
-                dico.put("ServicesState", gsonServiceItf.toJson(servicesState));
-
-                action.invoke(dico);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        else
-            System.out.println("GlobalCoordinator not connected");
-    }*/
 
     public void updateDeviceState(String deviceId, Device.DeviceState state)
     {

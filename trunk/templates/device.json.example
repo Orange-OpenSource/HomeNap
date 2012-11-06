@@ -3,7 +3,6 @@
 	"ip": "10.194.3.157",
 	"deviceState": "ON",
 	"statesSupported": ["ON","SLEEP","HIBERNATE","OFF"],
-	"servicesState": {"download":"UNINSTALLED"},
 	"consumptionOn": 105,
 	"consumptionOff": 5,
 	"qorDeviceMax": {"CPU":5984,"RAM":2059984,"ROM":274}

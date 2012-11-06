@@ -26,9 +26,9 @@ package com.orange.homenap.localmanager.migrationservice;
 
 import com.orange.homenap.api.MigrationHandlerManagerItf;
 import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
-import com.orange.homenap.utils.Service;
-import com.orange.homenap.utils.StatefulComponent;
+import com.orange.homenap.utils.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MigrationManager implements MigrationHandlerManagerItf
@@ -42,40 +42,36 @@ public class MigrationManager implements MigrationHandlerManagerItf
         System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.orange.homenap.handler:migration-handler");
     }
 
-    public Map<String, Object> registerComponent(Long bundleId, String instanceName)
+    public Map<String, Object> registerComponent(Long bundleId, String componentName)
     {
-        Service service = localDatabaseItf.get(bundleId);
+        Component component = localDatabaseItf.getComponent(componentName);
 
-        if (service.getServiceState().equals(Service.ServiceState.STATEFUL))
+        if (component.getState().equals(Component.State.STATEFUL))
         {
-            System.out.println("Adding component " + instanceName + " to bundle " + bundleId);
+            System.out.println("Adding component " + componentName + " to bundle " + bundleId);
 
-            if (service.getComponents().get(instanceName) == null)
+            if (component.getProperties().get(componentName) == null)
             {
-                StatefulComponent statefulComponent = new StatefulComponent();
-
-                statefulComponent.setComponentName(instanceName);
-
-                service.getComponents().put(instanceName, statefulComponent);
+                component.setProperties(new HashMap<String, Object>());
 
                 return null;
             }
             else
-                return service.getComponents().get(instanceName).getProperties();
+                return component.getProperties();
         }
         else
             return null;
     }
 
-    public void unRegisterComponent(Long bundleId, Map<String, Object> propertiesMap, String instanceName)
+    public void unRegisterComponent(Long bundleId, Map<String, Object> propertiesMap, String componentName)
     {
-        Service service = localDatabaseItf.get(bundleId);
+        Component component = localDatabaseItf.getComponent(componentName);
 
-        if (service.getServiceState().equals(Service.ServiceState.STATEFUL))
+        if (component.getState().equals(Component.State.STATEFUL))
         {
-            System.out.println("Removing component " + instanceName + " from bundle " + bundleId);
+            System.out.println("Removing component " + componentName + " from bundle " + bundleId);
 
-            service.getComponents().get(instanceName).setProperties(propertiesMap);
+            component.setProperties(propertiesMap);
         }
     }
 }

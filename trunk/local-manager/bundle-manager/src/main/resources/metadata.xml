@@ -24,8 +24,6 @@
     <!-- BundleManager -->
     <component classname="com.orange.homenap.localmanager.bundlemanager.BundleManager" name="bundle-manager">
         <provides/>
-
-        <requires field="localDatabaseItf"/>
     </component>
 
     <instance component="bundle-manager"/>

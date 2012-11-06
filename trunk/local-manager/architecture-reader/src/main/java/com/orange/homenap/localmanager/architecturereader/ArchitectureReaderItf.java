@@ -1,6 +1,6 @@
 /*
  * --------------------------------------------------------
- *  Module Name : local-manager
+ *  Module Name : architecture-reader
  *  Version : 0.1-SNAPSHOT
  *
  *  Software Name : HomeNap
@@ -12,9 +12,9 @@
  *  or see the "LICENSE-2.0.txt" file for more details.
  *
  * --------------------------------------------------------
- *  File Name   : LocalManagerEvent.java
+ *  File Name   : ArchitectureReaderItf.java
  *
- *  Created     : 28/06/2012
+ *  Created     : 05/11/2012
  *  Author(s)   : Remi Druilhe
  *
  *  Description :
@@ -22,9 +22,11 @@
  * --------------------------------------------------------
  */
 
-package com.orange.homenap.localmanager.eventlistener;
+package com.orange.homenap.localmanager.architecturereader;
 
-public interface LocalManagerEvent
+public interface ArchitectureReaderItf
 {
-    public void migrateService(String serviceId, String toDeviceId, String wakeUpAddress);
+    public void startService(String file);
+    
+    public void stopService(String architectureName);
 }

@@ -1,6 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~  Module Name : manifest-reader
+  ~  Module Name : architecture-reader
   ~  Version : 0.1-SNAPSHOT
   ~
   ~  Software Name : HomeNap
@@ -13,7 +13,7 @@
   ~
   ~  File Name   : pom.xml
   ~
-  ~  Created     : 01/11/2012
+  ~  Created     : 16/10/2012
   ~  Author(s)   : Remi Druilhe
   ~
   ~  Description :
@@ -24,10 +24,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>manifest-reader</artifactId>
+    <artifactId>architecture-reader</artifactId>
     <groupId>com.orange.homenap.localmanager</groupId>
     <version>${parent.version}</version>
-    <name>Manifest Reader</name>
+    <name>Architecture Reader</name>
 
     <parent>
         <artifactId>local-manager</artifactId>
@@ -56,11 +56,8 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Private-Package>com.orange.homenap.localmanager.manifestreader.*</Private-Package>
-                        <Import-Package>
-                            org.osgi.framework;version=1.5,
-                            *
-                        </Import-Package>
+                        <Private-Package>com.orange.homenap.localmanager.bundlelistener.*</Private-Package>
+                        <Import-Package>*</Import-Package>
                         <Deployment>localized</Deployment>
                         <Migration>static</Migration>
                         <State>stateless</State>
@@ -86,15 +83,36 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.framework</artifactId>
-            <version>${felix.version}</version>
+            <groupId>com.orange.homenap</groupId>
+            <artifactId>api</artifactId>
+            <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.orange.homenap</groupId>
-            <artifactId>api</artifactId>
+            <groupId>com.orange.homenap.localmanager</groupId>
+            <artifactId>json-service</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.homenap.localmanager</groupId>
+            <artifactId>bundle-manager</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.homenap.localmanager</groupId>
+            <artifactId>local-database</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.homenap.localmanager</groupId>
+            <artifactId>event-listener</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

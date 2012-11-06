@@ -24,17 +24,12 @@
 
 package com.orange.homenap.localmanager.bundlemanager;
 
-import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
-import com.orange.homenap.utils.Service;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 
 public class BundleManager implements BundleManagerItf
 {
-    // iPOJO requires
-    private LocalDatabaseItf localDatabaseItf;
-
     // iPOJO injection
     private BundleContext bundleContext;
 
@@ -43,7 +38,7 @@ public class BundleManager implements BundleManagerItf
         this.bundleContext = bundleContext;
     }
 
-    public void start(String url, String migrationState)
+    public boolean start(String url)
     {
         Bundle bundle = null;
 
@@ -51,6 +46,7 @@ public class BundleManager implements BundleManagerItf
             bundle = bundleContext.installBundle(url);
         } catch (BundleException e) {
             e.printStackTrace();
+            return false;
         }
 
         System.out.println("Bundle " + bundle.getSymbolicName() + " installed");
@@ -59,33 +55,42 @@ public class BundleManager implements BundleManagerItf
             bundle.start();
         } catch (BundleException e) {
             e.printStackTrace();
+            return false;
         }
 
         System.out.println("Bundle " + bundle.getSymbolicName() + " started");
+
+        return true;
     }
 
-    public Service stop(String serviceName)
+    public boolean stop(String componentName)
     {
-        Service service = localDatabaseItf.get(localDatabaseItf.getServiceId(serviceName));
+        Bundle bundle = null;
 
-        Bundle bundle = bundleContext.getBundle(service.getId());
+        Bundle[] temp = bundleContext.getBundles();
+
+        for(int i = 0; i < temp.length; i++)
+            if(temp[i].getSymbolicName().equals(componentName))
+                bundle = temp[i];
 
         try {
             bundle.stop();
         } catch (BundleException e) {
             e.printStackTrace();
+            return false;
         }
 
-        System.out.println("Bundle " + service.getName() + " stopped");
+        System.out.println("Bundle " + componentName + " stopped");
 
         try {
             bundle.uninstall();
         } catch (BundleException e) {
             e.printStackTrace();
+            return false;
         }
 
-        System.out.println("Bundle " + service.getName() + " uninstalled");
+        System.out.println("Bundle " + componentName + " uninstalled");
 
-        return service;
+        return true;
     }
 }

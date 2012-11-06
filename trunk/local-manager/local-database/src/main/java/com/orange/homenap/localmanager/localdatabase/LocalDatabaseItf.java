@@ -24,23 +24,27 @@
 
 package com.orange.homenap.localmanager.localdatabase;
 
+import com.orange.homenap.utils.Architecture;
+import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Service;
 
 import java.util.Collection;
 
 public interface LocalDatabaseItf
 {
-    public void put(Long serviceId, Service service);
+    public void put(String name, Architecture architecture);
 
-    public Service get(Long serviceId);
+    public Architecture get(String name);
 
-    public boolean containsKey(Long serviceId);
+    public boolean containsKey(String name);
 
-    public void remove(Long serviceId);
+    public Architecture remove(String name);
 
-    public Collection<Service> values();
+    public Collection<Architecture> values();
     
-    public String getServiceName(Long serviceId);
+    //public String getServiceName(String name);
     
-    public Long getServiceId(String serviceName);
+    //public Long getComponentId(String componentName);
+
+    public Component getComponent(String componentName);
 }

@@ -25,18 +25,14 @@
 package com.orange.homenap.localmanager.bundlelistener;
 
 import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
-import com.orange.homenap.localmanager.manifestreader.ManifestReaderItf;
 import com.orange.homenap.localmanager.migrationservice.StateFileManagerItf;
 import com.orange.homenap.localmanager.repositorymanager.RepositoryManagerItf;
-import com.orange.homenap.utils.Service;
+import com.orange.homenap.utils.Component;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.BundleListener;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.Dictionary;
-import java.util.Enumeration;
 
 public class BundleListenerService implements BundleListener
 {
@@ -44,7 +40,6 @@ public class BundleListenerService implements BundleListener
     private LocalDatabaseItf localDatabaseItf;
     private StateFileManagerItf stateFileManagerItf;
     private RepositoryManagerItf repositoryManagerItf;
-    private ManifestReaderItf manifestReaderItf;
 
     // iPOJO injection
     private BundleContext bundleContext;
@@ -67,45 +62,30 @@ public class BundleListenerService implements BundleListener
     public void bundleChanged(BundleEvent be)
     {
         Dictionary<String, String> dico = be.getBundle().getHeaders();
-        Service service = null;
+        Component component = localDatabaseItf.getComponent(be.getBundle().getSymbolicName());
 
         switch (be.getType()) {
             case BundleEvent.INSTALLED:
                 String bundleLocation = repositoryManagerItf.addBundleToRepository(be.getBundle().getLocation());
 
-                System.out.println("BundleLocation: " + bundleLocation);
+                component.setId(be.getBundle().getBundleId());
+                component.setUrl(bundleLocation);
+                component.setBundleEvent(BundleEvent.INSTALLED);
 
-                service = new Service(be.getBundle().getBundleId(),
-                        be.getBundle().getSymbolicName(),
-                        bundleLocation,
-                        Service.BundleState.INSTALLED);
-
-                service.setServiceDeployment(manifestReaderItf.getServiceDeployment(be.getBundle()));
-                service.setServiceMigrability(manifestReaderItf.getServiceMigrability(be.getBundle()));
-                service.setServiceState(manifestReaderItf.getServiceState(be.getBundle()));
-                service.setExecution(manifestReaderItf.getExecution(be.getBundle()));
-
-                localDatabaseItf.put(service.getId(), service);
-                stateFileManagerItf.load(service.getName());
+                stateFileManagerItf.load(component.getName());
                 break;
 
             case BundleEvent.STARTED:
-                service = localDatabaseItf.get(be.getBundle().getBundleId());
-                service.setBundleState(Service.BundleState.STARTED);
-                localDatabaseItf.put(service.getId(), service);
+                component.setBundleEvent(BundleEvent.STARTED);
                 break;
 
             case BundleEvent.STOPPED:
-                service = localDatabaseItf.get(be.getBundle().getBundleId());
-                service.setBundleState(Service.BundleState.STOPPED);
-                localDatabaseItf.put(service.getId(), service);
-                stateFileManagerItf.save(service.getName());
+                stateFileManagerItf.save(component.getName());
+                component.setBundleEvent(BundleEvent.STOPPED);
                 break;
 
             case BundleEvent.UNINSTALLED:
-                service = localDatabaseItf.get(be.getBundle().getBundleId());
-                service.setBundleState(Service.BundleState.UNINSTALLED);
-                localDatabaseItf.put(service.getId(), service);
+                component.setBundleEvent(BundleEvent.UNINSTALLED);
                 break;
 
             default:

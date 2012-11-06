@@ -1,6 +1,6 @@
 /*
  * --------------------------------------------------------
- *  Module Name : service-manager
+ *  Module Name : event-listener
  *  Version : 0.1-SNAPSHOT
  *
  *  Software Name : HomeNap
@@ -12,9 +12,9 @@
  *  or see the "LICENSE-2.0.txt" file for more details.
  *
  * --------------------------------------------------------
- *  File Name   : ServiceManagerItf.java
+ *  File Name   : ComponentEvent.java
  *
- *  Created     : 28/06/2012
+ *  Created     : 06/11/2012
  *  Author(s)   : Remi Druilhe
  *
  *  Description :
@@ -22,11 +22,13 @@
  * --------------------------------------------------------
  */
 
-package com.orange.homenap.localmanager.bundlemanager;
+package com.orange.homenap.localmanager.eventlistener;
 
-public interface BundleManagerItf
+import com.orange.homenap.utils.Architecture;
+
+public interface ArchitectureEvent
 {
-    public boolean start(String url);
-    
-    public boolean stop(String componentName);
+    public void architectureStarted(Architecture architecture);
+
+    public void architectureStopped(Architecture architecture);
 }

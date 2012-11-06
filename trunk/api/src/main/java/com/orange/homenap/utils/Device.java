@@ -23,24 +23,20 @@
 
 package com.orange.homenap.utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Device
 {
-    public static enum DeviceState {ON, SLEEP, HIBERNATE, OFF};
+    public static enum DeviceState {ON, SLEEP, HIBERNATE, OFF}
 
     private String id;
     private String mac;
     private String ip;
     private DeviceState deviceState;
     private List<DeviceState> statesSupported;
-    private Map<String, Service.BundleState> servicesState;
     private int consumptionOff;
     private int consumptionOn;
-    private List<Service> servicesOnDevice = new ArrayList<Service>();
+    private List<Architecture> servicesOnDevice = new ArrayList<Architecture>();
     private Map<String, Integer> resources = new HashMap<String, Integer>();
 
     public Device() {}
@@ -67,10 +63,6 @@ public class Device
 
     public List<DeviceState> getStatesSupported() { return this.statesSupported; }
 
-    public void setServicesState(Map<String, Service.BundleState> servicesState) { this.servicesState = servicesState; }
-
-    public Map<String, Service.BundleState> getServicesState() { return this.servicesState; }
-
     public void setConsumptionOff(int consumptionOff) { this.consumptionOff = consumptionOff; }
 
     public int getConsumptionOff() { return this.consumptionOff; }
@@ -79,9 +71,9 @@ public class Device
 
     public int getConsumptionOn() { return this.consumptionOn; }
 
-    public void addService(Service service) { servicesOnDevice.add(service); }
+    public void addService(Architecture architecture) { servicesOnDevice.add(architecture); }
 
-    public List<Service> getServicesOnDevice() { return servicesOnDevice; }
+    public List<Architecture> getServicesOnDevice() { return servicesOnDevice; }
 
     public void setResources(Map<String, Integer> resources) { this.resources = resources; }
 
@@ -93,12 +85,19 @@ public class Device
 
         for(int i = 0 ; i < servicesOnDevice.size(); i++)
         {
-            Service service = servicesOnDevice.get(i);
+            Architecture architecture = servicesOnDevice.get(i);
 
-            for(Map.Entry<String, Integer> map : service.getResources().entrySet())
+            Iterator<Component> it = architecture.getComponent().iterator();
+
+            while(it.hasNext())
             {
-                qorDeviceAvailable.put(map.getKey(),
-                        qorDeviceAvailable.get(map.getKey()) - service.getResources().get(map.getKey()));
+                Component component = it.next();
+
+                for(Map.Entry<String, Integer> map : component.getResources().entrySet())
+                {
+                    qorDeviceAvailable.put(map.getKey(),
+                            qorDeviceAvailable.get(map.getKey()) - component.getResources().get(map.getKey()));
+                }
             }
         }
 

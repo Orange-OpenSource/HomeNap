@@ -92,9 +92,12 @@ public class GCDevice implements IGlobalCoordinatorService
         Service service = gsonServiceItf.fromJson(serviceInfo, Service.class);
 
         globalDatabaseItf.addService(service, deviceId);
+
+        System.out.println(gsonServiceItf.toJson(service));
     }
 
-    public void stopService(String serviceId) throws Exception {
+    public void stopService(String serviceId) throws Exception
+    {
         globalDatabaseItf.removeService(serviceId);
     }
 }

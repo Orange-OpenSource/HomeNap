@@ -28,7 +28,7 @@ import com.orange.homenap.api.IDeployerService;
 import com.orange.homenap.api.ILocalManagerService;
 import com.orange.homenap.localmanager.bundlemanager.BundleManagerItf;
 import com.orange.homenap.localmanager.deviceinfo.DeviceInfoItf;
-import com.orange.homenap.localmanager.eventlistener.LocalManagerEvent;
+import com.orange.homenap.localmanager.eventlistener.MigrationEvent;
 import com.orange.homenap.localmanager.upnp.devices.LocalManagerDevice;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
@@ -37,7 +37,7 @@ public class LMDevice implements IDeployerService, ILocalManagerService
 {
     // iPOJO requires
     private DeviceInfoItf deviceInfoItf;
-    private LocalManagerEvent localManagerEvent;
+    private MigrationEvent migrationEvent;
     private BundleManagerItf bundleManagerItf;
 
     // iPOJO injection
@@ -66,11 +66,11 @@ public class LMDevice implements IDeployerService, ILocalManagerService
 
     public void start(String bundleUrl, String migrationState) throws Exception
     {
-        bundleManagerItf.start(bundleUrl, migrationState);
+        bundleManagerItf.start(bundleUrl);
     }
 
-    public void migrateService(String serviceId, String toDeviceId, String wakeUpAddress) throws Exception
+    public void migrateService(String componentName, String toDeviceId, String wakeUpAddress) throws Exception
     {
-        localManagerEvent.migrateService(serviceId, toDeviceId, wakeUpAddress);
+        migrationEvent.migrateComponent(componentName, toDeviceId, wakeUpAddress);
     }
 }

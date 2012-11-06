@@ -1,6 +1,6 @@
 /*
  * --------------------------------------------------------
- *  Module Name : local-manager
+ *  Module Name : event-listener
  *  Version : 0.1-SNAPSHOT
  *
  *  Software Name : HomeNap
@@ -12,7 +12,7 @@
  *  or see the "LICENSE-2.0.txt" file for more details.
  *
  * --------------------------------------------------------
- *  File Name   : DeviceManager.java
+ *  File Name   : EventListener.java
  *
  *  Created     : 28/06/2012
  *  Author(s)   : Remi Druilhe
@@ -27,18 +27,20 @@ package com.orange.homenap.localmanager.eventlistener;
 import com.orange.homenap.localmanager.bundlemanager.BundleManagerItf;
 import com.orange.homenap.localmanager.deviceinfo.DeviceInfoItf;
 import com.orange.homenap.localmanager.json.GsonServiceItf;
+import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
 import com.orange.homenap.localmanager.powerstate.PowerStateManagerItf;
 import com.orange.homenap.localmanager.upnpcpmanager.ControlPointManagerItf;
 import com.orange.homenap.localmanager.upnpcpmanager.DeployerControlPointItf;
 import com.orange.homenap.localmanager.upnpcpmanager.GlobalCoordinatorControlPointItf;
+import com.orange.homenap.utils.Architecture;
+import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
-import com.orange.homenap.utils.Service;
 import org.osgi.service.event.Event;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-public class DeviceManager implements LocalManagerEvent
+public class EventListener implements MigrationEvent, ArchitectureEvent
 {
     // iPOJO requires
     private BundleManagerItf bundleManagerItf;
@@ -47,6 +49,7 @@ public class DeviceManager implements LocalManagerEvent
     private GlobalCoordinatorControlPointItf globalCoordinatorControlPointItf;
     private ControlPointManagerItf controlPointManagerItf;
     private GsonServiceItf gsonServiceItf;
+    private LocalDatabaseItf localDatabaseItf;
 
     public void start()
     {
@@ -61,21 +64,31 @@ public class DeviceManager implements LocalManagerEvent
 
     public void stop() {}
 
-    public void migrateService(String serviceName, String toDeviceId, String wakeUpAddress)
+    public void architectureStarted(Architecture architecture)
+    {
+        globalCoordinatorControlPointItf.startArchitecture(architecture);
+    }
+
+    public void architectureStopped(Architecture architecture)
+    {
+        globalCoordinatorControlPointItf.startArchitecture(architecture);
+    }
+
+    public void migrateComponent(String componentName, String toDeviceId, String wakeUpAddress)
     {
         System.out.println("Migration action");
 
         powerStateManagerItf.suspendStateChange();
 
         DeployerControlPointItf deployerControlPointItf = controlPointManagerItf.createCP(toDeviceId, wakeUpAddress);
+        
+        Component component = localDatabaseItf.getComponent(componentName);
 
-        Service service = bundleManagerItf.stop(serviceName);
-
-        deployerControlPointItf.start(service.getBundleUrl(), gsonServiceItf.toJson(service.getComponents()));
+        deployerControlPointItf.start(component.getUrl(), gsonServiceItf.toJson(component.getProperties()));
 
         powerStateManagerItf.releaseStateChange();
 
-        //TODO: take into account capabilities of the DeviceManager (number of services, ...)
+        //TODO: take into account capabilities of the EventListener (number of services, ...)
     }
 
     public void notifyPowerStateChange(Event event)

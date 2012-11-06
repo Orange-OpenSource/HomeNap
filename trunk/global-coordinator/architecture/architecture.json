@@ -1,0 +1,36 @@
+{
+    "name": "global-coordinator",
+    "execution": "mandatory",
+    "component":
+    [{
+        "name": "global-database",
+        "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/global-database/target/global-database-0.1-SNAPSHOT.jar"
+        "deployement": "alocalized",
+        "migrability": "migratable",
+        "state": "stateful"
+    },
+    {
+        "name": "binding-upnp-gc",
+        "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/binding-upnp-gc/target/binding-upnp-gc-0.1-SNAPSHOT.jar"
+    },
+    {
+        "name": "upnp-controlpoint-manager-gc",
+        "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/upnp-controlpoint-manager-gc/target/upnp-controlpoint-manager-gc-0.1-SNAPSHOT.jar",
+        "require": ["global-database"]
+    },
+    {
+        "name": "migrater",
+        "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/migrater/target/migrater-0.1-SNAPSHOT.jar",
+        "require": ["global-database", "upnp-controlpoint-manager-gc"]
+    },
+    {
+        "name": "optimizer",
+        "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/optimizer/target/optimizer-0.1-SNAPSHOT.jar",
+        "require": ["global-database", "migrater"]
+    },
+    {
+        "name": "upnp-device-manager-gc",
+        "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/upnp-device-manager-gc/target/upnp-device-manager-gc-0.1-SNAPSHOT.jar",
+        "require": ["global-database", "optimizer", "upnp-controlpoint-manager-gc"]
+    }]
+}

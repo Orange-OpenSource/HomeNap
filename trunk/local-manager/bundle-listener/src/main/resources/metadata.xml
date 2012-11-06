@@ -28,7 +28,6 @@
         <requires field="localDatabaseItf"/>
         <requires field="stateFileManagerItf"/>
         <requires field="repositoryManagerItf"/>
-        <requires field="manifestReaderItf"/>
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>
