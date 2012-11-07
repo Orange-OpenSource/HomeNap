@@ -5,5 +5,5 @@
 	"statesSupported": ["ON","SLEEP","HIBERNATE","OFF"],
 	"consumptionOn": 105,
 	"consumptionOff": 5,
-	"qorDeviceMax": {"CPU":5984,"RAM":2059984,"ROM":274}
+	"resources": {"CPU":5984,"RAM":2059984,"ROM":274}
 }

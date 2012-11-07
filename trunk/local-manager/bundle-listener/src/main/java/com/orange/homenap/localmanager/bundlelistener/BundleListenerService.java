@@ -62,7 +62,7 @@ public class BundleListenerService implements BundleListener
     public void bundleChanged(BundleEvent be)
     {
         Dictionary<String, String> dico = be.getBundle().getHeaders();
-        Component component = localDatabaseItf.getComponent(be.getBundle().getSymbolicName());
+        Component component = localDatabaseItf.get(be.getBundle().getSymbolicName());
 
         switch (be.getType()) {
             case BundleEvent.INSTALLED:

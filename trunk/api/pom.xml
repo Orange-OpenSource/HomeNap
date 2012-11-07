@@ -58,15 +58,10 @@
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
                         <Export-Package>
                             com.orange.homenap.api,
-                            com.orange.homenap.utils,
-                            com.orange.homenap.handler,
+                            com.orange.homenap.utils
                         </Export-Package>
                         <Import-Package>*</Import-Package>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
-                        <Deployment>localized</Deployment>
-                        <Migration>static</Migration>
-                        <State>stateless</State>
-                        <Execution>optional</Execution>
                     </instructions>
                 </configuration>
             </plugin>
@@ -88,9 +83,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.ipojo</artifactId>
-            <version>${ipojo.version}</version>
+            <groupId>org.osgi</groupId>
+            <artifactId>core</artifactId>
+            <version>${osgi.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

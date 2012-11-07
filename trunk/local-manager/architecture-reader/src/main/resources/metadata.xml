@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-*  Module Name : bundle-manager
+*  Module Name : architecture-reader
 *  Version : 0.1-SNAPSHOT
 *
 *  Software Name : HomeNap
@@ -21,12 +21,11 @@
   -->
 
 <ipojo>
-    <!-- BundleManager -->
     <component classname="com.orange.homenap.localmanager.architecturereader.ArchitectureReader" name="architecture-reader">
         <provides/>
 
         <requires field="gsonServiceItf"/>
-        <requires field="bundleManagerItf"/>
+        <requires field="architectureEvent"/>
     </component>
 
     <instance component="architecture-reader"/>

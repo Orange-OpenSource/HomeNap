@@ -26,7 +26,7 @@
         <provides/>
 
         <requires field="deviceInfoItf"/>
-        <requires field="localManagerEvent"/>
+        <requires field="migrationEvent"/>
         <requires field="bundleManagerItf"/>
 
         <callback transition="validate" method="start"/>

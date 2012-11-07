@@ -22,19 +22,21 @@
 
 <ipojo>
     <!-- LocalDatabase -->
-    <component classname="com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabase" name="global-db">
+    <component classname="com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabase" name="global-database">
         <provides/>
 
         <properties>
             <property field="devices"/>
-            <property field="services"/>
+            <property field="architectures"/>
+            <property field="components"/>
             <property field="resources"/>
         </properties>
     </component>
 
-    <instance component="global-db">
+    <instance component="global-database">
         <property name="devices" type="list"/>
-        <property name="services" type="list"/>
+        <property name="architectures" type="list"/>
+        <property name="components" type="list"/>
         <property name="resources" type="list"/>
     </instance>
 </ipojo>

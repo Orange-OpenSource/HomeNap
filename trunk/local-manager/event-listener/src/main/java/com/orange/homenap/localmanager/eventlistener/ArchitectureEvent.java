@@ -28,6 +28,10 @@ import com.orange.homenap.utils.Architecture;
 
 public interface ArchitectureEvent
 {
+    public void startArchitecture(Architecture architecture);
+
+    public void stopArchitecture(String name);
+
     public void architectureStarted(Architecture architecture);
 
     public void architectureStopped(Architecture architecture);

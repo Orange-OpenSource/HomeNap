@@ -23,8 +23,10 @@
 
 package com.orange.homenap.globalcoordinator.globaldatabase;
 
+import com.orange.homenap.utils.Architecture;
+import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
-import com.orange.homenap.utils.Service;
+import com.orange.homenap.utils.Resource;
 
 import java.util.Iterator;
 import java.util.List;
@@ -34,44 +36,24 @@ public class GlobalDatabase implements GlobalDatabaseItf
 {
     // iPOJO properties
     private List<Device> devices;
-    private List<Service> services;
+    private List<Architecture> architectures;
+    private List<Component> components;
     private List<String> resources;
+
+    public GlobalDatabase() {}
 
     public void addDevice(Device device)
     {
-        System.out.println("Adding device: " + device.getId());
+        System.out.println("Adding device " + device.getId());
 
         devices.add(device);
 
-        for (Map.Entry<String,Integer> map : device.getResources().entrySet())
-            if (!resources.contains(map.getKey()))
-                resources.add(map.getKey());
-    }
-
-    public void addService(Service service, String deviceId)
-    {
-        System.out.println("Adding service: " + service.getId() + " on " + deviceId);
-
-        services.add(service);
-
-        for (Map.Entry<String,Integer> map : service.getResources().entrySet())
-            if (!resources.contains(map.getKey()))
-                resources.add(map.getKey());
-
-        Iterator<Device> iterator = devices.iterator();
-
-        while(iterator.hasNext())
-        {
-            Device device = iterator.next();
-
-            if(device.getId().equals(deviceId))
-                device.addService(service);
-        }
+        addRessources(device.getResources());
     }
 
     public void removeDevice(String deviceId)
     {
-        System.out.println("Removing device: " + deviceId);
+        System.out.println("Removing device " + deviceId);
 
         Iterator<Device> iterator = devices.iterator();
 
@@ -84,37 +66,93 @@ public class GlobalDatabase implements GlobalDatabaseItf
         }
     }
 
-    public void removeService(String serviceId)
+    public void addArchitecture(Architecture architecture)
     {
-        System.out.println("Removing service: " + serviceId);
+        System.out.println("Adding architecture " + architecture.getName());
 
-        Iterator<Service> servIterator = services.iterator();
-        Service service = null;
+        architectures.add(architecture);
 
-        while(servIterator.hasNext())
+        Iterator<Component> it = architecture.getComponent().iterator();
+
+        while(it.hasNext())
+            addComponent(it.next());
+    }
+
+    public void removeArchitecture(String architectureName)
+    {
+        System.out.println("Removing architecture " + architectureName);
+
+        Iterator<Architecture> it = architectures.iterator();
+
+        while(it.hasNext())
         {
-            Service tmp = servIterator.next();
+            Architecture tmp = it.next();
 
-            if(tmp.getId().equals(serviceId))
+            if(tmp.getName().equals(architectureName))
             {
-                service = tmp;
-                servIterator.remove();
+                it.remove();
             }
-        }
-
-        Iterator<Device> devIterator = devices.iterator();
-
-        while(devIterator.hasNext())
-        {
-            Device device = devIterator.next();
-
-            device.getServicesOnDevice().remove(service);
         }
     }
 
-    public Service getService(int i) { return services.get(i); }
+    private void addComponent(Component component)
+    {
+        System.out.println("Adding component " + component.getName());
 
-    public int getServicesSize() { return services.size(); }
+        components.add(component);
+
+        addRessources(component.getResources());
+    }
+
+    private void removeComponent(String componentName)
+    {
+        System.out.println("-- Removing component " + componentName);
+
+        Iterator<Component> it = components.iterator();
+
+        while(it.hasNext())
+        {
+            Component tmp = it.next();
+
+            if(tmp.getName().equals(componentName))
+                it.remove();
+        }
+    }
+
+    private void addRessources(List<Resource> tmp)
+    {
+        Iterator<Resource> it = tmp.iterator();
+
+        while(it.hasNext())
+        {
+            Resource resource = it.next();
+
+            if (!resources.contains(resource.getName()))
+                resources.add(resource.getName());
+        }
+    }
+
+    public void addComponentOnDevice(String componentName, String deviceId)
+    {
+        Iterator<Device> it = devices.iterator();
+
+        while(it.hasNext())
+        {
+            Device device = it.next();
+
+            if(device.getId().equals(deviceId))
+                device.addComponent(componentName);
+        }
+    }
+
+    public void removeComponentFromDevice(String componentName, String deviceId)
+    {
+
+    }
+
+    public Component getComponent(int i) { return components.get(i); }
+
+    public int getComponentsSize() { return components.size(); }
 
     public Device getDevice(int i) { return devices.get(i); }
 
@@ -124,82 +162,19 @@ public class GlobalDatabase implements GlobalDatabaseItf
 
     public int getResourcesSize() { return resources.size(); }
 
-    public int[][] createPlan()
-    {
-        int n = devices.size();
-        int m = services.size();
+    public List<Device> getDevices() { return devices; }
 
-        int[][] plan = new int[n][m];
+    public void setDevices(List<Device> devices) { this.devices = devices; }
 
-        for (int j = 0; j < m; j++)
-            for (int i = 0; i < n; i++)
-                if (devices.get(i).getServicesOnDevice().contains(services.get(j)))
-                    plan[i][j] = 1;
-                else
-                    plan[i][j] = 0;
+    public List<Architecture> getArchitectures() { return architectures; }
 
-        return plan;
-    }
+    public void setArchitectures(List<Architecture> architectures) { this.architectures = architectures; }
 
-    public void printPlan()
-    {
-        int n = devices.size();
-        int m = services.size();
+    public List<Component> getComponents() { return components; }
 
-        int[][] plan = this.createPlan();
+    public void setComponents(List<Component> components) { this.components = components; }
 
-        for(int i = 0; i < n; i++)
-            System.out.print("\t" + devices.get(i).getId());
+    public List<String> getResources() { return resources; }
 
-        System.out.println();
-
-        for (int j = 0; j < m; j++)
-        {
-            System.out.print(services.get(j).getId() + "\t");
-
-            for (int i = 0; i < n; i++)
-            {
-                System.out.print(plan[i][j] + "\t");
-            }
-
-            System.out.println();
-        }
-    }
-
-    public int getPlanConsumption()
-    {
-        int n = devices.size();
-        int m = services.size();
-
-        int[][] plan = this.createPlan();
-
-        int[] sumAj = new int[n];
-
-        for(int i = 0; i < n; i++)
-            for(int j = 0; j < m; j++)
-                sumAj[i] = sumAj[i] + plan[i][j];
-
-        int[] activeDevices = new int[n];
-
-        for(int i = 0; i < n; i++)
-        {
-            if(sumAj[i] == 0)
-                activeDevices[i] = 0;
-            else
-                activeDevices[i] = 1;
-        }
-
-        int[] devicesConsumption = new int[n];
-
-        for(int i = 0; i < n; i++)
-            devicesConsumption[i] = activeDevices[i] * devices.get(i).getConsumptionOn()
-                    + (1 - activeDevices[i]) * devices.get(i).getConsumptionOff();
-
-        int consumption = 0;
-
-        for(int i = 0; i < n; i++)
-            consumption = consumption + devicesConsumption[i];
-
-        return consumption;
-    }
+    public void setResources(List<String> resources) { this.resources = resources; }
 }

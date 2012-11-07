@@ -24,64 +24,33 @@
 
 package com.orange.homenap.localmanager.architecturereader;
 
-import com.orange.homenap.localmanager.bundlemanager.BundleManagerItf;
 import com.orange.homenap.localmanager.eventlistener.ArchitectureEvent;
 import com.orange.homenap.localmanager.json.GsonServiceItf;
-import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
 import com.orange.homenap.utils.Architecture;
-import com.orange.homenap.utils.Component;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
 
 public class ArchitectureReader implements ArchitectureReaderItf
 {
     private GsonServiceItf gsonServiceItf;
-    private BundleManagerItf bundleManagerItf;
-    private LocalDatabaseItf localDatabaseItf;
     private ArchitectureEvent architectureEvent;
 
     public void startService(String file)
     {
+        //TODO: should be set inside migration-service and only when this is not an optional architecture
+        System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.orange.homenap.localmanager.migrationservice.handler:migration-handler");
+
         Architecture architecture = getArchitectureFromJson(file);
 
-        localDatabaseItf.put(architecture.getName(), architecture);
-
-        Iterator<Component> it = architecture.getComponent().iterator();
-
-        boolean success = true;
-
-        while(it.hasNext())
-            success = success & bundleManagerItf.start(it.next().getUrl());
-
-        if(success)
-        {
-            architecture.setStatus(Architecture.Status.STARTED);
-
-            architectureEvent.architectureStarted(architecture);
-        }
+        architectureEvent.startArchitecture(architecture);
     }
 
-    public void stopService(String architectureName)
+    public void stopService(String name)
     {
-        Architecture architecture = localDatabaseItf.remove(architectureName);
-
-        Iterator<Component> it = architecture.getComponent().iterator();
-
-        boolean success = true;
-
-        while(it.hasNext())
-            success = success & bundleManagerItf.stop(it.next().getName());
-
-        if(success)
-        {
-            architecture.setStatus(Architecture.Status.STOPPED);
-
-            architectureEvent.architectureStopped(architecture);
-        }
+        architectureEvent.stopArchitecture(name);
     }
 
     private Architecture getArchitectureFromJson(String jsonFile)

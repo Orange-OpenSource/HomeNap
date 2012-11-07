@@ -84,7 +84,7 @@ public class StateFileManager implements StateFileManagerItf
 
     public void save(String componentName)
     {
-        Component component = localDatabaseItf.getComponent(componentName);
+        Component component = localDatabaseItf.get(componentName);
 
         if (component.getState().equals(Component.State.STATEFUL))
         {
@@ -104,7 +104,7 @@ public class StateFileManager implements StateFileManagerItf
 
     public void load(String componentName)
     {
-        Component component = localDatabaseItf.getComponent(componentName);
+        Component component = localDatabaseItf.get(componentName);
 
         if (component.getState().equals(Component.State.STATEFUL))
         {

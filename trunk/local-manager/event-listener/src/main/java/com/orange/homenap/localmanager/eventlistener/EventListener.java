@@ -26,12 +26,12 @@ package com.orange.homenap.localmanager.eventlistener;
 
 import com.orange.homenap.localmanager.bundlemanager.BundleManagerItf;
 import com.orange.homenap.localmanager.deviceinfo.DeviceInfoItf;
+import com.orange.homenap.localmanager.globalcoordinatorcp.GlobalCoordinatorControlPointItf;
 import com.orange.homenap.localmanager.json.GsonServiceItf;
 import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
 import com.orange.homenap.localmanager.powerstate.PowerStateManagerItf;
 import com.orange.homenap.localmanager.upnpcpmanager.ControlPointManagerItf;
 import com.orange.homenap.localmanager.upnpcpmanager.DeployerControlPointItf;
-import com.orange.homenap.localmanager.upnpcpmanager.GlobalCoordinatorControlPointItf;
 import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
@@ -39,6 +39,7 @@ import org.osgi.service.event.Event;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Iterator;
 
 public class EventListener implements MigrationEvent, ArchitectureEvent
 {
@@ -64,14 +65,65 @@ public class EventListener implements MigrationEvent, ArchitectureEvent
 
     public void stop() {}
 
+    public void startArchitecture(Architecture architecture)
+    {
+        boolean success = globalCoordinatorControlPointItf.startArchitecture(architecture);
+
+        if(!success)
+        {
+            Iterator<Component> it = architecture.getComponent().iterator();
+
+            while(it.hasNext())
+            {
+                Component component = it.next();
+
+                localDatabaseItf.put(component.getName(), component);
+
+                bundleManagerItf.start(component.getUrl());
+
+                deviceInfoItf.getDevice().getComponentsOnDevice().add(component.getName());
+            }
+
+            //boolean success = true;
+
+            /*if(success)
+            {
+                architecture.setStatus(Architecture.Status.STARTED);
+
+                architectureEvent.architectureStarted(architecture);
+            }*/
+        }
+    }
+
+    public void stopArchitecture(String name)
+    {
+        globalCoordinatorControlPointItf.stopArchitecture(name);
+
+        //localDatabaseItf.remove(architectureName);
+
+/*        Iterator<Component> it = architecture.getComponent().iterator();
+
+        boolean success = true;
+
+        while(it.hasNext())
+            success = success & bundleManagerItf.stop(it.next().getName());
+
+        if(success)
+        {
+            architecture.setStatus(Architecture.Status.STOPPED);
+
+            architectureEvent.architectureStopped(architecture);
+        }*/
+    }
+
     public void architectureStarted(Architecture architecture)
     {
-        globalCoordinatorControlPointItf.startArchitecture(architecture);
+
     }
 
     public void architectureStopped(Architecture architecture)
     {
-        globalCoordinatorControlPointItf.startArchitecture(architecture);
+
     }
 
     public void migrateComponent(String componentName, String toDeviceId, String wakeUpAddress)
@@ -81,8 +133,8 @@ public class EventListener implements MigrationEvent, ArchitectureEvent
         powerStateManagerItf.suspendStateChange();
 
         DeployerControlPointItf deployerControlPointItf = controlPointManagerItf.createCP(toDeviceId, wakeUpAddress);
-        
-        Component component = localDatabaseItf.getComponent(componentName);
+
+        Component component = localDatabaseItf.get(componentName);
 
         deployerControlPointItf.start(component.getUrl(), gsonServiceItf.toJson(component.getProperties()));
 

@@ -25,20 +25,20 @@
 package com.orange.homenap.globalcoordinator.upnpdevicemanager;
 
 import com.orange.homenap.api.IGlobalCoordinatorService;
+import com.orange.homenap.globalcoordinator.analyser.AnalyserItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
-import com.orange.homenap.globalcoordinator.optimizer.OptimizerItf;
 import com.orange.homenap.globalcoordinator.upnp.devices.GlobalCoordinatorDevice;
 import com.orange.homenap.globalcoordinator.upnpcpmanager.ControlPointManagerItf;
 import com.orange.homenap.localmanager.json.GsonServiceItf;
+import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Device;
-import com.orange.homenap.utils.Service;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
 public class GCDevice implements IGlobalCoordinatorService
 {
     // iPOJO requires
-    private OptimizerItf optimizerItf;
+    private AnalyserItf analyserItf;
     private GlobalDatabaseItf globalDatabaseItf;
     private ControlPointManagerItf controlPointManagerItf;
     private GsonServiceItf gsonServiceItf;
@@ -75,6 +75,8 @@ public class GCDevice implements IGlobalCoordinatorService
 
         controlPointManagerItf.createCP(device.getId());
 
+        analyserItf.analyse();
+
         return true;
     }
 
@@ -84,20 +86,26 @@ public class GCDevice implements IGlobalCoordinatorService
 
         controlPointManagerItf.removeCP(deviceId);
 
+        analyserItf.analyse();
+
         return true;
     }
 
-    public void startService(String serviceInfo, String deviceId) throws Exception
+    public void startService(String architectureInfo, String deviceId) throws Exception
     {
-        Service service = gsonServiceItf.fromJson(serviceInfo, Service.class);
+        Architecture architecture = gsonServiceItf.fromJson(architectureInfo, Architecture.class);
 
-        globalDatabaseItf.addService(service, deviceId);
+        globalDatabaseItf.addArchitecture(architecture);
 
-        System.out.println(gsonServiceItf.toJson(service));
+        analyserItf.analyse();
+
+        //System.out.println(gsonServiceItf.toJson(service));
     }
 
-    public void stopService(String serviceId) throws Exception
+    public void stopService(String architectureName) throws Exception
     {
-        globalDatabaseItf.removeService(serviceId);
+        globalDatabaseItf.removeArchitecture(architectureName);
+
+        analyserItf.analyse();
     }
 }

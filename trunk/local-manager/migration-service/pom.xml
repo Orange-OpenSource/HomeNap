@@ -56,15 +56,8 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Private-Package>com.orange.homenap.localmanager.bundlemanager.*</Private-Package>
-                        <Import-Package>
-                            org.osgi.framework;version=1.5,
-                            *
-                        </Import-Package>
-                        <Deployment>localized</Deployment>
-                        <Migration>static</Migration>
-                        <State>stateless</State>
-                        <Execution>optional</Execution>
+                        <Private-Package>com.orange.homenap.localmanager.migrationservice.*</Private-Package>
+                        <Import-Package>*</Import-Package>
                     </instructions>
                 </configuration>
             </plugin>
@@ -85,6 +78,13 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.ipojo</artifactId>
+            <version>${ipojo.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.orange.homenap</groupId>
             <artifactId>api</artifactId>

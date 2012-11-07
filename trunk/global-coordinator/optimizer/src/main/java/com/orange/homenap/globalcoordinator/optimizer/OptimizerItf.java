@@ -23,11 +23,9 @@
 
 package com.orange.homenap.globalcoordinator.optimizer;
 
-import com.orange.homenap.utils.Device;
-
 public interface OptimizerItf
 {
     //public void optimize(int[][] plan);
 
-    public void optimize();
+    public void optimize(int currentConsumption);
 }

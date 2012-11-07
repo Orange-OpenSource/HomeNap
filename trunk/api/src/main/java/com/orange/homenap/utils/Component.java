@@ -44,9 +44,9 @@ public class Component
     private Migrability migrability;
     private State state;
     private int bundleEvent;
-    private Map<String, Integer> resources = new HashMap<String, Integer>();
+    private List<Resource> resources;
     private List<String> require = new ArrayList<String>();
-    private Map<String, Object> properties = new HashMap<String, Object>();;
+    private Map<String, Object> properties = new HashMap<String, Object>();
 
     public Component()
     {
@@ -85,9 +85,9 @@ public class Component
 
     public void setBundleEvent(int bundleEvent) { this.bundleEvent = bundleEvent; }
 
-    public void setResources(Map<String, Integer> resources) { this.resources = resources; }
+    public void setResources(List<Resource> resources) { this.resources = resources; }
 
-    public Map<String, Integer> getResources() { return resources; }
+    public List<Resource> getResources() { return resources; }
 
     public void setProperties(Map<String, Object> properties) { this.properties = properties; }
 

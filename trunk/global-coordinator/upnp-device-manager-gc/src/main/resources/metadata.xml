@@ -25,7 +25,7 @@
     <component classname="com.orange.homenap.globalcoordinator.upnpdevicemanager.GCDevice" name="gc-device">
         <provides/>
 
-        <requires field="optimizerItf"/>
+        <requires field="analyserItf"/>
         <requires field="controlPointManagerItf"/>
         <requires field="globalDatabaseItf" />
         <requires field="gsonServiceItf" />

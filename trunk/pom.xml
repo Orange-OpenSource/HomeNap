@@ -39,6 +39,7 @@
         <ipojo.version>1.8.0</ipojo.version>
         <felix.version>4.1.0-SNAPSHOT</felix.version>
         <choco.version>2.1.4</choco.version>
+        <osgi.version>4.3.0</osgi.version>
     </properties>
 
     <!-- ============ -->

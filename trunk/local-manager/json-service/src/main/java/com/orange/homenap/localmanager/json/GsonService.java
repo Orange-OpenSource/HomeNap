@@ -25,6 +25,7 @@
 package com.orange.homenap.localmanager.json;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 public class GsonService implements GsonServiceItf
 {
@@ -37,7 +38,15 @@ public class GsonService implements GsonServiceItf
     
     public <T> T fromJson(String str, Class<T> c)
     {
-        return gson.fromJson(str, c);
+        try {
+            return gson.fromJson(str, c);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+
+            System.out.println(str);
+        }
+
+        return null;
     }
 
     public String toJson(Object object)

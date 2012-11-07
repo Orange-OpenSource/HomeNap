@@ -57,10 +57,6 @@
                         <Import-Package>*</Import-Package>
                         <Bundle-Activator>com.orange.homenap.localmanager.upnp.drivers.Activator</Bundle-Activator>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Deployment>localized</Deployment>
-                        <Migration>static</Migration>
-                        <State>stateless</State>
-                        <Execution>optional</Execution>
                     </instructions>
                 </configuration>
             </plugin>
@@ -69,9 +65,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.framework</artifactId>
-            <version>${felix.version}</version>
+            <groupId>org.osgi</groupId>
+            <artifactId>core</artifactId>
+            <version>${osgi.version}</version>
             <scope>provided</scope>
         </dependency>
 

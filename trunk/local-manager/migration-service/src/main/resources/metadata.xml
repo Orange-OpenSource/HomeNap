@@ -21,6 +21,15 @@
   -->
 
 <ipojo>
+    <!-- Migration Handler -->
+    <handler classname="com.orange.homenap.localmanager.migrationservice.handler.MigrationHandler"
+             name="migration-handler"
+             namespace="com.orange.homenap.localmanager.migrationservice.handler">
+
+        <requires field="migrationManagerItf"
+                  default-implentation="com.orange.localmanager.migrationservice.MigrationManagerItf"/>
+    </handler>
+
     <!-- MigrationManager -->
     <component classname="com.orange.homenap.localmanager.migrationservice.MigrationManager" name="migration-manager" immediat="true">
         <provides/>

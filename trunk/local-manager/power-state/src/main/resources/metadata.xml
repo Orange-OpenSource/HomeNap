@@ -38,7 +38,7 @@
     </component>
 
     <component classname="com.orange.homenap.localmanager.powerstate.PowerStateEvent" name="power-state-event">
-        <provices/>
+        <provides/>
 
         <properties>
             <property field="stateFile" value="/tmp/state" mandatory="true"/>

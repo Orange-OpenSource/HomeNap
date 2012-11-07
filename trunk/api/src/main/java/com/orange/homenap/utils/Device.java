@@ -36,8 +36,8 @@ public class Device
     private List<DeviceState> statesSupported;
     private int consumptionOff;
     private int consumptionOn;
-    private List<Architecture> servicesOnDevice = new ArrayList<Architecture>();
-    private Map<String, Integer> resources = new HashMap<String, Integer>();
+    private List<String> componentsOnDevice = new ArrayList<String>();
+    private List<Resource> resources;
 
     public Device() {}
 
@@ -71,38 +71,13 @@ public class Device
 
     public int getConsumptionOn() { return this.consumptionOn; }
 
-    public void addService(Architecture architecture) { servicesOnDevice.add(architecture); }
+    public void addComponent(String componentName) { componentsOnDevice.add(componentName); }
 
-    public List<Architecture> getServicesOnDevice() { return servicesOnDevice; }
+    public List<String> getComponentsOnDevice() { return componentsOnDevice; }
 
-    public void setResources(Map<String, Integer> resources) { this.resources = resources; }
+    public void setResources(List<Resource> resources) { this.resources = resources; }
 
-    public Map<String, Integer> getResources() { return resources; }
-
-    public Map<String, Integer> getQorDeviceAvailable()
-    {
-        Map<String, Integer> qorDeviceAvailable = resources;
-
-        for(int i = 0 ; i < servicesOnDevice.size(); i++)
-        {
-            Architecture architecture = servicesOnDevice.get(i);
-
-            Iterator<Component> it = architecture.getComponent().iterator();
-
-            while(it.hasNext())
-            {
-                Component component = it.next();
-
-                for(Map.Entry<String, Integer> map : component.getResources().entrySet())
-                {
-                    qorDeviceAvailable.put(map.getKey(),
-                            qorDeviceAvailable.get(map.getKey()) - component.getResources().get(map.getKey()));
-                }
-            }
-        }
-
-        return qorDeviceAvailable;
-    }
+    public List<Resource> getResources() { return resources; }
 
     //TODO: stocker la politique de mise en veille ?
 }

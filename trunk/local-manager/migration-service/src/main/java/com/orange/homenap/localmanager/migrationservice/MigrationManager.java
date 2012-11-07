@@ -24,14 +24,13 @@
 
 package com.orange.homenap.localmanager.migrationservice;
 
-import com.orange.homenap.api.MigrationHandlerManagerItf;
 import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
 import com.orange.homenap.utils.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MigrationManager implements MigrationHandlerManagerItf
+public class MigrationManager implements MigrationManagerItf
 {
     // iPOJO requires
     private LocalDatabaseItf localDatabaseItf;
@@ -39,18 +38,18 @@ public class MigrationManager implements MigrationHandlerManagerItf
     protected void start()
     {
         // Attach handler to iPOJO components (TODO: to move to pom.xml?)
-        System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.orange.homenap.handler:migration-handler");
+        //System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.orange.homenap.localmanager.migrationservice.handler:migration-handler");
     }
 
-    public Map<String, Object> registerComponent(Long bundleId, String componentName)
+    public Map<String, Object> registerComponent(String name)
     {
-        Component component = localDatabaseItf.getComponent(componentName);
+        Component component = localDatabaseItf.get(name);
 
         if (component.getState().equals(Component.State.STATEFUL))
         {
-            System.out.println("Adding component " + componentName + " to bundle " + bundleId);
+            System.out.println("Adding component " + name);
 
-            if (component.getProperties().get(componentName) == null)
+            if (component.getProperties().get(name) == null)
             {
                 component.setProperties(new HashMap<String, Object>());
 
@@ -63,13 +62,13 @@ public class MigrationManager implements MigrationHandlerManagerItf
             return null;
     }
 
-    public void unRegisterComponent(Long bundleId, Map<String, Object> propertiesMap, String componentName)
+    public void unRegisterComponent(Map<String, Object> propertiesMap, String componentName)
     {
-        Component component = localDatabaseItf.getComponent(componentName);
+        Component component = localDatabaseItf.get(componentName);
 
         if (component.getState().equals(Component.State.STATEFUL))
         {
-            System.out.println("Removing component " + componentName + " from bundle " + bundleId);
+            System.out.println("Removing component " + componentName);
 
             component.setProperties(propertiesMap);
         }

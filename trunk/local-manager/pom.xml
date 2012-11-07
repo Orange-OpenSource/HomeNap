@@ -52,5 +52,6 @@
         <module>repository-manager</module>
         <module>command</module>
         <module>architecture-reader</module>
+        <module>global-coordinator-cp</module>
     </modules>
 </project>

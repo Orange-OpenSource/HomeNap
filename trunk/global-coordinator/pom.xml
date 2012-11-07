@@ -43,5 +43,6 @@
         <module>upnp-controlpoint-manager-gc</module>
         <module>optimizer</module>
         <module>migrater</module>
+        <module>analyser</module>
     </modules>
 </project>

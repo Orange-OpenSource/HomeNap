@@ -131,6 +131,13 @@
 
         <dependency>
             <groupId>com.orange.homenap.localmanager</groupId>
+            <artifactId>global-coordinator-cp</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.homenap.localmanager</groupId>
             <artifactId>upnp-controlpoint-manager</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>

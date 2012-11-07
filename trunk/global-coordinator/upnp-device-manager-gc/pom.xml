@@ -119,7 +119,7 @@
 
         <dependency>
             <groupId>com.orange.homenap.globalcoordinator</groupId>
-            <artifactId>optimizer</artifactId>
+            <artifactId>analyser</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

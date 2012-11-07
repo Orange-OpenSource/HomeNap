@@ -23,22 +23,27 @@
 
 package com.orange.homenap.globalcoordinator.globaldatabase;
 
+import com.orange.homenap.utils.Architecture;
+import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
-import com.orange.homenap.utils.Service;
+
+import java.util.List;
 
 public interface GlobalDatabaseItf
 {
     public void addDevice(Device device);
 
-    public void addService(Service service, String deviceId);
-
     public void removeDevice(String deviceId);
 
-    public void removeService(String serviceId);
+    public void addArchitecture(Architecture architecture);
 
-    public Service getService(int i);
+    public void removeArchitecture(String architectureName);
 
-    public int getServicesSize();
+    public Component getComponent(int i);
+
+    public int getComponentsSize();
+
+    public List<Component> getComponents();
 
     public Device getDevice(int i);
 
@@ -47,12 +52,4 @@ public interface GlobalDatabaseItf
     public String getResource(int i);
 
     public int getResourcesSize();
-
-    public int[][] createPlan();
-
-    public void printPlan();
-
-    public int getPlanConsumption();
-
-    /*public void migrateService(Service service, Device device);*/
 }

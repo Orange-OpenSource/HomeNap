@@ -26,8 +26,8 @@ package com.orange.homenap.globalcoordinator.migrater;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.globalcoordinator.upnpcpmanager.ControlPointManagerItf;
 import com.orange.homenap.globalcoordinator.upnpcpmanager.LocalManagerControlPointItf;
+import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
-import com.orange.homenap.utils.Service;
 
 public class Migrater implements MigraterItf
 {
@@ -46,12 +46,12 @@ public class Migrater implements MigraterItf
             for (int j = 0; j < m; j++)
                 if(migrationPlan[i][j] == 1)
                 {
-                    Service service = globalDatabaseItf.getService(j);
+                    Component component = globalDatabaseItf.getComponent(j);
                     Device device = globalDatabaseItf.getDevice(i);
 
                     LocalManagerControlPointItf localManagerControlPointItf = controlPointManagerItf.createCP(device.getId());
 
-                    localManagerControlPointItf.migrateService(service.getName(), device.getId(), device.getMac());
+                    localManagerControlPointItf.migrateService(component.getName(), device.getId(), device.getMac());
                 }
         }
     }
