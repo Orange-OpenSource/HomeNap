@@ -35,10 +35,10 @@
 
     <properties>
         <maven.bundle.plugin.version>2.0.1</maven.bundle.plugin.version>
-        <maven.ipojo.version>1.8.0</maven.ipojo.version>
+        <maven.ipojo.version>1.9.0-SNAPSHOT</maven.ipojo.version>
         <ipojo.version>1.8.0</ipojo.version>
         <felix.version>4.1.0-SNAPSHOT</felix.version>
-        <choco.version>2.1.4</choco.version>
+        <choco.version>2.1.5</choco.version>
         <osgi.version>4.3.0</osgi.version>
     </properties>
 
@@ -67,6 +67,19 @@
             </releases>
             <snapshots>
                 <enabled>true</enabled>
+                <!--                <updatePolicy>always</updatePolicy>-->
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>Choco Repository</id>
+            <name>Choco Repository</name>
+            <url>http://www.emn.fr/z-info/choco-repo/mvn/repository//</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
                 <!--                <updatePolicy>always</updatePolicy>-->
             </snapshots>
         </repository>

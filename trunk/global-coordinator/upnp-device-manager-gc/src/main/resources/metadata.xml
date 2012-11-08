@@ -26,7 +26,6 @@
         <provides/>
 
         <requires field="analyserItf"/>
-        <requires field="controlPointManagerItf"/>
         <requires field="globalDatabaseItf" />
         <requires field="gsonServiceItf" />
 

@@ -95,6 +95,13 @@
 
         <dependency>
             <groupId>com.orange.homenap.globalcoordinator</groupId>
+            <artifactId>printer</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.homenap.globalcoordinator</groupId>
             <artifactId>optimizer</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>

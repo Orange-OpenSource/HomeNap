@@ -28,6 +28,7 @@
 
         <requires field="controlPointManagerItf"/>
         <requires field="globalDatabaseItf"/>
+        <requires field="printerItf"/>
     </component>
 
     <instance component="migrater"/>

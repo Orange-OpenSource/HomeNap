@@ -44,5 +44,6 @@
         <module>optimizer</module>
         <module>migrater</module>
         <module>analyser</module>
+        <module>printer</module>
     </modules>
 </project>

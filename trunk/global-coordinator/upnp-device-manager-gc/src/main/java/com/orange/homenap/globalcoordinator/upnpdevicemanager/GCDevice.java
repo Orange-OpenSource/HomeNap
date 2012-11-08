@@ -28,7 +28,6 @@ import com.orange.homenap.api.IGlobalCoordinatorService;
 import com.orange.homenap.globalcoordinator.analyser.AnalyserItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.globalcoordinator.upnp.devices.GlobalCoordinatorDevice;
-import com.orange.homenap.globalcoordinator.upnpcpmanager.ControlPointManagerItf;
 import com.orange.homenap.localmanager.json.GsonServiceItf;
 import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Device;
@@ -40,7 +39,6 @@ public class GCDevice implements IGlobalCoordinatorService
     // iPOJO requires
     private AnalyserItf analyserItf;
     private GlobalDatabaseItf globalDatabaseItf;
-    private ControlPointManagerItf controlPointManagerItf;
     private GsonServiceItf gsonServiceItf;
 
     // iPOJO injection
@@ -73,8 +71,6 @@ public class GCDevice implements IGlobalCoordinatorService
 
         globalDatabaseItf.addDevice(device);
 
-        controlPointManagerItf.createCP(device.getId());
-
         analyserItf.analyse();
 
         return true;
@@ -83,8 +79,6 @@ public class GCDevice implements IGlobalCoordinatorService
     public boolean unRegister(String deviceId) throws Exception
     {
         globalDatabaseItf.removeDevice(deviceId);
-
-        controlPointManagerItf.removeCP(deviceId);
 
         analyserItf.analyse();
 

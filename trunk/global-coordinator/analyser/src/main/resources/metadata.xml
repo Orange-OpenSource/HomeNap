@@ -26,6 +26,7 @@
 
         <requires field="globalDatabaseItf" />
         <requires field="optimizerItf" />
+        <requires field="printerItf" />
     </component>
 
     <instance component="analyser"/>

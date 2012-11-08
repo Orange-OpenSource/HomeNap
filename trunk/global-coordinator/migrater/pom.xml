@@ -59,10 +59,6 @@
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
                         <Private-Package>com.orange.homenap.globalcoordinator.migrater.*</Private-Package>
                         <Import-Package>*</Import-Package>
-                        <Deployment>alocalized</Deployment>
-                        <Migration>migratable</Migration>
-                        <State>stateless</State>
-                        <Execution>mandatory</Execution>
                     </instructions>
                 </configuration>
             </plugin>
@@ -93,6 +89,13 @@
         <dependency>
             <groupId>com.orange.homenap.globalcoordinator</groupId>
             <artifactId>global-database</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.homenap.globalcoordinator</groupId>
+            <artifactId>printer</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

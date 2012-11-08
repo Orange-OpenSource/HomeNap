@@ -26,6 +26,7 @@ package com.orange.homenap.globalcoordinator.analyser;
 
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.globalcoordinator.optimizer.OptimizerItf;
+import com.orange.homenap.globalcoordinator.printer.PrinterItf;
 import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
 import com.orange.homenap.utils.Resource;
@@ -39,6 +40,7 @@ public class Analyser implements AnalyserItf
 {
     private GlobalDatabaseItf globalDatabaseItf;
     private OptimizerItf optimizerItf;
+    private PrinterItf printerItf;
 
     public void analyse()
     {
@@ -50,12 +52,13 @@ public class Analyser implements AnalyserItf
         if (n != 0 && m != 0)
         {
             int currentConsumption = getPlanConsumption(n, m);
+            int[][] plan = createPlan(n, m);
 
-            printPlan(n, m);
+            printerItf.print(plan);
 
             System.out.println("Current consumption is about " + currentConsumption + " W");
 
-            optimizerItf.optimize(currentConsumption);
+            optimizerItf.optimize(currentConsumption, plan);
         }
     }
 
@@ -88,10 +91,12 @@ public class Analyser implements AnalyserItf
             float cpuUsage = getResourceUsage(device, "CPU");
 
             float activeConsumption = (device.getConsumptionOnMax() - device.getConsumptionOnMin()) * cpuUsage
-                                + device.getConsumptionOnMin();
+                    + device.getConsumptionOnMin();
 
             devicesConsumption[i] = activeDevices[i] * activeConsumption
                     + (1 - activeDevices[i]) * device.getConsumptionOff();
+
+            //System.out.println(devicesConsumption[i]);
         }
 
         float consumption = 0;
@@ -122,7 +127,6 @@ public class Analyser implements AnalyserItf
         {
             String componentName = device.getComponentsOnDevice().get(j);
 
-            // TODO: component is not registred inside the DB when GC appears.
             Iterator<Resource> it = globalDatabaseItf.getComponentByName(componentName).getResources().iterator();
 
             while(it.hasNext())
@@ -153,33 +157,47 @@ public class Analyser implements AnalyserItf
         return plan;
     }
 
-    private void printPlan(int n, int m)
+    /*private void printPlan(int n, int m)
     {
         int[][] plan = this.createPlan(n, m);
 
-        for(int i = 0; i < n; i++)
-            System.out.print("\t" + globalDatabaseItf.getDevice(i).getIp());
+        System.out.println("------------------------------");
 
-        System.out.println();
+        StringBuffer header = new StringBuffer("%-30s |");
+        String[] devices = new String[n + 1];
+        devices[0] = "";
+
+        for(int i = 0; i + 1 < n + 1; i++)
+        {
+            header.append("%15s ");
+
+            devices[i + 1] = globalDatabaseItf.getDevice(i).getIp();
+        }
+
+        header.append("%n");
+
+        System.out.printf(header.toString(), devices);
 
         for (int j = 0; j < m; j++)
         {
-            String name = globalDatabaseItf.getComponent(j).getName();
+            StringBuffer data = new StringBuffer("%30s |");
 
-            if(name.toCharArray().length >= 9)
-                name = name.substring(0, 9) + "...";
-            
-            System.out.print(name + "\t");
+            String line[] = new String[n + 1];
 
-            System.out.printf("%1d  %7.2f   %7.1f   %4dms   %4dms%n", 5, 1000F, 20000F, 1000, 1250);
-            System.out.printf("%1d  %7.2f   %7.1f   %4dms   %4dms%n", 6, 300F, 700F, 200, 950);
+            line[0] = globalDatabaseItf.getComponent(j).getName();
 
             for (int i = 0; i < n; i++)
             {
-                System.out.print(plan[i][j] + "\t");
+                data.append("%10s      ");
+
+                line[i + 1] = String.valueOf(plan[i][j]);
             }
 
-            System.out.println();
+            data.append("%n");
+
+            System.out.printf(data.toString(), line);
         }
-    }
+
+        System.out.println("------------------------------");
+    }*/
 }

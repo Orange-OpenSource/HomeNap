@@ -27,5 +27,5 @@ public interface OptimizerItf
 {
     //public void optimize(int[][] plan);
 
-    public void optimize(int currentConsumption);
+    public void optimize(int currentConsumption, int[][] planInt);
 }

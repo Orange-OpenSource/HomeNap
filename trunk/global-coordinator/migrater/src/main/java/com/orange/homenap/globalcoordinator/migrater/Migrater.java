@@ -24,6 +24,7 @@
 package com.orange.homenap.globalcoordinator.migrater;
 
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
+import com.orange.homenap.globalcoordinator.printer.PrinterItf;
 import com.orange.homenap.globalcoordinator.upnpcpmanager.ControlPointManagerItf;
 import com.orange.homenap.globalcoordinator.upnpcpmanager.LocalManagerControlPointItf;
 import com.orange.homenap.utils.Component;
@@ -34,10 +35,13 @@ public class Migrater implements MigraterItf
     // iPOJO requires
     private GlobalDatabaseItf globalDatabaseItf;
     private ControlPointManagerItf controlPointManagerItf;
+    private PrinterItf printerItf;
 
     public void migrate(int[][] migrationPlan)
     {
-        int n = migrationPlan.length;
+        printerItf.print(migrationPlan);
+
+        /*int n = migrationPlan.length;
 
         for (int i = 0; i < n; i++)
         {
@@ -53,6 +57,6 @@ public class Migrater implements MigraterItf
 
                     localManagerControlPointItf.migrateService(component.getName(), device.getId(), device.getMac());
                 }
-        }
+        }*/
     }
 }

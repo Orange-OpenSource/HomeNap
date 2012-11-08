@@ -9,6 +9,18 @@
         "migrability": "MIGRATABLE",
         "state": "STATEFUL",
         "resources": [
+            {"name": "CPU", "value": 4000},
+            {"name": "RAM", "value": 20},
+            {"name": "ROM","value": 27}
+        ]
+    },
+    {
+        "name": "printer",
+        "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/printer/target/printer-0.1-SNAPSHOT.jar",
+        "deployment": "ALOCALIZED",
+        "migrability": "MIGRATABLE",
+        "state": "STATELESS",
+        "resources": [
             {"name": "CPU", "value": 20},
             {"name": "RAM", "value": 20},
             {"name": "ROM","value": 27}
@@ -41,7 +53,7 @@
     {
         "name": "migrater",
         "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/migrater/target/migrater-0.1-SNAPSHOT.jar",
-        "require": ["global-database", "upnp-controlpoint-manager-gc"],
+        "require": ["global-database", "upnp-controlpoint-manager-gc", "printer"],
         "deployment": "ALOCALIZED",
         "migrability": "MIGRATABLE",
         "state": "STATELESS",
@@ -65,7 +77,7 @@
     {
         "name": "analyser",
         "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/analyser/target/analyser-0.1-SNAPSHOT.jar",
-        "require": ["global-database", "optimizer"],
+        "require": ["global-database", "optimizer", "printer"],
         "deployment": "ALOCALIZED",
         "migrability": "MIGRATABLE",
         "state": "STATELESS",
@@ -77,7 +89,7 @@
     {
         "name": "upnp-device-manager-gc",
         "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/upnp-device-manager-gc/target/upnp-device-manager-gc-0.1-SNAPSHOT.jar",
-        "require": ["global-database", "analyser", "upnp-controlpoint-manager-gc"],
+        "require": ["global-database", "analyser"],
         "deployment": "ALOCALIZED",
         "migrability": "MIGRATABLE",
         "state": "STATELESS",

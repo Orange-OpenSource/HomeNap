@@ -61,18 +61,18 @@ public class ControlPointManager implements ControlPointManagerItf
             this.createCP(globalDatabaseItf.getDevice(i).getId());
     }
 
-    public LocalManagerControlPointItf createCP(String udn)
+    public LocalManagerControlPointItf createCP(String id)
     {
-        System.out.println("Creating CP: " + udn);
+        System.out.println("Creating CP: " + id);
 
         ComponentInstance localManagerInstance = null;
 
-        if (!lMcontrolPointMap.containsKey(udn))
+        if (!lMcontrolPointMap.containsKey(id))
         {
             Properties properties = new Properties();
 
             properties.put("instance.name","local-manager-control-point-" + instanceNumber);
-            properties.put("udnLocalManager", udn);
+            properties.put("udnLocalManager", id);
 
             try {
                 localManagerInstance = factory.createComponentInstance(properties);
@@ -84,12 +84,12 @@ public class ControlPointManager implements ControlPointManagerItf
                 e.printStackTrace();
             }
 
-            lMcontrolPointMap.put(udn, localManagerInstance);
+            lMcontrolPointMap.put(id, localManagerInstance);
             instanceNumber++;
         }
         else
         {
-            localManagerInstance = lMcontrolPointMap.get(udn);
+            localManagerInstance = lMcontrolPointMap.get(id);
         }
 
         LocalManagerControlPointItf localManagerControlPointItf = null;
