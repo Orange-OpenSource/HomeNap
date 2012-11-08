@@ -1,6 +1,6 @@
 /*
  * --------------------------------------------------------
- *  Module Name : upnp-manager
+ *  Module Name : global-coordinator-cp
  *  Version : 0.1-SNAPSHOT
  *
  *  Software Name : HomeNap
@@ -14,7 +14,7 @@
  * --------------------------------------------------------
  *  File Name   : GlobalCoordinatorControlPointItf.java
  *
- *  Created     : 28/06/2012
+ *  Created     : 06/11/2012
  *  Author(s)   : Remi Druilhe
  *
  *  Description :
@@ -31,6 +31,10 @@ import java.util.Map;
 
 public interface GlobalCoordinatorControlPointItf
 {
+    public void register();
+
+    public void unRegister();
+
     public boolean startArchitecture(Architecture architecture);
 
     public void stopArchitecture(String name);

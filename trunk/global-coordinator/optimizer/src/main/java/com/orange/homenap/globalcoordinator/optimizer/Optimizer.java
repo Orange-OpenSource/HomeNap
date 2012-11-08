@@ -46,7 +46,7 @@ public class Optimizer implements OptimizerItf
 
     public void optimize(int currentConsumption)
     {
-        System.out.println("Reconfiguration started");
+        System.out.println("Optimization started");
 
         // Size of matrix
         int n = globalDatabaseItf.getDevicesSize();
@@ -83,7 +83,7 @@ public class Optimizer implements OptimizerItf
         for (int i = 0; i < n; i++)
         {
             deviceConsumption[i] = Choco.plus(
-                    Choco.mult(activeDevice[i], globalDatabaseItf.getDevice(i).getConsumptionOn()),
+                    Choco.mult(activeDevice[i], globalDatabaseItf.getDevice(i).getConsumptionOnMin()),
                     Choco.mult(Choco.minus(1, activeDevice[i]), globalDatabaseItf.getDevice(i).getConsumptionOff()));
         }
 

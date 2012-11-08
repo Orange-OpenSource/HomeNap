@@ -39,7 +39,7 @@ public class PowerStateEvent
     public Publisher publisher;
 
     public void start()
-    {        
+    {
         File file = new File(stateFile);
         String stateEvent = null;
 
@@ -60,7 +60,7 @@ public class PowerStateEvent
                             Dictionary e = new Properties();
                             e.put("state-event", "resume");
                             publisher.send(e);
-                            
+
                             stateEvent = "resume";
                         }
                         else if(line.equals("suspend") && !stateEvent.equals("suspend"))

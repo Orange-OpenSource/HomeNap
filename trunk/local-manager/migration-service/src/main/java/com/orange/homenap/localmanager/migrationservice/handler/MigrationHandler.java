@@ -109,14 +109,14 @@ public class MigrationHandler extends PrimitiveHandler
 
     public Object onGet(Object pojo, String field, Object o)
     {
-        System.out.println("Getting " + field + " (" + o.toString() + ")");
+        //System.out.println("Getting " + field + " (" + o.toString() + ")");
 
         return properties.get(field);
     }
 
     public void onSet(Object pojo, String field, Object o)
     {
-        System.out.println("Setting " + field + " to " + o.toString());
+        //System.out.println("Setting " + field + " to " + o.toString());
 
         properties.put(field, o);
     }

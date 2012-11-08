@@ -90,21 +90,14 @@
 
         <dependency>
             <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.ipojo</artifactId>
-            <version>${ipojo.version}</version>
+            <artifactId>org.osgi.compendium</artifactId>
+            <version>1.5.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.orange.homenap</groupId>
             <artifactId>api</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.orange.homenap.localmanager</groupId>
-            <artifactId>wakeonlan</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

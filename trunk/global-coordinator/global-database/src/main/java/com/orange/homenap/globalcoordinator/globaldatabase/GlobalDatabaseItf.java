@@ -52,4 +52,6 @@ public interface GlobalDatabaseItf
     public String getResource(int i);
 
     public int getResourcesSize();
+
+    public Component getComponentByName(String name);
 }

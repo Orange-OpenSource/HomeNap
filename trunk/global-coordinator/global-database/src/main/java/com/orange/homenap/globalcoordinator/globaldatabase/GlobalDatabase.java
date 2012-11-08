@@ -51,9 +51,9 @@ public class GlobalDatabase implements GlobalDatabaseItf
         addRessources(device.getResources());
     }
 
-    public void removeDevice(String deviceId)
+    public void removeDevice(String id)
     {
-        System.out.println("Removing device " + deviceId);
+        System.out.println("Removing device " + id);
 
         Iterator<Device> iterator = devices.iterator();
 
@@ -61,7 +61,7 @@ public class GlobalDatabase implements GlobalDatabaseItf
         {
             Device tmp = iterator.next();
 
-            if(tmp.getId().equals(deviceId))
+            if(tmp.getId().equals(id))
                 iterator.remove();
         }
     }
@@ -78,9 +78,9 @@ public class GlobalDatabase implements GlobalDatabaseItf
             addComponent(it.next());
     }
 
-    public void removeArchitecture(String architectureName)
+    public void removeArchitecture(String name)
     {
-        System.out.println("Removing architecture " + architectureName);
+        System.out.println("Removing architecture " + name);
 
         Iterator<Architecture> it = architectures.iterator();
 
@@ -88,7 +88,7 @@ public class GlobalDatabase implements GlobalDatabaseItf
         {
             Architecture tmp = it.next();
 
-            if(tmp.getName().equals(architectureName))
+            if(tmp.getName().equals(name))
             {
                 it.remove();
             }
@@ -104,9 +104,9 @@ public class GlobalDatabase implements GlobalDatabaseItf
         addRessources(component.getResources());
     }
 
-    private void removeComponent(String componentName)
+    private void removeComponent(String name)
     {
-        System.out.println("-- Removing component " + componentName);
+        System.out.println("-- Removing component " + name);
 
         Iterator<Component> it = components.iterator();
 
@@ -114,7 +114,7 @@ public class GlobalDatabase implements GlobalDatabaseItf
         {
             Component tmp = it.next();
 
-            if(tmp.getName().equals(componentName))
+            if(tmp.getName().equals(name))
                 it.remove();
         }
     }
@@ -132,7 +132,7 @@ public class GlobalDatabase implements GlobalDatabaseItf
         }
     }
 
-    public void addComponentOnDevice(String componentName, String deviceId)
+    public void addComponentOnDevice(String name, String deviceId)
     {
         Iterator<Device> it = devices.iterator();
 
@@ -141,7 +141,7 @@ public class GlobalDatabase implements GlobalDatabaseItf
             Device device = it.next();
 
             if(device.getId().equals(deviceId))
-                device.addComponent(componentName);
+                device.addComponent(name);
         }
     }
 
@@ -177,4 +177,21 @@ public class GlobalDatabase implements GlobalDatabaseItf
     public List<String> getResources() { return resources; }
 
     public void setResources(List<String> resources) { this.resources = resources; }
+
+    public Component getComponentByName(String name)
+    {
+        Component component = null;
+        
+        Iterator<Component> it = components.iterator();
+
+        while(it.hasNext())
+        {
+            Component tmp = it.next();
+
+            if(tmp.getName().equals(name))
+                component = tmp;
+        }
+
+        return component;
+    }
 }

@@ -49,7 +49,7 @@ public class BundleManager implements BundleManagerItf
             return false;
         }
 
-        System.out.println("Bundle " + bundle.getSymbolicName() + " installed");
+        //System.out.println("Bundle " + bundle.getSymbolicName() + " installed");
 
         try {
             bundle.start();
@@ -58,7 +58,7 @@ public class BundleManager implements BundleManagerItf
             return false;
         }
 
-        System.out.println("Bundle " + bundle.getSymbolicName() + " started");
+        //System.out.println("Bundle " + bundle.getSymbolicName() + " started");
 
         return true;
     }
@@ -80,7 +80,7 @@ public class BundleManager implements BundleManagerItf
             return false;
         }
 
-        System.out.println("Bundle " + componentName + " stopped");
+        //System.out.println("Bundle " + componentName + " stopped");
 
         try {
             bundle.uninstall();
@@ -89,7 +89,7 @@ public class BundleManager implements BundleManagerItf
             return false;
         }
 
-        System.out.println("Bundle " + componentName + " uninstalled");
+        //System.out.println("Bundle " + componentName + " uninstalled");
 
         return true;
     }

@@ -26,10 +26,13 @@ package com.orange.homenap.globalcoordinator.analyser;
 
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.globalcoordinator.optimizer.OptimizerItf;
+import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
 import com.orange.homenap.utils.Resource;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class Analyser implements AnalyserItf
@@ -44,11 +47,16 @@ public class Analyser implements AnalyserItf
         int n = globalDatabaseItf.getDevicesSize();
         int m = globalDatabaseItf.getComponentsSize();
 
-        int currentConsumption = getPlanConsumption(n, m);
+        if (n != 0 && m != 0)
+        {
+            int currentConsumption = getPlanConsumption(n, m);
 
-        System.out.println("Current consumption is about " + currentConsumption + " W");
+            printPlan(n, m);
 
-        optimizerItf.optimize(currentConsumption);
+            System.out.println("Current consumption is about " + currentConsumption + " W");
+
+            optimizerItf.optimize(currentConsumption);
+        }
     }
 
     private int getPlanConsumption(int n, int m)
@@ -71,50 +79,65 @@ public class Analyser implements AnalyserItf
                 activeDevices[i] = 1;
         }
 
-        int[] devicesConsumption = new int[n];
+        float[] devicesConsumption = new float[n];
 
         for(int i = 0; i < n; i++)
-            devicesConsumption[i] = activeDevices[i] * globalDatabaseItf.getDevice(i).getConsumptionOn()
-                    + (1 - activeDevices[i]) * globalDatabaseItf.getDevice(i).getConsumptionOff();
+        {
+            Device device = globalDatabaseItf.getDevice(i);
 
-        int consumption = 0;
+            float cpuUsage = getResourceUsage(device, "CPU");
+
+            float activeConsumption = (device.getConsumptionOnMax() - device.getConsumptionOnMin()) * cpuUsage
+                                + device.getConsumptionOnMin();
+
+            devicesConsumption[i] = activeDevices[i] * activeConsumption
+                    + (1 - activeDevices[i]) * device.getConsumptionOff();
+        }
+
+        float consumption = 0;
 
         for(int i = 0; i < n; i++)
             consumption = consumption + devicesConsumption[i];
 
-        return consumption;
+        return (int) consumption;
     }
 
-/*    public Map<Device, Resource> getResourcesAvailable()
+    private float getResourceUsage(Device device, String resourceName)
     {
-        Map<Device, Resource> resourcesAvailable = new HashMap<Device, Resource>();
+        float usage = 0f;
+        int resourceUsed = 0;
+        int resourceDevice = 0;
 
-        for (int j = 0; j < globalDatabaseItf.getDevicesSize(); j++)
+        Iterator<Resource> iterator = device.getResources().iterator();
+
+        while(iterator.hasNext())
         {
-            Device device = globalDatabaseItf.getDevice(j);
-            int componentsOnDevice = device.getComponentsOnDevice().size();
-            
-            for(int i = 0 ; i < componentsOnDevice; i++)
+            Resource deviceResource = iterator.next();
+
+            if(deviceResource.getName().equals(resourceName))
+                resourceDevice= deviceResource.getValue();
+        }
+
+        for(int j = 0 ; j < device.getComponentsOnDevice().size(); j++)
+        {
+            String componentName = device.getComponentsOnDevice().get(j);
+
+            // TODO: component is not registred inside the DB when GC appears.
+            Iterator<Resource> it = globalDatabaseItf.getComponentByName(componentName).getResources().iterator();
+
+            while(it.hasNext())
             {
-                Component component = componentsOnDevice.get(i);
+                Resource componentResource = it.next();
 
-                Iterator<Component> it = architecture.getComponent().iterator();
-
-                while(it.hasNext())
-                {
-                    Component component = it.next();
-
-                    for(Map.Entry<String, Integer> map : component.getResources().entrySet())
-                    {
-                        qorDeviceAvailable.put(map.getKey(),
-                                qorDeviceAvailable.get(map.getKey()) - component.getResources().get(map.getKey()));
-                    }
-                }
+                if(componentResource.getName().equals(resourceName))
+                    resourceUsed += componentResource.getValue();
             }
         }
 
-        return resourcesAvailable;
-    }*/
+        usage = (float) resourceUsed / resourceDevice;
+
+        return usage;
+    }
 
     private int[][] createPlan(int n, int m)
     {
@@ -130,18 +153,26 @@ public class Analyser implements AnalyserItf
         return plan;
     }
 
-    /*private void printPlan(int n, int m)
+    private void printPlan(int n, int m)
     {
         int[][] plan = this.createPlan(n, m);
 
         for(int i = 0; i < n; i++)
-            System.out.print("\t" + globalDatabaseItf.getDevice(i).getId());
+            System.out.print("\t" + globalDatabaseItf.getDevice(i).getIp());
 
         System.out.println();
 
         for (int j = 0; j < m; j++)
         {
-            System.out.print(globalDatabaseItf.getComponent(j).getName() + "\t");
+            String name = globalDatabaseItf.getComponent(j).getName();
+
+            if(name.toCharArray().length >= 9)
+                name = name.substring(0, 9) + "...";
+            
+            System.out.print(name + "\t");
+
+            System.out.printf("%1d  %7.2f   %7.1f   %4dms   %4dms%n", 5, 1000F, 20000F, 1000, 1250);
+            System.out.printf("%1d  %7.2f   %7.1f   %4dms   %4dms%n", 6, 300F, 700F, 200, 950);
 
             for (int i = 0; i < n; i++)
             {
@@ -150,5 +181,5 @@ public class Analyser implements AnalyserItf
 
             System.out.println();
         }
-    }*/
+    }
 }

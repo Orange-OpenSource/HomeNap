@@ -39,9 +39,11 @@ import org.osgi.service.event.Event;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
-public class EventListener implements MigrationEvent, ArchitectureEvent
+public class EventListener implements MigrationEvent, ArchitectureEvent, GlobalCoordinatorEvent
 {
     // iPOJO requires
     private BundleManagerItf bundleManagerItf;
@@ -52,6 +54,8 @@ public class EventListener implements MigrationEvent, ArchitectureEvent
     private GsonServiceItf gsonServiceItf;
     private LocalDatabaseItf localDatabaseItf;
 
+    private List<Architecture> architectures;
+
     public void start()
     {
         try {
@@ -61,6 +65,8 @@ public class EventListener implements MigrationEvent, ArchitectureEvent
         }
 
         System.setProperty("ipojo.log.level", "info");
+
+        architectures = new ArrayList<Architecture>();
     }
 
     public void stop() {}
@@ -71,6 +77,8 @@ public class EventListener implements MigrationEvent, ArchitectureEvent
 
         if(!success)
         {
+            architectures.add(architecture);
+
             Iterator<Component> it = architecture.getComponent().iterator();
 
             while(it.hasNext())
@@ -83,15 +91,6 @@ public class EventListener implements MigrationEvent, ArchitectureEvent
 
                 deviceInfoItf.getDevice().getComponentsOnDevice().add(component.getName());
             }
-
-            //boolean success = true;
-
-            /*if(success)
-            {
-                architecture.setStatus(Architecture.Status.STARTED);
-
-                architectureEvent.architectureStarted(architecture);
-            }*/
         }
     }
 
@@ -118,12 +117,35 @@ public class EventListener implements MigrationEvent, ArchitectureEvent
 
     public void architectureStarted(Architecture architecture)
     {
-
+        globalCoordinatorControlPointItf.startArchitecture(architecture);
     }
 
     public void architectureStopped(Architecture architecture)
     {
 
+    }
+
+    public void globalCoordinatorAppear()
+    {
+        globalCoordinatorControlPointItf.register();
+
+        // Sending architecture because LM was offline
+        if(!architectures.isEmpty())
+        {
+            Iterator<Architecture> it = architectures.iterator();
+
+            while(it.hasNext())
+            {
+                globalCoordinatorControlPointItf.startArchitecture(it.next());
+
+                it.remove();
+            }
+        }
+    }
+
+    public void globalCoordinatorDisappear()
+    {
+        //TODO
     }
 
     public void migrateComponent(String componentName, String toDeviceId, String wakeUpAddress)

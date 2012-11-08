@@ -53,5 +53,6 @@
         <module>command</module>
         <module>architecture-reader</module>
         <module>global-coordinator-cp</module>
+        <module>global-coordinator-listener</module>
     </modules>
 </project>

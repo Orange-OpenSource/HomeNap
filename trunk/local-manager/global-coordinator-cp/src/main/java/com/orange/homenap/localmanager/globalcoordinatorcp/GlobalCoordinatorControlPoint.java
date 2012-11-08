@@ -1,6 +1,6 @@
 /*
  * --------------------------------------------------------
- *  Module Name : upnp-manager
+ *  Module Name : global-coordinator-cp
  *  Version : 0.1-SNAPSHOT
  *
  *  Software Name : HomeNap
@@ -14,7 +14,7 @@
  * --------------------------------------------------------
  *  File Name   : GlobalCoordinatorControlPoint.java
  *
- *  Created     : 28/06/2012
+ *  Created     : 06/11/2012
  *  Author(s)   : Remi Druilhe
  *
  *  Description :
@@ -35,11 +35,8 @@ import org.osgi.service.upnp.UPnPService;
 
 import java.util.*;
 
-public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoordinatorControlPointItf
+public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPointItf
 {
-    // TODO: iPOJO properties ?
-    //private String UDN_GLOBAL_COORDINATOR = "uuid:FTRD-MAPS-GlobalCoordinator-UPnPGEN";
-
     // iPOJO requires
     private DeviceInfoItf deviceInfoItf;
     private GsonServiceItf gsonServiceItf;
@@ -52,62 +49,50 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
 
     // Global variables
     private UPnPDevice globalCoordinator;
-    private List<Architecture> tempArchitecture;
 
     public GlobalCoordinatorControlPoint(BundleContext bc)
     {
         this.bundleContext = bc;
-        tempArchitecture = new ArrayList<Architecture>();
     }
 
     public void start()
     {
-        // Add service listener to GlobalCoordinator
-        String globalCoordinatorFilter = "(&" + "(" + Constants.OBJECTCLASS + "=" + UPnPDevice.class.getName() + ")"
-                + "(" + UPnPDevice.TYPE + "=" + typeGlobalCoordinator + ")" + ")";
-
-        try {
-            bundleContext.addServiceListener(this, globalCoordinatorFilter);
-        } catch (InvalidSyntaxException e) {
-            e.printStackTrace();
-        }
-
-        ServiceReference sr[] = null;
-
-        try {
-            sr = bundleContext.getServiceReferences(UPnPDevice.class.getName(), globalCoordinatorFilter);
-        } catch (InvalidSyntaxException e) {
-            e.printStackTrace();
-        }
-
-        if(sr != null)
-        {
-            if(sr.length == 1)
-            {
-                globalCoordinator = (UPnPDevice) bundleContext.getService(sr[0]);
-
-                try {
-                    UPnPService service = globalCoordinator.getService("urn:upnp-org:serviceId:GlobalCoordinator.1");
-                    UPnPAction action = service.getAction("Register");
-
-                    Hashtable<String, Object> dico = new Hashtable<String, Object>();
-
-                    dico.put("DeviceInfo", gsonServiceItf.toJson(deviceInfoItf.getDevice()));
-
-                    action.invoke(dico);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            else
-                System.out.println("Multiple GlobalCoordinator! Error!");
-        }
+        register();
     }
 
     public void stop()
     {
+        unRegister();
+    }
+
+    public void register()
+    {
+        System.out.println("Registering Local Manager");
+
+        // Register to GlobalCoordinator
+        if (gcExists())
+        {
+            try {
+                UPnPService service = globalCoordinator.getService("urn:upnp-org:serviceId:GlobalCoordinator.1");
+                UPnPAction action = service.getAction("Register");
+
+                Hashtable<String, Object> dico = new Hashtable<String, Object>();
+
+                dico.put("DeviceInfo", gsonServiceItf.toJson(deviceInfoItf.getDevice()));
+
+                action.invoke(dico);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void unRegister()
+    {
+        System.out.println("Unregistering Local Manager");
+
         // UnRegister from GlobalCoordinator
-        if (globalCoordinator != null)
+        if (gcExists())
         {
             try {
                 UPnPService service = globalCoordinator.getService("urn:upnp-org:serviceId:GlobalCoordinator.1");
@@ -121,53 +106,6 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-
-        bundleContext.removeServiceListener(this);
-    }
-
-    public void serviceChanged(ServiceEvent serviceEvent)
-    {
-        globalCoordinator = (UPnPDevice) bundleContext.getService(serviceEvent.getServiceReference());
-
-        switch (serviceEvent.getType())
-        {
-            case ServiceEvent.REGISTERED:
-                try {
-                    UPnPService service = globalCoordinator.getService("urn:upnp-org:serviceId:GlobalCoordinator.1");
-                    UPnPAction action = service.getAction("Register");
-
-                    Hashtable<String, Object> dico = new Hashtable<String, Object>();
-
-                    dico.put("DeviceInfo", gsonServiceItf.toJson(deviceInfoItf.getDevice()));
-
-                    action.invoke(dico);
-                    
-                    if(!tempArchitecture.isEmpty())
-                    {
-                        System.out.println("Sending architecture stored locally");
-
-                        Iterator<Architecture> it = tempArchitecture.iterator();
-
-                        while(it.hasNext())
-                        {
-                            startArchitecture(it.next());
-
-                            it.remove();
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            case ServiceEvent.UNREGISTERING:
-                globalCoordinator = null;
-
-                break;
-            case ServiceEvent.MODIFIED:
-                break;
-            default:
-                break;
         }
     }
 
@@ -194,14 +132,8 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
 
             return true;
         }
-        else
-        {
-            System.out.println("GlobalCoordinator not connected! Storing architecture locally");
 
-            tempArchitecture.add(architecture);
-
-            return false;
-        }
+        return false;
     }
 
     public void stopArchitecture(String name)
@@ -254,6 +186,25 @@ public class GlobalCoordinatorControlPoint implements ServiceListener, GlobalCoo
 
     private boolean gcExists()
     {
+        String globalCoordinatorFilter = "(&" + "(" + Constants.OBJECTCLASS + "=" + UPnPDevice.class.getName() + ")"
+                + "(" + UPnPDevice.TYPE + "=" + typeGlobalCoordinator + ")" + ")";
+
+        ServiceReference sr[] = null;
+
+        try {
+            sr = bundleContext.getServiceReferences(UPnPDevice.class.getName(), globalCoordinatorFilter);
+        } catch (InvalidSyntaxException e) {
+            e.printStackTrace();
+        }
+
+        if(sr != null)
+        {
+            if(sr.length == 1)
+                globalCoordinator = (UPnPDevice) bundleContext.getService(sr[0]);
+            else
+                System.out.println("Multiple GlobalCoordinator! Error!");
+        }
+
         if(globalCoordinator != null)
             return true;
         else

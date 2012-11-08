@@ -35,7 +35,8 @@ public class Device
     private DeviceState deviceState;
     private List<DeviceState> statesSupported;
     private int consumptionOff;
-    private int consumptionOn;
+    private int consumptionOnMin;
+    private int consumptionOnMax;
     private List<String> componentsOnDevice = new ArrayList<String>();
     private List<Resource> resources;
 
@@ -67,9 +68,13 @@ public class Device
 
     public int getConsumptionOff() { return this.consumptionOff; }
 
-    public void setConsumptionOn(int consumptionOn) { this.consumptionOn = consumptionOn; }
+    public void setConsumptionOnMin(int consumptionOnMin) { this.consumptionOnMin = consumptionOnMin; }
 
-    public int getConsumptionOn() { return this.consumptionOn; }
+    public int getConsumptionOnMin()  { return this.consumptionOnMin; }
+
+    public void setConsumptionOnMax(int consumptionOnMax) { this.consumptionOnMax = consumptionOnMax; }
+
+    public int getConsumptionOnMax()  { return this.consumptionOnMax; }
 
     public void addComponent(String componentName) { componentsOnDevice.add(componentName); }
 
