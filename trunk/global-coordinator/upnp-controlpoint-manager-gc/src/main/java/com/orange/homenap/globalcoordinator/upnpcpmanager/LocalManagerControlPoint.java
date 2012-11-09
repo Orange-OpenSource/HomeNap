@@ -23,12 +23,15 @@
 
 package com.orange.homenap.globalcoordinator.upnpcpmanager;
 
+import com.google.gson.Gson;
+import com.orange.homenap.utils.Action;
 import org.osgi.framework.*;
 import org.osgi.service.upnp.UPnPAction;
 import org.osgi.service.upnp.UPnPDevice;
 import org.osgi.service.upnp.UPnPService;
 
 import java.util.Hashtable;
+import java.util.List;
 
 public class LocalManagerControlPoint implements ServiceListener, LocalManagerControlPointItf
 {
@@ -99,19 +102,22 @@ public class LocalManagerControlPoint implements ServiceListener, LocalManagerCo
         }
     }
 
-    public void migrateService(String serviceId, String toDeviceId, String wakeUpAddress)
+    public void actions(List<Action> actions)
     {
-        if(localManager != null && serviceId != null && toDeviceId != null && wakeUpAddress != null)
+        if(localManager != null)
         {
             try {
                 UPnPService service = localManager.getService("urn:upnp-org:serviceId:LocalManager.1");
-                UPnPAction action = service.getAction("MigrateService");
+                UPnPAction action = service.getAction("ActionsToTake");
 
                 Hashtable<String, Object> dico = new Hashtable<String, Object>();
 
-                dico.put("ServiceId", serviceId);
+                Gson gson = new Gson();
+
+                dico.put("Actions", gson.toJson(actions));
+                /*dico.put("ServiceId", serviceId);
                 dico.put("ToDeviceId", toDeviceId);
-                dico.put("WakeUpAddress", wakeUpAddress);
+                dico.put("WakeUpAddress", wakeUpAddress);*/
 
                 action.invoke(dico);
             } catch (Exception e) {

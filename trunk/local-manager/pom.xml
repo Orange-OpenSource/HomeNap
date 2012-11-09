@@ -40,7 +40,6 @@
         <module>bundle-listener</module>
         <module>bundle-manager</module>
         <module>device-info</module>
-        <module>json-service</module>
         <module>local-database</module>
         <module>migration-service</module>
         <module>power-state</module>

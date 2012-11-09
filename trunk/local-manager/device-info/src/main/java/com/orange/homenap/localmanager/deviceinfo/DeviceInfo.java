@@ -24,7 +24,7 @@
 
 package com.orange.homenap.localmanager.deviceinfo;
 
-import com.orange.homenap.localmanager.json.GsonServiceItf;
+import com.google.gson.Gson;
 import com.orange.homenap.utils.Device;
 import java.io.*;
 import java.net.NetworkInterface;
@@ -34,9 +34,6 @@ import java.util.Enumeration;
 
 public class DeviceInfo implements DeviceInfoItf
 {
-    // iPOJO requires
-    private GsonServiceItf gsonServiceItf;
-
     // iPOJO properties
     private String deviceInfoFile;
 
@@ -63,7 +60,9 @@ public class DeviceInfo implements DeviceInfoItf
             e.printStackTrace();
         }
 
-        this.device = gsonServiceItf.fromJson(json.toString(), Device.class);
+        Gson gson = new Gson();
+
+        this.device = gson.fromJson(json.toString(), Device.class);
     }
 
     public void setUDN(String udn)

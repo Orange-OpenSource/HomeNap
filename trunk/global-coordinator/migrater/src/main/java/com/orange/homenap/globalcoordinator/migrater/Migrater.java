@@ -23,40 +23,98 @@
 
 package com.orange.homenap.globalcoordinator.migrater;
 
+import com.orange.homenap.globalcoordinator.executer.ExecuterItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.globalcoordinator.printer.PrinterItf;
-import com.orange.homenap.globalcoordinator.upnpcpmanager.ControlPointManagerItf;
-import com.orange.homenap.globalcoordinator.upnpcpmanager.LocalManagerControlPointItf;
+import com.orange.homenap.utils.Action;
+import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
+
+import java.util.*;
 
 public class Migrater implements MigraterItf
 {
     // iPOJO requires
     private GlobalDatabaseItf globalDatabaseItf;
-    private ControlPointManagerItf controlPointManagerItf;
+    private ExecuterItf executerItf;
     private PrinterItf printerItf;
 
     public void migrate(int[][] migrationPlan)
     {
         printerItf.print(migrationPlan);
 
-        /*int n = migrationPlan.length;
+        int n = migrationPlan.length;
+        int m = migrationPlan[0].length;
 
-        for (int i = 0; i < n; i++)
+        List<Action> actions = new ArrayList<Action>();
+
+        for (int j = 0; j < m; j++)
         {
-            int m = migrationPlan[i].length;
+            Component component = globalDatabaseItf.getComponent(j);
+            int checkMigration = 0;
 
-            for (int j = 0; j < m; j++)
-                if(migrationPlan[i][j] == 1)
+            Architecture architecture = globalDatabaseItf.getParent(component);
+            
+            Action action = new Action();
+
+            action.setActionName(Action.ActionName.MIGRATE);
+            action.setComponent(component);
+            
+            for (int i = 0; i < n; i++)
+            {
+                Device device = globalDatabaseItf.getDevice(i);
+                
+                switch (migrationPlan[i][j])
                 {
-                    Component component = globalDatabaseItf.getComponent(j);
-                    Device device = globalDatabaseItf.getDevice(i);
-
-                    LocalManagerControlPointItf localManagerControlPointItf = controlPointManagerItf.createCP(device.getId());
-
-                    localManagerControlPointItf.migrateService(component.getName(), device.getId(), device.getMac());
+                    case 1:
+                        action.setToDevice(device);
+                        break;
+                    case -1:
+                        action.setFromDevice(device);
+                        break;
+                    default:
+                        break;
                 }
-        }*/
+
+                checkMigration += migrationPlan[i][j];
+            }
+
+            if(checkMigration != 0)
+            {
+                System.out.println("Problem during migration!");
+                break;
+            }
+
+            actions.add(action);
+        }
+
+        Map<Device, List<Action>> actionsPerDevice = new HashMap<Device, List<Action>>();
+
+        Iterator<Action> it = actions.iterator();
+        
+        while(it.hasNext())
+        {
+            Action action = it.next();
+
+            if(actionsPerDevice.containsKey(action.getFromDevice()))
+            {
+                actionsPerDevice.get(action.getFromDevice()).add(action);
+            }
+            else
+            {
+                List<Action> tmp = new ArrayList<Action>();
+
+                tmp.add(action);
+                
+                actionsPerDevice.put(action.getFromDevice(), tmp);
+            }
+        }
+
+        executerItf.executeActions(actionsPerDevice);
+
+        //LocalManagerControlPointItf localManagerControlPointItf = controlPointManagerItf.createCP(device.getId());
+
+        //localManagerControlPointItf.migrateService(component.getName(), device.getId(), device.getMac());
     }
 }

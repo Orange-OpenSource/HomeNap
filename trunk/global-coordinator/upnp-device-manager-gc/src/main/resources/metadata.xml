@@ -27,7 +27,6 @@
 
         <requires field="analyserItf"/>
         <requires field="globalDatabaseItf" />
-        <requires field="gsonServiceItf" />
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>

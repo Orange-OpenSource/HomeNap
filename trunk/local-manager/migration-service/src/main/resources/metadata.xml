@@ -43,7 +43,6 @@
         <provides/>
 
         <requires field="localDatabaseItf"/>
-        <requires field="gsonServiceItf"/>
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>

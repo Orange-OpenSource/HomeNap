@@ -24,7 +24,6 @@
     <component classname="com.orange.homenap.localmanager.architecturereader.ArchitectureReader" name="architecture-reader">
         <provides/>
 
-        <requires field="gsonServiceItf"/>
         <requires field="architectureEvent"/>
     </component>
 

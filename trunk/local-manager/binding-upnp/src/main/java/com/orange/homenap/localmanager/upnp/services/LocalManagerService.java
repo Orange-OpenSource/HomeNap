@@ -1,27 +1,3 @@
-/*
- * --------------------------------------------------------
- *  Module Name : local-manager-upnp
- *  Version : 0.1-SNAPSHOT
- *
- *  Software Name : HomeNap
- *  Version : 0.1-SNAPSHOT
- *
- *  Copyright © 28/06/2012 – 28/06/2012 France Télécom
- *  This software is distributed under the Apache 2.0 license,
- *  the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
- *  or see the "LICENSE-2.0.txt" file for more details.
- *
- * --------------------------------------------------------
- *  File Name   : LocalManagerService.java
- *
- *  Created     : 28/06/2012
- *  Author(s)   : Remi Druilhe
- *
- *  Description :
- *
- * --------------------------------------------------------
- */
-
 /**
  * LocalManagerService.java
  * 
@@ -33,18 +9,16 @@ package com.orange.homenap.localmanager.upnp.services;
 
 
 import com.orange.homenap.api.ILocalManagerService;
-
+import org.osgi.service.upnp.*;
 import java.util.Hashtable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Dictionary;
 
+import org.osgi.framework.*;
 import com.orange.homenap.localmanager.upnp.holders.*;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceRegistration;
-import org.osgi.service.upnp.UPnPService;
 
-/**
+    /**
 	* This is the class representing a LocalManagerService
 	*/
 public class LocalManagerService implements ILocalManagerService {
@@ -64,17 +38,15 @@ public class LocalManagerService implements ILocalManagerService {
 		return service;
 	}
 	/**
-	* OSGI Stub for UPnP action MigrateService
+	* OSGI Stub for UPnP action ActionsToTake
 	*/
-	public void migrateService(java.lang.String serviceId, java.lang.String toDeviceId, java.lang.String wakeUpAddress) throws Exception {
+	public void actionsToTake(java.lang.String actions) throws Exception {
 		Dictionary dict = null;
-		dict = new Hashtable(3);
-		dict.put(new String("ServiceId"), serviceId);
-		dict.put(new String("ToDeviceId"), toDeviceId);
-		dict.put(new String("WakeUpAddress"), wakeUpAddress);
+		dict = new Hashtable(1);
+		dict.put(new String("Actions"), actions);
 		Hashtable result=null;
 		try {
-		result=(Hashtable)service.getAction("MigrateService").invoke(dict);
+		result=(Hashtable)service.getAction("ActionsToTake").invoke(dict);
 		}
 		catch (NullPointerException ex) {
 			throw new UPnPGenException("The action is not availaible on the device: It may be an optional action...");

@@ -45,5 +45,6 @@
         <module>migrater</module>
         <module>analyser</module>
         <module>printer</module>
+        <module>executer</module>
     </modules>
 </project>

@@ -61,10 +61,6 @@
                             org.osgi.framework;version=1.5,
                             *
                         </Import-Package>
-                        <Deployment>localized</Deployment>
-                        <Migration>static</Migration>
-                        <State>stateless</State>
-                        <Execution>optional</Execution>
                     </instructions>
                 </configuration>
             </plugin>
@@ -96,6 +92,13 @@
             <groupId>org.apache.felix</groupId>
             <artifactId>org.osgi.compendium</artifactId>
             <version>1.5.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.2</version>
             <scope>provided</scope>
         </dependency>
 

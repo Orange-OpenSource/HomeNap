@@ -24,11 +24,11 @@
 
 package com.orange.homenap.globalcoordinator.upnpdevicemanager;
 
+import com.google.gson.Gson;
 import com.orange.homenap.api.IGlobalCoordinatorService;
 import com.orange.homenap.globalcoordinator.analyser.AnalyserItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.globalcoordinator.upnp.devices.GlobalCoordinatorDevice;
-import com.orange.homenap.localmanager.json.GsonServiceItf;
 import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Device;
 import org.osgi.framework.BundleContext;
@@ -39,7 +39,6 @@ public class GCDevice implements IGlobalCoordinatorService
     // iPOJO requires
     private AnalyserItf analyserItf;
     private GlobalDatabaseItf globalDatabaseItf;
-    private GsonServiceItf gsonServiceItf;
 
     // iPOJO injection
     private BundleContext bundleContext;
@@ -67,7 +66,9 @@ public class GCDevice implements IGlobalCoordinatorService
     {
         System.out.println(deviceInfo);
 
-        Device device = gsonServiceItf.fromJson(deviceInfo, Device.class);
+        Gson gson = new Gson();
+        
+        Device device = gson.fromJson(deviceInfo, Device.class);
 
         globalDatabaseItf.addDevice(device);
 
@@ -87,7 +88,9 @@ public class GCDevice implements IGlobalCoordinatorService
 
     public void startService(String architectureInfo, String deviceId) throws Exception
     {
-        Architecture architecture = gsonServiceItf.fromJson(architectureInfo, Architecture.class);
+        Gson gson = new Gson();
+
+        Architecture architecture = gson.fromJson(architectureInfo, Architecture.class);
 
         globalDatabaseItf.addArchitecture(architecture);
 

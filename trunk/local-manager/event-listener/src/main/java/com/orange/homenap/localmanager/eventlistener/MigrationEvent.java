@@ -24,7 +24,11 @@
 
 package com.orange.homenap.localmanager.eventlistener;
 
+import com.orange.homenap.utils.Action;
+
+import java.util.List;
+
 public interface MigrationEvent
 {
-    public void migrateComponent(String componentName, String toDeviceId, String wakeUpAddress);
+    public void actionsToTake(List<Action> actions);
 }

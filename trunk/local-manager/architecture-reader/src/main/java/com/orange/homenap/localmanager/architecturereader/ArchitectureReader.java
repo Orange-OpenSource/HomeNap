@@ -24,8 +24,8 @@
 
 package com.orange.homenap.localmanager.architecturereader;
 
+import com.google.gson.Gson;
 import com.orange.homenap.localmanager.eventlistener.ArchitectureEvent;
-import com.orange.homenap.localmanager.json.GsonServiceItf;
 import com.orange.homenap.utils.Architecture;
 
 import java.io.BufferedReader;
@@ -35,7 +35,6 @@ import java.io.IOException;
 
 public class ArchitectureReader implements ArchitectureReaderItf
 {
-    private GsonServiceItf gsonServiceItf;
     private ArchitectureEvent architectureEvent;
 
     public void startService(String file)
@@ -72,6 +71,8 @@ public class ArchitectureReader implements ArchitectureReaderItf
             e.printStackTrace();
         }
 
-        return gsonServiceItf.fromJson(json.toString(), Architecture.class);
+        Gson gson = new Gson();
+
+        return gson.fromJson(json.toString(), Architecture.class);
     }
 }

@@ -181,7 +181,7 @@ public class GlobalDatabase implements GlobalDatabaseItf
     public Component getComponentByName(String name)
     {
         Component component = null;
-        
+
         Iterator<Component> it = components.iterator();
 
         while(it.hasNext())
@@ -193,5 +193,35 @@ public class GlobalDatabase implements GlobalDatabaseItf
         }
 
         return component;
+    }
+
+    public Architecture getParent(Component component)
+    {
+        Architecture architecture = null;
+
+        Iterator<Architecture> itArchi = architectures.iterator();
+
+        while(itArchi.hasNext())
+        {
+            architecture = itArchi.next();
+
+            Iterator<Component> itComponent = architecture.getComponent().iterator();
+
+            boolean rightOne = false;
+
+            while(itComponent.hasNext())
+            {
+                Component temp = itComponent.next();
+
+                if(component.getName().equals(temp.getName()))
+                    rightOne = true;
+                    break;
+            }
+
+            if (rightOne)
+                break;
+        }
+
+        return architecture;
     }
 }

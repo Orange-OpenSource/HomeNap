@@ -25,7 +25,7 @@
     <component classname="com.orange.homenap.localmanager.deviceinfo.DeviceInfo" name="device-info">
         <provides/>
 
-        <requires field="gsonServiceItf"/>
+        <!--<requires field="gsonServiceItf"/>            -->
 
         <callback transition="validate" method="start"/>
 

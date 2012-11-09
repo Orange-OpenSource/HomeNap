@@ -24,14 +24,20 @@
 
 package com.orange.homenap.localmanager.upnpdevicemanager;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.orange.homenap.api.IDeployerService;
 import com.orange.homenap.api.ILocalManagerService;
 import com.orange.homenap.localmanager.bundlemanager.BundleManagerItf;
 import com.orange.homenap.localmanager.deviceinfo.DeviceInfoItf;
 import com.orange.homenap.localmanager.eventlistener.MigrationEvent;
 import com.orange.homenap.localmanager.upnp.devices.LocalManagerDevice;
+import com.orange.homenap.utils.Action;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class LMDevice implements IDeployerService, ILocalManagerService
 {
@@ -69,8 +75,28 @@ public class LMDevice implements IDeployerService, ILocalManagerService
         bundleManagerItf.start(bundleUrl);
     }
 
-    public void migrateService(String componentName, String toDeviceId, String wakeUpAddress) throws Exception
+    public void actionsToTake(String actions) throws Exception
     {
-        migrationEvent.migrateComponent(componentName, toDeviceId, wakeUpAddress);
+        Gson gson = new Gson();
+
+        //TODO: fix
+        Type listType = new TypeToken<List<Action>>(){}.getType();
+
+        List<Action> actionList = gson.fromJson(actions, listType);
+        //ActionList actionList = gson.fromJson(actions, ActionList.class);
+        
+        //migrationEvent.actionsToTake(actionList.getActions());
+        //migrationEvent.actionsToTake(actionList);
     }
+/*
+    public class ActionList
+    {
+        private List<Action> actions;
+
+        public ActionList() {}
+
+        public List<Action> getActions() { return actions; }
+
+        public void setActions(List<Action> actions) { this.actions = actions; }
+    }*/
 }

@@ -27,11 +27,11 @@ package com.orange.homenap.localmanager.eventlistener;
 import com.orange.homenap.localmanager.bundlemanager.BundleManagerItf;
 import com.orange.homenap.localmanager.deviceinfo.DeviceInfoItf;
 import com.orange.homenap.localmanager.globalcoordinatorcp.GlobalCoordinatorControlPointItf;
-import com.orange.homenap.localmanager.json.GsonServiceItf;
 import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
 import com.orange.homenap.localmanager.powerstate.PowerStateManagerItf;
 import com.orange.homenap.localmanager.upnpcpmanager.ControlPointManagerItf;
 import com.orange.homenap.localmanager.upnpcpmanager.DeployerControlPointItf;
+import com.orange.homenap.utils.Action;
 import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
@@ -51,7 +51,6 @@ public class EventListener implements MigrationEvent, ArchitectureEvent, GlobalC
     private DeviceInfoItf deviceInfoItf;
     private GlobalCoordinatorControlPointItf globalCoordinatorControlPointItf;
     private ControlPointManagerItf controlPointManagerItf;
-    private GsonServiceItf gsonServiceItf;
     private LocalDatabaseItf localDatabaseItf;
 
     private List<Architecture> architectures;
@@ -148,7 +147,21 @@ public class EventListener implements MigrationEvent, ArchitectureEvent, GlobalC
         //TODO
     }
 
-    public void migrateComponent(String componentName, String toDeviceId, String wakeUpAddress)
+    @Override
+    public void actionsToTake(List<Action> actions)
+    {
+        System.out.println("Yeah! I have actions to take!!!");
+
+        Iterator<Action> it = actions.iterator();
+        
+        while(it.hasNext())
+        {
+            Action action = it.next();
+
+            System.out.println(action.getActionName() + " " + action.getComponent().getName() + " to " + action.getToDevice().getIp());
+        }
+    }
+/*    public void migrateComponent(String componentName, String toDeviceId, String wakeUpAddress)
     {
         System.out.println("Migration action");
 
@@ -163,7 +176,7 @@ public class EventListener implements MigrationEvent, ArchitectureEvent, GlobalC
         powerStateManagerItf.releaseStateChange();
 
         //TODO: take into account capabilities of the EventListener (number of services, ...)
-    }
+    }*/
 
     public void notifyPowerStateChange(Event event)
     {

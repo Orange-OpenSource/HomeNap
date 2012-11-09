@@ -1,25 +1,20 @@
+/**
+ * Copyright (C) 2004-2005 France Telecom R&D
+ *
+ **/
+
 /*
- * --------------------------------------------------------
- *  Module Name : local-manager-upnp
- *  Version : 0.1-SNAPSHOT
+ * Copyright (C) 2003 France Telecom R&D
  *
- *  Software Name : HomeNap
- *  Version : 0.1-SNAPSHOT
+ * This software is the confidential and proprietary information of France
+ * Telecom R&D. ("Confidential Information"). You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with France Telecom R&D.
+ * This Software is distributed on an "AS IS" basis, WITHOUT WARRANTY OF
+ * ANY KIND, either express or implied.
  *
- *  Copyright © 28/06/2012 – 28/06/2012 France Télécom
- *  This software is distributed under the Apache 2.0 license,
- *  the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
- *  or see the "LICENSE-2.0.txt" file for more details.
- *
- * --------------------------------------------------------
- *  File Name   : UUIDTimer.java
- *
- *  Created     : 28/06/2012
- *  Author(s)   : Remi Druilhe
- *
- *  Description :
- *
- * --------------------------------------------------------
+ * contact: naoufel.chraiet@orange.com
  */
 
 package com.orange.homenap.localmanager.upnp.holders;

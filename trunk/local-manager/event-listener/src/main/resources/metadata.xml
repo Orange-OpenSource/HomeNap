@@ -30,7 +30,6 @@
         <requires field="deviceInfoItf"/>
         <requires field="globalCoordinatorControlPointItf" optional="true"/>
         <requires field="controlPointManagerItf" optional="true"/>
-        <requires field="gsonServiceItf"/>
         <requires field="localDatabaseItf"/>
 
         <ev:subscriber name="powerStateSubscriber" callback="notifyPowerStateChange" topics="state"/>

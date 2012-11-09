@@ -39,6 +39,8 @@ public interface GlobalDatabaseItf
 
     public void removeArchitecture(String architectureName);
 
+    public List<Architecture> getArchitectures();
+
     public Component getComponent(int i);
 
     public int getComponentsSize();
@@ -54,4 +56,6 @@ public interface GlobalDatabaseItf
     public int getResourcesSize();
 
     public Component getComponentByName(String name);
+
+    public Architecture getParent(Component component);
 }

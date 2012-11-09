@@ -35,6 +35,7 @@ import choco.kernel.solver.Solver;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.globalcoordinator.migrater.MigraterItf;
 import com.orange.homenap.utils.Component;
+import com.orange.homenap.utils.Device;
 import com.orange.homenap.utils.Resource;
 
 import java.util.*;
@@ -49,11 +50,100 @@ public class Optimizer implements OptimizerItf
     {
         System.out.println("Optimization started");
 
+        /**
+         * Local variables
+         */
+
         // Size of matrix
         int n = globalDatabaseItf.getDevicesSize();
         int m = globalDatabaseItf.getComponentsSize();
+        int r = globalDatabaseItf.getResourcesSize();
 
+        // Period between two events (in seconds)
+        // TODO: change to machine learning
         int periodBetweenEvents = 300;
+
+        /**
+         * Resource tables fulfillment
+         */
+
+        // QoR of devices
+        // Total resources on devices
+
+        //IntegerVariable[][] qeResources = new IntegerVariable[n][r];
+        int[][] qeResources = new int[n][r];
+
+        for (int i = 0; i < n; i++)
+        {
+            List<Resource> resources = globalDatabaseItf.getDevice(i).getResources();
+
+            Iterator<Resource> it = resources.iterator();
+
+            Map<String, Integer> map = new HashMap<String, Integer>();
+
+            while(it.hasNext())
+            {
+                Resource resource = it.next();
+
+                map.put(resource.getName(), resource.getValue());
+            }
+
+            for (int k = 0; k < r; k++)
+            {
+                if(map.containsKey(globalDatabaseItf.getResource(k)))
+                    //qeResources[i][k] = Choco.constant(resource.getValue());
+                    qeResources[i][k] = map.get(globalDatabaseItf.getResource(k));
+                else
+                    //qeResources[i][k] = Choco.constant(0);
+                    qeResources[i][k] = 0;
+
+                //System.out.println(globalDatabaseItf.getResource(k) + " " + qeResources[i][k]);
+            }
+        }
+
+        // QoR of services
+        //IntegerVariable[][] qsResources = new IntegerVariable[m][r];
+        int[][] qsResources = new int[m][r];
+
+        for (int j = 0; j < m; j++)
+        {
+            List<Resource> resources = globalDatabaseItf.getComponent(j).getResources();
+
+            Iterator<Resource> it = resources.iterator();
+
+            Map<String, Integer> map = new HashMap<String, Integer>();
+
+            while(it.hasNext())
+            {
+                Resource resource = it.next();
+
+                map.put(resource.getName(), resource.getValue());
+            }
+
+            for (int k = 0; k < r; k++)
+            {
+                if(map.containsKey(globalDatabaseItf.getResource(k)))
+                    //qsResources[j][k] = Choco.constant(resource.getValue());
+                    qsResources[j][k] = map.get(globalDatabaseItf.getResource(k));
+                else
+                    //qsResources[j][k] = Choco.constant(0);
+                    qsResources[j][k] = 0;
+
+                //System.out.println(globalDatabaseItf.getResource(k) + " " + qsResources[j][k]);
+            }
+        }
+
+        // Transposition of qsResources
+        //IntegerVariable[][] qsResourcesTranspose = new IntegerVariable[r][m];
+        int[][] qsResourcesTranspose = new int[r][m];
+
+        for (int j = 0; j < m; j++)
+            for (int k = 0; k < r; k++)
+            {
+                qsResourcesTranspose[k][j] = qsResources[j][k];
+
+                //System.out.println(qsResourcesTranspose[k][j]);
+            }
 
         /**
          * Model
@@ -62,7 +152,7 @@ public class Optimizer implements OptimizerItf
         Model model = new CPModel();
 
         // Matrix creation
-        // Variable aij = 1 if service j is on device i, 0 else
+        // Variable aij = 1 if component j is on device i, 0 else
         // This is the only variable that should be used to reduce energy consumption
         IntegerVariable[][] a = new IntegerVariable[n][m];
 
@@ -70,87 +160,18 @@ public class Optimizer implements OptimizerItf
         {
             for (int j = 0; j < m; j++)
             {
-                a[i][j] = Choco.makeIntVar("a" + i + j, new int[]{0, 1});
+                a[i][j] = Choco.makeIntVar("a" + i + j, 0, 1);
 
                 model.addVariable(a[i][j]);
             }
         }
 
-        // A device is active if it hosts at least one service
+        // A device is active if it hosts at least one component,
+        // so that the sum of its row is greater or equal to 1.
         IntegerExpressionVariable[] activeDevice = new IntegerExpressionVariable[n];
 
         for (int i = 0; i < n; i++)
             activeDevice[i] = Choco.ifThenElse(Choco.eq(Choco.sum(a[i]), 0), Choco.constant(0), Choco.constant(1));
-
-        // QoR of devices
-        // Number of resources available on devices
-        int r = globalDatabaseItf.getResourcesSize();
-
-        IntegerVariable[][] qeResources = new IntegerVariable[n][r];
-
-        for (int i = 0; i < n; i++)
-        {
-            //TODO a surveiller.
-
-            //Map<String, Integer> map = globalDatabaseItf.getDevice(i).getResources();
-            List<Resource> resources = globalDatabaseItf.getDevice(i).getResources();
-
-            Iterator<Resource> it = resources.iterator();
-
-            for (int k = 0; k < r; k++)
-                while(it.hasNext())
-                {
-                    Resource resource = it.next();
-
-                    if(resource.getName().equals(globalDatabaseItf.getResource(k)))
-                        qeResources[i][k] = Choco.constant(resource.getValue());
-                    else
-                        qeResources[i][k] = Choco.constant(0);
-                }
-
-            /*for (int k = 0; k < r; k++)
-                if (map.containsKey((planItf.getResource(k))))
-                    qeResources[i][k] = Choco.constant(map.get(planItf.getResource(k)));
-                else
-                    qeResources[i][k] = Choco.constant(0);*/
-        }
-
-        // QoR of services
-        IntegerVariable[][] qsResources = new IntegerVariable[m][r];
-
-        for (int j = 0; j < m; j++)
-        {
-            //Map<String, Integer> map = planItf.getService(j).getResources();
-            List<Resource> resources = globalDatabaseItf.getComponent(j).getResources();
-
-            Iterator<Resource> it = resources.iterator();
-
-            for (int k = 0; k < r; k++)
-            {
-                while(it.hasNext())
-                {
-                    Resource resource = it.next();
-
-                    if(resource.getName().equals(globalDatabaseItf.getResource(k)))
-                        qsResources[j][k] = Choco.constant(resource.getValue());
-                    else
-                        qsResources[j][k] = Choco.constant(0);
-                }
-            }
-
-            /*for (int k = 0; k < r; k++)
-                if (map.containsKey((planItf.getResource(k))))
-                    qsResources[j][k] = Choco.constant(map.get(planItf.getResource(k)));
-                else
-                    qsResources[j][k] = Choco.constant(0);*/
-        }
-
-        // Transposition of qsResources
-        IntegerVariable[][] qsResourcesTranspose = new IntegerVariable[r][m];
-
-        for (int j = 0; j < m; j++)
-            for (int k = 0; k < r; k++)
-                qsResourcesTranspose[k][j] = qsResources[j][k];
 
         // Service j on device i
         /*IntegerExpressionVariable[][] servicesOnDevice = new IntegerExpressionVariable[n][m];
@@ -162,17 +183,20 @@ public class Optimizer implements OptimizerItf
         // Sum of required QoR on i
         IntegerExpressionVariable[][] sumQs = new IntegerExpressionVariable[n][r];
 
+        // Fix: it seems there is a difference between both method used here but I don't know why :-/
         for (int i = 0; i < n; i++)
         {
             for (int k = 0; k < r; k++)
             {
-                IntegerExpressionVariable temp = null;
+                //IntegerExpressionVariable[] temp = new IntegerExpressionVariable[m];
+                IntegerExpressionVariable temp = Choco.constant(0);
 
                 for(int j = 0; j < m; j++)
                     temp = Choco.plus(temp, Choco.mult(a[i][j], qsResourcesTranspose[k][j]));
-                    //temp = Choco.plus(temp, Choco.mult(a[i][j], Choco.constant(20)));
+                    //temp[k] = Choco.mult(a[i][j], qsResourcesTranspose[k][j]);
 
                 sumQs[i][k] = temp;
+                //sumQs[i][k] = Choco.sum(temp);
             }
         }
 
@@ -181,9 +205,11 @@ public class Optimizer implements OptimizerItf
 
         for (int i = 0; i < n; i++)
         {
-            //System.out.println(cpuUsage);
+            Device device = globalDatabaseItf.getDevice(i);
 
-            List<Resource> resources = globalDatabaseItf.getDevice(i).getResources();
+            int deltaConsumption = device.getConsumptionOnMax() - device.getConsumptionOnMin();
+
+            List<Resource> resources = device.getResources();
 
             Iterator<Resource> it = resources.iterator();
 
@@ -199,10 +225,9 @@ public class Optimizer implements OptimizerItf
 
             activeConsumption[i] = Choco.plus(
                     Choco.div(
-                            Choco.mult(globalDatabaseItf.getDevice(i).getConsumptionOnMax() - globalDatabaseItf.getDevice(i).getConsumptionOnMin(),
-                                    sumQs[i][0]),
+                            Choco.mult(deltaConsumption, sumQs[i][0]),
                             cpuResource),
-                    globalDatabaseItf.getDevice(i).getConsumptionOnMin());
+                    device.getConsumptionOnMin());
         }
 
         // Consumption of each device
@@ -214,9 +239,6 @@ public class Optimizer implements OptimizerItf
                     Choco.mult(activeDevice[i], activeConsumption[i]),
                     Choco.mult(Choco.minus(1, activeDevice[i]), globalDatabaseItf.getDevice(i).getConsumptionOff()));
         }
-
-        // Period between two events (in seconds)
-        // TODO: change to machine learning
 
         // Consumption of migrations
         //*
@@ -282,7 +304,6 @@ public class Optimizer implements OptimizerItf
 
         model.addConstraints(serviceUnity);
 
-        //TODO fix
         // Constraints on devices QoR: a device cannot hold more services than its resources can support
         for (int i = 0; i < n; i++)
             for (int k = 0; k < r; k++)
@@ -344,7 +365,7 @@ public class Optimizer implements OptimizerItf
                 for (int i = 0; i < n; i++)
                     delta[i][j] = s.getVar(a[i][j]).getVal() - planInt[i][j];
 
-            //migraterItf.migrate(delta);
+            migraterItf.migrate(delta);
         }
         else
         {

@@ -24,7 +24,7 @@
 
 package com.orange.homenap.localmanager.migrationservice;
 
-import com.orange.homenap.localmanager.json.GsonServiceItf;
+import com.google.gson.Gson;
 import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
 import com.orange.homenap.utils.Component;
 
@@ -36,7 +36,6 @@ public class StateFileManager implements StateFileManagerItf
 {
     // iPOJO requires
     private LocalDatabaseItf localDatabaseItf;
-    private GsonServiceItf gsonServiceItf;
 
     // iPOJO properties
     private String directory;
@@ -93,7 +92,9 @@ public class StateFileManager implements StateFileManagerItf
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(directory + "/" + component.getName() + ".json"));
 
-                writer.write(gsonServiceItf.toJson(component.getProperties()));
+                Gson gson = new Gson();
+                
+                writer.write(gson.toJson(component.getProperties()));
 
                 writer.close();
             } catch (IOException e) {
@@ -131,7 +132,9 @@ public class StateFileManager implements StateFileManagerItf
 
                 Map<String, Object> properties = new HashMap<String, Object>();
 
-                properties = gsonServiceItf.fromJson(json.toString(), Map.class);
+                Gson gson = new Gson();
+
+                properties = gson.fromJson(json.toString(), Map.class);
 
                 component.setProperties(properties);
             }

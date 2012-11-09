@@ -24,8 +24,8 @@
 
 package com.orange.homenap.localmanager.globalcoordinatorcp;
 
+import com.google.gson.Gson;
 import com.orange.homenap.localmanager.deviceinfo.DeviceInfoItf;
-import com.orange.homenap.localmanager.json.GsonServiceItf;
 import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Device;
 import org.osgi.framework.*;
@@ -39,7 +39,6 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
 {
     // iPOJO requires
     private DeviceInfoItf deviceInfoItf;
-    private GsonServiceItf gsonServiceItf;
 
     // iPOJO properties
     private String typeGlobalCoordinator;
@@ -78,7 +77,9 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
 
                 Hashtable<String, Object> dico = new Hashtable<String, Object>();
 
-                dico.put("DeviceInfo", gsonServiceItf.toJson(deviceInfoItf.getDevice()));
+                Gson gson = new Gson();
+                
+                dico.put("DeviceInfo", gson.toJson(deviceInfoItf.getDevice()));
 
                 action.invoke(dico);
             } catch (Exception e) {
@@ -121,7 +122,9 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
 
                 Hashtable<String, Object> dico = new Hashtable<String, Object>();
 
-                dico.put("ServiceInfo", gsonServiceItf.toJson(architecture));
+                Gson gson = new Gson();
+
+                dico.put("ServiceInfo", gson.toJson(architecture));
                 dico.put("DeviceId", deviceInfoItf.getDevice().getId());
 
                 action.invoke(dico);

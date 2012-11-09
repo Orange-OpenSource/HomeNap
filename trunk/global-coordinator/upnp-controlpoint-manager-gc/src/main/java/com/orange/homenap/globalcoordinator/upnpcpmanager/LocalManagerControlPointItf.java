@@ -23,7 +23,11 @@
 
 package com.orange.homenap.globalcoordinator.upnpcpmanager;
 
+import com.orange.homenap.utils.Action;
+
+import java.util.List;
+
 public interface LocalManagerControlPointItf
 {
-    public void migrateService(java.lang.String serviceId, java.lang.String toDeviceId, java.lang.String wakeUpAddress);
+    public void actions(List<Action> actions);
 }

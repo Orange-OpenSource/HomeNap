@@ -92,6 +92,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.2</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- HomeNap -->
         <dependency>
             <groupId>com.orange.homenap</groupId>
@@ -111,13 +118,6 @@
         <dependency>
             <groupId>com.orange.homenap.localmanager</groupId>
             <artifactId>power-state</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.orange.homenap.localmanager</groupId>
-            <artifactId>json-service</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

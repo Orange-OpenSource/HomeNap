@@ -1,27 +1,3 @@
-/*
- * --------------------------------------------------------
- *  Module Name : local-manager-upnp
- *  Version : 0.1-SNAPSHOT
- *
- *  Software Name : HomeNap
- *  Version : 0.1-SNAPSHOT
- *
- *  Copyright © 28/06/2012 – 28/06/2012 France Télécom
- *  This software is distributed under the Apache 2.0 license,
- *  the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
- *  or see the "LICENSE-2.0.txt" file for more details.
- *
- * --------------------------------------------------------
- *  File Name   : LocalManagerDevice.java
- *
- *  Created     : 28/06/2012
- *  Author(s)   : Remi Druilhe
- *
- *  Description :
- *
- * --------------------------------------------------------
- */
-
 /**
  * LocalManagerDevice.java
  * 
@@ -170,7 +146,7 @@ public class LocalManagerDevice {
 			}
 			Properties props=new Properties();		
 			props=LocalManagerDeviceProperties.createProperties(props);
-			props.put(UPnPDevice.UDN, /*UPnPGenDevice.UUID_PREFIX +*/ uuid);
+			props.put(UPnPDevice.UDN, UPnPGenDevice.UUID_PREFIX + uuid);
 			dev.setProps(props);
 			return context.registerService(UPnPDevice.class.getName(),dev,dev.getProps());
 		}
