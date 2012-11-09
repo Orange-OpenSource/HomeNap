@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Module Name : executer
+  ~ Version : 0.1-SNAPSHOT
+  ~
+  ~ Software Name : HomeNap
+  ~ Version : 0.1-SNAPSHOT
+  ~
+  ~ Copyright © 28/06/2012 – 31/12/2013 France Télécom
+  ~ This software is distributed under the Apache 2.0 license,
+  ~ the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+  ~ or see the "LICENSE-2.0.txt" file for more details.
+  ~
+  ~ File Name   : metadata.xml
+  ~
+  ~ Created     : 09/11/2012
+  ~ Author(s)   : Remi Druilhe
+  ~
+  ~ Description :
+  ~
+  -->
+
+<ipojo>
+    <!-- Migrater -->
+    <component classname="com.orange.homenap.globalcoordinator.executer.Executer" name="executer">
+        <provides/>
+
+        <requires field="controlPointManagerItf"/>
+    </component>
+
+    <instance component="executer"/>
+</ipojo>
