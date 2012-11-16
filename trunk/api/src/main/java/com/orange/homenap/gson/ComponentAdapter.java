@@ -59,8 +59,8 @@ public class ComponentAdapter implements JsonSerializer<Component>, JsonDeserial
     public JsonElement serialize(Component component, Type type, JsonSerializationContext context)
     {
         JsonObject jsonObject = new JsonObject();
-        String className = component.getClass().getCanonicalName();
-        jsonObject.addProperty(CLASSNAME, className);
+        /*String className = component.getClass().getCanonicalName();
+        jsonObject.addProperty(CLASSNAME, className);*/
         JsonElement element = context.serialize(component);
         jsonObject.add(INSTANCE, element);
 
