@@ -42,6 +42,8 @@ public class BundleManager implements BundleManagerItf
     {
         Bundle bundle = null;
 
+        System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.orange.homenap.localmanager.migrationservice.handler:migration-handler");
+
         try {
             bundle = bundleContext.installBundle(url);
         } catch (BundleException e) {

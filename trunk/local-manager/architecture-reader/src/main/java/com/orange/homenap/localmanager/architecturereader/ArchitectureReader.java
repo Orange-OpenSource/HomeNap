@@ -40,7 +40,7 @@ public class ArchitectureReader implements ArchitectureReaderItf
     public void startService(String file)
     {
         //TODO: should be set inside migration-service and only when this is not an optional architecture
-        System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.orange.homenap.localmanager.migrationservice.handler:migration-handler");
+        //System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.orange.homenap.localmanager.migrationservice.handler:migration-handler");
 
         Architecture architecture = getArchitectureFromJson(file);
 

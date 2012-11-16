@@ -69,7 +69,7 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
         System.out.println("Registering Local Manager");
 
         // Register to GlobalCoordinator
-        if (gcExists())
+        if (gcExists() )
         {
             try {
                 UPnPService service = globalCoordinator.getService("urn:upnp-org:serviceId:GlobalCoordinator.1");
@@ -81,7 +81,18 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
                 
                 dico.put("DeviceInfo", gson.toJson(deviceInfoItf.getDevice()));
 
-                action.invoke(dico);
+                Dictionary<String, Boolean> result = action.invoke(dico);
+
+                /*System.out.println("Registration success: " + result.get("Success"));
+
+                if(!result.get("Success"))
+                {
+                    //TODO increment
+
+                    Thread.sleep(1000);
+
+                    register();
+                }*/
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -136,6 +147,8 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
             return true;
         }
 
+        System.out.println("Global Coordinator is not available");
+
         return false;
     }
 
@@ -189,24 +202,22 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
 
     private boolean gcExists()
     {
-        String globalCoordinatorFilter = "(&" + "(" + Constants.OBJECTCLASS + "=" + UPnPDevice.class.getName() + ")"
+        String filter = "(&" + "(" + Constants.OBJECTCLASS + "=" + UPnPDevice.class.getName() + ")"
                 + "(" + UPnPDevice.TYPE + "=" + typeGlobalCoordinator + ")" + ")";
 
         ServiceReference sr[] = null;
 
         try {
-            sr = bundleContext.getServiceReferences(UPnPDevice.class.getName(), globalCoordinatorFilter);
+            sr = bundleContext.getServiceReferences(UPnPDevice.class.getName(), filter);
         } catch (InvalidSyntaxException e) {
             e.printStackTrace();
         }
 
         if(sr != null)
-        {
             if(sr.length == 1)
                 globalCoordinator = (UPnPDevice) bundleContext.getService(sr[0]);
             else
                 System.out.println("Multiple GlobalCoordinator! Error!");
-        }
 
         if(globalCoordinator != null)
             return true;

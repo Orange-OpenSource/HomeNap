@@ -26,11 +26,13 @@
         <provides/>
 
         <properties>
-            <property field="infoMap"/>
+            <property field="componentMap"/>
+            <property field="propertiesMap"/>
         </properties>
     </component>
 
     <instance component="local-db">
-        <property name="infoMap" type="map"/>
+        <property name="componentMap" type="map"/>
+        <property name="propertiesMap" type="map"/>
     </instance>
 </ipojo>

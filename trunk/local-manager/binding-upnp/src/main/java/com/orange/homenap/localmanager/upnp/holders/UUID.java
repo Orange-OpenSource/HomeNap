@@ -1,49 +1,28 @@
-/**
- * Copyright (C) 2004-2005 France Telecom R&D
- *
- **/
-
 /*
- * Copyright (C) 2003 France Telecom R&D
+ * --------------------------------------------------------
+ * Module Name : binding-upnp
+ * Version : 0.1-SNAPSHOT
  *
- * This software is the confidential and proprietary information of France
- * Telecom R&D. ("Confidential Information"). You shall not
- * disclose such Confidential Information and shall use it only in
- * accordance with the terms of the license agreement you entered into
- * with France Telecom R&D.
- * This Software is distributed on an "AS IS" basis, WITHOUT WARRANTY OF
- * ANY KIND, either express or implied.
+ * Software Name : HomeNap
+ * Version : 0.1-SNAPSHOT
  *
- * contact: naoufel.chraiet@orange.com
+ * Copyright © 28/06/2012 – 31/12/2013 France Télécom
+ * This software is distributed under the Apache 2.0 license,
+ * the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+ * or see the "LICENSE-2.0.txt" file for more details.
+ *
+ * --------------------------------------------------------
+ * File Name   : ${NAME}
+ *
+ * Created     :
+ * Author(s)   : Remi Druilhe
+ *
+ * Description :
+ *
+ * --------------------------------------------------------
  */
 
 package com.orange.homenap.localmanager.upnp.holders;
-
-/**
- * <p>UUID represents Universally Unique Identifiers (aka Global UID in
- * Windows world). UUIDs are usually generated via UUIDGenerator (or in
- * case of 'Null UUID', 16 zero bytes, via static method getNullUUID()),
- * or received from external systems.</p>
- *
- * <p>By default class caches the string presentations of UUIDs so that
- * description is only created the first time it's needed. For memory
- * stingy applications this caching can be turned off (note though
- * that if uuid.toString() is never called, desc is never calculated
- * so only loss is the space allocated for the desc pointer... which
- * can of course be commented out to save memory).</p>
- *
- * <p>Similarly, hash code is calculated when it's needed for the first
- * time, and from thereon that value is just returned. This means
- * that using UUIDs as keys should be reasonably efficient.</p>
- *
- * <p>UUIDs can be compared for equality, serialized, cloned and even sorted.
- * Equality is a simple bit-wise comparison. Ordering (for sorting) is done by
- * first ordering based on type (in the order of numeric values of
- * types), secondarily by time stamp (only for time-based time stamps),
- * and finally by straight numeric byte-by-byte comparison (from
- * most to least significant bytes).</p>
- * @author Naoufel Chraiet, France Telecom R&D/DTL/ASR
- */
 
 public class UUID
         implements Cloneable {
@@ -429,7 +408,7 @@ public class UUID
      * @return -1 if this UUID should be ordered before the one passed,
      *   1 if after, and 0 if they are the same
      *
-     * @throws java.lang.ClassCastException if o is not a UUID.
+     * @throws ClassCastException if o is not a UUID.
      */
     public int compareTo(Object o) {
         UUID other = (UUID) o;
@@ -502,7 +481,7 @@ public class UUID
      * @param id Canonical string representation used for constructing
      *  an UUID instance
      *
-     * @throws java.lang.NumberFormatException if 'id' is invalid UUID
+     * @throws NumberFormatException if 'id' is invalid UUID
      */
     public static UUID valueOf(String id)
             throws NumberFormatException {

@@ -23,14 +23,21 @@
 
 package com.orange.homenap.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Action
 {
     public static enum ActionName {MIGRATE, STOP, START}
 
     private ActionName actionName;
-    private Device fromDevice;
+    private String fromDevice;
     private Device toDevice;
     private Component component;
+    private Map<String, Object> properties = new HashMap<String, Object>();
+    //private List<Property> properties = new ArrayList<Property>();
     
     public Action() {}
 
@@ -38,9 +45,9 @@ public class Action
 
     public void setActionName(ActionName actionName) { this.actionName = actionName; }
 
-    public Device getFromDevice() { return fromDevice; }
+    public String getFromDevice() { return fromDevice; }
 
-    public void setFromDevice(Device fromDevice) { this.fromDevice = fromDevice; }
+    public void setFromDevice(String fromDevice) { this.fromDevice = fromDevice; }
 
     public Device getToDevice() { return toDevice; }
 
@@ -49,4 +56,12 @@ public class Action
     public Component getComponent() { return component; }
 
     public void setComponent(Component component) { this.component = component; }
+
+    /*public List<Property> getProperties() { return properties; }
+
+    public void setProperties(List<Property> properties) { this.properties = properties; }*/
+
+    public Map<String, Object> getProperties() { return properties; }
+
+    public void setProperties(Map<String, Object> properties) { this.properties = properties; }
 }

@@ -15,7 +15,7 @@ import java.util.Properties;
 	* null
 	*/
 public class GlobalCoordinatorDeviceProperties {
-	public final static String UDN               = "uuid:FTRD-MAPS-GlobalCoordinator-UPnPGEN";
+	public final static String UDN               = "FTRD-MAPS-GlobalCoordinator-UPnPGEN";
 	public static final String TYPE              = "urn:schemas-upnp-org:device:GlobalCoordinator:1";
 	public static final String MANUFACTURER      = "Orange";
 	public static final String MODEL_NAME        = "GlobalCoordinator";

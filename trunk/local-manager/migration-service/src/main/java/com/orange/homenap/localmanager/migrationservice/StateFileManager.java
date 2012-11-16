@@ -81,9 +81,9 @@ public class StateFileManager implements StateFileManagerItf
             System.out.println("Unable to remove " + directory + " directory");
     }
 
-    public void save(String componentName)
+    public void save(String name)
     {
-        Component component = localDatabaseItf.get(componentName);
+        Component component = localDatabaseItf.get(name);
 
         if (component.getState().equals(Component.State.STATEFUL))
         {
@@ -94,7 +94,7 @@ public class StateFileManager implements StateFileManagerItf
 
                 Gson gson = new Gson();
                 
-                writer.write(gson.toJson(component.getProperties()));
+                //writer.write(gson.toJson(component.getProperties()));
 
                 writer.close();
             } catch (IOException e) {
@@ -103,9 +103,9 @@ public class StateFileManager implements StateFileManagerItf
         }
     }
 
-    public void load(String componentName)
+    public void load(String name)
     {
-        Component component = localDatabaseItf.get(componentName);
+        Component component = localDatabaseItf.get(name);
 
         if (component.getState().equals(Component.State.STATEFUL))
         {
@@ -136,7 +136,7 @@ public class StateFileManager implements StateFileManagerItf
 
                 properties = gson.fromJson(json.toString(), Map.class);
 
-                component.setProperties(properties);
+                //component.setProperties(properties);
             }
             else
             {

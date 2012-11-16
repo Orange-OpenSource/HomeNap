@@ -33,6 +33,7 @@ import org.apache.felix.ipojo.parser.FieldMetadata;
 import org.apache.felix.ipojo.parser.PojoMetadata;
 import org.osgi.framework.Bundle;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 public class MigrationHandler extends PrimitiveHandler
@@ -86,11 +87,11 @@ public class MigrationHandler extends PrimitiveHandler
         {
             PojoMetadata pojoMetadata = getPojoMetadata();
 
-            for(Map.Entry<String, Object> e : properties.entrySet())
+            for(Map.Entry<String, Object> map : properties.entrySet())
             {
-                System.out.println(e.getKey() + " : " + e.getValue());
+                //System.out.println(e.getKey() + " : " + e.getValue());
 
-                FieldMetadata fm = pojoMetadata.getField(e.getKey());
+                FieldMetadata fm = pojoMetadata.getField(map.getKey());
 
                 if(fm != null)
                     getInstanceManager().register(fm, this);
@@ -104,7 +105,7 @@ public class MigrationHandler extends PrimitiveHandler
 
         System.out.println("Stopping " + im.getContext().getBundle().getSymbolicName());
 
-        migrationManagerItf.unRegisterComponent(properties, im.getInstanceName());
+        migrationManagerItf.unRegisterComponent(properties, im.getContext().getBundle().getSymbolicName());
     }
 
     public Object onGet(Object pojo, String field, Object o)

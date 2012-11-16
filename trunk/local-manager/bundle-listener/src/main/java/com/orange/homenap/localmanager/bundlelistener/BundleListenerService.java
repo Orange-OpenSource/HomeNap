@@ -32,8 +32,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.BundleListener;
 
-import java.util.Dictionary;
-
 public class BundleListenerService implements BundleListener
 {
     // iPOJO requires
@@ -61,7 +59,6 @@ public class BundleListenerService implements BundleListener
 
     public void bundleChanged(BundleEvent be)
     {
-        Dictionary<String, String> dico = be.getBundle().getHeaders();
         Component component = localDatabaseItf.get(be.getBundle().getSymbolicName());
 
         switch (be.getType()) {
@@ -72,7 +69,7 @@ public class BundleListenerService implements BundleListener
                 component.setUrl(bundleLocation);
                 component.setBundleEvent(BundleEvent.INSTALLED);
 
-                stateFileManagerItf.load(component.getName());
+                //stateFileManagerItf.load(component.getName());
                 break;
 
             case BundleEvent.STARTED:
@@ -80,7 +77,7 @@ public class BundleListenerService implements BundleListener
                 break;
 
             case BundleEvent.STOPPED:
-                stateFileManagerItf.save(component.getName());
+                //stateFileManagerItf.save(component.getName());
                 component.setBundleEvent(BundleEvent.STOPPED);
                 break;
 

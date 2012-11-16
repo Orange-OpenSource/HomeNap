@@ -1,65 +1,31 @@
-/**
- * Copyright (C) 2004-2005 France Telecom R&D
- *
- **/
-
 /*
- * Copyright (C) 2003 France Telecom R&D
+ * --------------------------------------------------------
+ * Module Name : binding-upnp
+ * Version : 0.1-SNAPSHOT
  *
- * This software is the confidential and proprietary information of France
- * Telecom R&D. ("Confidential Information"). You shall not
- * disclose such Confidential Information and shall use it only in
- * accordance with the terms of the license agreement you entered into
- * with France Telecom R&D.
- * This Software is distributed on an "AS IS" basis, WITHOUT WARRANTY OF
- * ANY KIND, either express or implied.
+ * Software Name : HomeNap
+ * Version : 0.1-SNAPSHOT
  *
- * contact: naoufel.chraiet@orange.com
+ * Copyright © 28/06/2012 – 31/12/2013 France Télécom
+ * This software is distributed under the Apache 2.0 license,
+ * the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+ * or see the "LICENSE-2.0.txt" file for more details.
+ *
+ * --------------------------------------------------------
+ * File Name   : ${NAME}
+ *
+ * Created     :
+ * Author(s)   : Remi Druilhe
+ *
+ * Description :
+ *
+ * --------------------------------------------------------
  */
 
 package com.orange.homenap.localmanager.upnp.holders;
 
 import java.security.SecureRandom;
 
-/**
- * UUIDTimer produces the time stamps required for time-based UUIDs.
- * It works according to UUID-specification, with following
- * modifications:
- *
- *<ul>
- *<li>Java libs can only product time stamps with maximum resolution
- *   of one millisecond. To compensate, an additional counter is used,
- *   so that more than one UUID can be generated between java clock
- *   updates. Counter may be used to generate up to 10000 UUIDs for
- *   each distinct java clock value (which in some cases may mean
- *   getting 10k UUIDs for each 55 msecs, a la Windows, ie only
- *   about 200000 UUIDs per second).
- *<li> An additional precaution, counter is initialized not to 0
- *   but to a random 8-bit number, and each time clock changes, lowest
- *   8-bits of counter are preserved. The purpose is to make likelyhood
- *   of multi-JVM multi-instance generators to collide, without significantly
- *   reducing max. UUID generation speed. Note though that using more than
- *   one generator (from separate JVMs) is strongly discouraged, so
- *   hopefully this enhancement isn't needed.
- *   This 8-bit offset has to be reduced from total max. UUID count to
- *   preserve ordering property of UUIDs (ie. one can see which UUID
- *   was generated first for given UUID generator); the resulting
- *   9500 UUIDs isn't much different from the optimal choice.
- *</ul>
- *<p>
- *Some additional assumptions about calculating the timestamp:
- *<ul>
- *<li>System.currentTimeMillis() is assumed to give time offset in UTC,
- *   or at least close enough thing to get correct timestamps. The
- *   alternate route would have to go through calendar object, use
- *   TimeZone offset to get to UTC, and then modify. Using currentTimeMillis
- *   should be much faster to allow rapid UUID creation.
- *<li>Similarly, the constant used for time offset between 1.1.1970 and
- *  start of Gregorian calendar is assumed to be correct (which seems
- *  to be the case when testing with Java calendars).
- *</ul>
- * @author Naoufel Chraiet, France Telecom R&D/DTL/ASR
- */
 class UUIDTimer {
     /**
      * Since System.longTimeMillis() returns time from january 1st 1970,

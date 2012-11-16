@@ -31,6 +31,8 @@
             <property field="components"/>
             <property field="resources"/>
         </properties>
+
+        <callback transition="validate" method="start"/>
     </component>
 
     <instance component="global-database">

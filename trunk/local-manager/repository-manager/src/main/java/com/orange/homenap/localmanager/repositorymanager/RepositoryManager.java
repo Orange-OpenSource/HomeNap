@@ -27,6 +27,7 @@ package com.orange.homenap.localmanager.repositorymanager;
 import com.orange.homenap.localmanager.deviceinfo.DeviceInfoItf;
 
 import java.io.*;
+import java.net.URL;
 
 public class RepositoryManager implements RepositoryManagerItf
 {
@@ -38,12 +39,18 @@ public class RepositoryManager implements RepositoryManagerItf
 
     public String addBundleToRepository(String url)
     {
-        File inputFile = new File(url.split(":")[1]);
-        File outputFile = new File(repository + "/" + inputFile.getName());
+        String fileName = url.split("/")[url.split("/").length - 1];
 
-        try {
-            InputStream in = new FileInputStream(inputFile);
-            OutputStream out = new FileOutputStream(outputFile);
+        try
+        {
+            InputStream in = null;
+
+            if(url.startsWith("file:/"))
+                in = new FileInputStream(new File(url.replace("file:", "")));
+            else if(url.startsWith("http://"))
+                in = (new URL(url)).openStream();
+
+            OutputStream out = new FileOutputStream(new File(repository + "/" + fileName));
 
             byte[] buffer = new byte[1024];
 
@@ -60,11 +67,11 @@ public class RepositoryManager implements RepositoryManagerItf
             e.printStackTrace();
         }
 
-        String httpUrlBundle = "http://" + deviceInfoItf.getDevice().getIp() + "/repository/" + outputFile.getName();
-        
+        String httpUrlBundle = "http://" + deviceInfoItf.getDevice().getIp() + "/repository/" + fileName;
+
         return httpUrlBundle;
     }
-    
+
     public void removeBundleFromRepository(String bundleName)
     {
         //TODO

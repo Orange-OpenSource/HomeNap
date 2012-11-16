@@ -24,17 +24,12 @@
 
 package com.orange.homenap.localmanager.eventlistener;
 
-import com.orange.homenap.localmanager.bundlemanager.BundleManagerItf;
 import com.orange.homenap.localmanager.deviceinfo.DeviceInfoItf;
 import com.orange.homenap.localmanager.globalcoordinatorcp.GlobalCoordinatorControlPointItf;
 import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
+import com.orange.homenap.localmanager.localexecuter.LocalExecuterItf;
 import com.orange.homenap.localmanager.powerstate.PowerStateManagerItf;
-import com.orange.homenap.localmanager.upnpcpmanager.ControlPointManagerItf;
-import com.orange.homenap.localmanager.upnpcpmanager.DeployerControlPointItf;
-import com.orange.homenap.utils.Action;
-import com.orange.homenap.utils.Architecture;
-import com.orange.homenap.utils.Component;
-import com.orange.homenap.utils.Device;
+import com.orange.homenap.utils.*;
 import org.osgi.service.event.Event;
 
 import java.io.ByteArrayInputStream;
@@ -46,12 +41,11 @@ import java.util.List;
 public class EventListener implements MigrationEvent, ArchitectureEvent, GlobalCoordinatorEvent
 {
     // iPOJO requires
-    private BundleManagerItf bundleManagerItf;
     private PowerStateManagerItf powerStateManagerItf;
     private DeviceInfoItf deviceInfoItf;
     private GlobalCoordinatorControlPointItf globalCoordinatorControlPointItf;
-    private ControlPointManagerItf controlPointManagerItf;
     private LocalDatabaseItf localDatabaseItf;
+    private LocalExecuterItf localExecuterItf;
 
     private List<Architecture> architectures;
 
@@ -79,17 +73,22 @@ public class EventListener implements MigrationEvent, ArchitectureEvent, GlobalC
             architectures.add(architecture);
 
             Iterator<Component> it = architecture.getComponent().iterator();
+            List<Action> actions = new ArrayList<Action>();
 
             while(it.hasNext())
             {
                 Component component = it.next();
 
-                localDatabaseItf.put(component.getName(), component);
+                Action action = new Action();
 
-                bundleManagerItf.start(component.getUrl());
-
-                deviceInfoItf.getDevice().getComponentsOnDevice().add(component.getName());
+                action.setActionName(Action.ActionName.START);
+                action.setComponent(component);
+                //action.setProperty(new ArrayList<Property>());
+                
+                actions.add(action);
             }
+
+            localExecuterItf.start(actions);
         }
     }
 
@@ -147,36 +146,43 @@ public class EventListener implements MigrationEvent, ArchitectureEvent, GlobalC
         //TODO
     }
 
-    @Override
-    public void actionsToTake(List<Action> actions)
+    public void actionsToTake(Actions actions)
     {
-        System.out.println("Yeah! I have actions to take!!!");
+        Iterator<Action> it = actions.getActions().iterator();
 
-        Iterator<Action> it = actions.iterator();
-        
+        List<Action> migrateAction = new ArrayList<Action>();
+        List<Action> startAction = new ArrayList<Action>();
+        List<Action> stopAction = new ArrayList<Action>();
+
         while(it.hasNext())
         {
             Action action = it.next();
 
-            System.out.println(action.getActionName() + " " + action.getComponent().getName() + " to " + action.getToDevice().getIp());
+            switch (action.getActionName())
+            {
+                case MIGRATE:
+                    migrateAction.add(action);
+                    break;
+                case START:
+                    startAction.add(action);
+                    break;
+                case STOP:
+                    stopAction.add(action);
+                    break;
+                default:
+                    break;
+            }
         }
+
+        if(!migrateAction.isEmpty())
+            localExecuterItf.migrate(migrateAction);
+
+        if(!startAction.isEmpty())
+            localExecuterItf.start(startAction);
+
+        if(!stopAction.isEmpty())
+            localExecuterItf.stop(stopAction);
     }
-/*    public void migrateComponent(String componentName, String toDeviceId, String wakeUpAddress)
-    {
-        System.out.println("Migration action");
-
-        powerStateManagerItf.suspendStateChange();
-
-        DeployerControlPointItf deployerControlPointItf = controlPointManagerItf.createCP(toDeviceId, wakeUpAddress);
-
-        Component component = localDatabaseItf.get(componentName);
-
-        deployerControlPointItf.start(component.getUrl(), gsonServiceItf.toJson(component.getProperties()));
-
-        powerStateManagerItf.releaseStateChange();
-
-        //TODO: take into account capabilities of the EventListener (number of services, ...)
-    }*/
 
     public void notifyPowerStateChange(Event event)
     {

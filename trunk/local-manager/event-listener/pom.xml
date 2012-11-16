@@ -124,13 +124,6 @@
 
         <dependency>
             <groupId>com.orange.homenap.localmanager</groupId>
-            <artifactId>bundle-manager</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.orange.homenap.localmanager</groupId>
             <artifactId>global-coordinator-cp</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
@@ -138,14 +131,14 @@
 
         <dependency>
             <groupId>com.orange.homenap.localmanager</groupId>
-            <artifactId>upnp-controlpoint-manager</artifactId>
+            <artifactId>local-database</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.orange.homenap.localmanager</groupId>
-            <artifactId>local-database</artifactId>
+            <artifactId>local-executer</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

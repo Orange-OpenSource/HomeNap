@@ -33,7 +33,7 @@ public class UPnPGenInArgument extends UPnPGenArgument{
 	}
 	/*
 	 *  (non-Javadoc)
-	 * @see com.orange.upnpgen.tests.UPnPGenArgument#getDirection()
+	 * @see com.francetelecom.upnpgen.tests.UPnPGenArgument#getDirection()
 	 */
 	public boolean getDirection() {
 		return UPnPGenArgument.IN;

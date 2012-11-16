@@ -45,11 +45,11 @@ public class GlobalCoordinatorListener implements ServiceListener
     public void start()
     {
         // Add service listener to GlobalCoordinator
-        String globalCoordinatorFilter = "(&" + "(" + Constants.OBJECTCLASS + "=" + UPnPDevice.class.getName() + ")"
+        String filter = "(&" + "(" + Constants.OBJECTCLASS + "=" + UPnPDevice.class.getName() + ")"
                 + "(" + UPnPDevice.TYPE + "=" + typeGlobalCoordinator + ")" + ")";
 
         try {
-            bundleContext.addServiceListener(this, globalCoordinatorFilter);
+            bundleContext.addServiceListener(this, filter);
         } catch (InvalidSyntaxException e) {
             e.printStackTrace();
         }

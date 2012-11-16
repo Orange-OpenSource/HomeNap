@@ -32,5 +32,5 @@ import java.util.Map;
 
 public interface ExecuterItf
 {
-    public void executeActions(Map<Device, List<Action>> actions);
+    public void executeActions(Map<String, List<Action>> actions);
 }

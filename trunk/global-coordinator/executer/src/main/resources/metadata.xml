@@ -25,7 +25,7 @@
     <component classname="com.orange.homenap.globalcoordinator.executer.Executer" name="executer">
         <provides/>
 
-        <requires field="controlPointManagerItf"/>
+        <requires field="controlPointFactoryItf"/>
     </component>
 
     <instance component="executer"/>

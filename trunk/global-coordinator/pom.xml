@@ -26,7 +26,7 @@
     <groupId>com.orange.homenap.globalcoordinator</groupId>
     <artifactId>global-coordinator</artifactId>
     <version>0.1-SNAPSHOT</version>
-    <name>Local Manager</name>
+    <name>Global Coordinator</name>
 
     <parent>
         <artifactId>homenap</artifactId>
@@ -40,7 +40,6 @@
         <module>global-database</module>
         <module>binding-upnp-gc</module>
         <module>upnp-device-manager-gc</module>
-        <module>upnp-controlpoint-manager-gc</module>
         <module>optimizer</module>
         <module>migrater</module>
         <module>analyser</module>

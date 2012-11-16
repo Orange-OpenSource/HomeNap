@@ -59,6 +59,8 @@ public class GCDevice implements IGlobalCoordinatorService
 
     public void stop()
     {
+        System.out.println("Stopping Global Coordinator Device");
+
         serviceRegistration.unregister();
     }
 
@@ -69,6 +71,9 @@ public class GCDevice implements IGlobalCoordinatorService
         Gson gson = new Gson();
         
         Device device = gson.fromJson(deviceInfo, Device.class);
+        
+        if(device.getId() == null)
+            return false;
 
         globalDatabaseItf.addDevice(device);
 

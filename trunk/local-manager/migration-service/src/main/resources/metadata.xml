@@ -31,7 +31,7 @@
     </handler>
 
     <!-- MigrationManager -->
-    <component classname="com.orange.homenap.localmanager.migrationservice.MigrationManager" name="migration-manager" immediat="true">
+    <component classname="com.orange.homenap.localmanager.migrationservice.MigrationManager" name="migration-manager">
         <provides/>
 
         <requires field="localDatabaseItf"/>

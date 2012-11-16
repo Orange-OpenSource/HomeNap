@@ -1,6 +1,6 @@
 /*
  * --------------------------------------------------------
- * Module Name : api
+ * Module Name : binding-upnp
  * Version : 0.1-SNAPSHOT
  *
  * Software Name : $projectName
@@ -30,5 +30,5 @@ package com.orange.homenap.api;
 	/**
 	* Interface declaration for UPnP action: ActionsToTake
 	*/
-	public void actionsToTake(java.lang.String actions) throws Exception;
+	public void actionsToTake(String actions) throws Exception;
 }

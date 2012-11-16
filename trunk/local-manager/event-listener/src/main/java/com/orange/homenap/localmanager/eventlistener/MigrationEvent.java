@@ -25,10 +25,11 @@
 package com.orange.homenap.localmanager.eventlistener;
 
 import com.orange.homenap.utils.Action;
+import com.orange.homenap.utils.Actions;
 
 import java.util.List;
 
 public interface MigrationEvent
 {
-    public void actionsToTake(List<Action> actions);
+    public void actionsToTake(Actions actions);
 }

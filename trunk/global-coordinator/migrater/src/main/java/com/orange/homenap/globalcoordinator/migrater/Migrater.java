@@ -71,7 +71,7 @@ public class Migrater implements MigraterItf
                         action.setToDevice(device);
                         break;
                     case -1:
-                        action.setFromDevice(device);
+                        action.setFromDevice(device.getId());
                         break;
                     default:
                         break;
@@ -89,7 +89,7 @@ public class Migrater implements MigraterItf
             actions.add(action);
         }
 
-        Map<Device, List<Action>> actionsPerDevice = new HashMap<Device, List<Action>>();
+        Map<String, List<Action>> actionsPerDevice = new HashMap<String, List<Action>>();
 
         Iterator<Action> it = actions.iterator();
         

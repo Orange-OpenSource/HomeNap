@@ -26,6 +26,7 @@ package com.orange.homenap.utils;
 
 import org.osgi.framework.BundleEvent;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,9 +47,16 @@ public class Component
     private int bundleEvent;
     private List<Resource> resources;
     private List<String> require = new ArrayList<String>();
-    private Map<String, Object> properties = new HashMap<String, Object>();
+    //private Map<String, Object> properties = new HashMap<String, Object>();
+    //private List<Property> properties = new ArrayList<Property>();
+    //private Map<String , String> propertiesType = new HashMap<String, String>();
 
     public Component()
+    {
+        bundleEvent = BundleEvent.UNINSTALLED;
+    }
+    
+    public Component(Long id, String name, String url, Deployment deployment, Migrability migrability, State state)
     {
         bundleEvent = BundleEvent.UNINSTALLED;
     }
@@ -89,7 +97,15 @@ public class Component
 
     public List<Resource> getResources() { return resources; }
 
-    public void setProperties(Map<String, Object> properties) { this.properties = properties; }
+    /*public void setProperties(Map<String, Object> properties) { this.properties = properties; }
 
-    public Map<String, Object> getProperties() { return this.properties; }
+    public Map<String, Object> getProperties() { return this.properties; }*/
+
+    /*public List<Property> getProperties() { return properties; }
+
+    public void setProperties(List<Property> properties) { this.properties = properties; }*/
+
+    /*    public void setPropertiesType(Map<String, String> propertiesType) { this.propertiesType = propertiesType; }
+
+public Map<String, String> getPropertiesType() { return propertiesType; }*/
 }

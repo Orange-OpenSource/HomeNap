@@ -30,7 +30,6 @@ import com.orange.homenap.utils.Resource;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class GlobalDatabase implements GlobalDatabaseItf
 {
@@ -41,6 +40,14 @@ public class GlobalDatabase implements GlobalDatabaseItf
     private List<String> resources;
 
     public GlobalDatabase() {}
+
+    public void start()
+    {
+        System.out.println("Devices size: " + devices.size());
+        System.out.println("Resources size: " + resources.size());
+        System.out.println("Architectures size: " + architectures.size());
+        System.out.println("Components size: " + components.size());
+    }
 
     public void addDevice(Device device)
     {
@@ -55,15 +62,31 @@ public class GlobalDatabase implements GlobalDatabaseItf
     {
         System.out.println("Removing device " + id);
 
-        Iterator<Device> iterator = devices.iterator();
+        Iterator<Device> it = devices.iterator();
 
-        while(iterator.hasNext())
+        System.out.println("toto");
+
+        System.out.println(devices.get(0).getId());
+
+        while(it.hasNext())
         {
-            Device tmp = iterator.next();
+            System.out.println("0");
 
-            if(tmp.getId().equals(id))
-                iterator.remove();
+            Device device = it.next();
+
+            System.out.println("1");
+
+            System.out.println(device.getId());
+
+            if(device.getId().equals(id))
+            {
+                System.out.println("Found");
+
+                it.remove();
+            }
         }
+
+        System.out.println("Removed");
     }
 
     public void addArchitecture(Architecture architecture)

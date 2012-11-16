@@ -24,23 +24,22 @@
 
 package com.orange.homenap.globalcoordinator.executer;
 
-import com.orange.homenap.globalcoordinator.upnpcpmanager.ControlPointManagerItf;
-import com.orange.homenap.globalcoordinator.upnpcpmanager.LocalManagerControlPointItf;
+import com.orange.homenap.localmanager.controlpointfactory.ControlPointFactoryItf;
+import com.orange.homenap.localmanager.controlpointfactory.LocalManagerControlPointItf;
 import com.orange.homenap.utils.Action;
-import com.orange.homenap.utils.Device;
 
 import java.util.List;
 import java.util.Map;
 
 public class Executer implements ExecuterItf
 {
-    private ControlPointManagerItf controlPointManagerItf;
+    private ControlPointFactoryItf controlPointFactoryItf;
 
-    public void executeActions(Map<Device, List<Action>> actions)
+    public void executeActions(Map<String, List<Action>> actions)
     {
-        for(Map.Entry<Device, List<Action>> entry : actions.entrySet())
+        for(Map.Entry<String, List<Action>> entry : actions.entrySet())
         {
-            LocalManagerControlPointItf lmcpi = controlPointManagerItf.createCP(entry.getKey().getId());
+            LocalManagerControlPointItf lmcpi = controlPointFactoryItf.createCP(entry.getKey());
 
             if(lmcpi != null)
                 lmcpi.actions(entry.getValue());

@@ -1,19 +1,25 @@
-/**
- * Copyright (C) 2004-2005 France Telecom R&D
+/*
+ * --------------------------------------------------------
+ * Module Name : binding-upnp
+ * Version : 0.1-SNAPSHOT
  *
- **/
-
-/* Copyright (C) 2003 France Telecom R&D
+ * Software Name : HomeNap
+ * Version : 0.1-SNAPSHOT
  *
- * This software is the confidential and proprietary information of France
- * Telecom R&D. ("Confidential Information"). You shall not
- * disclose such Confidential Information and shall use it only in
- * accordance with the terms of the license agreement you entered into
- * with France Telecom R&D.
- * This Software is distributed on an "AS IS" basis, WITHOUT WARRANTY OF
- * ANY KIND, either express or implied.
+ * Copyright © 28/06/2012 – 31/12/2013 France Télécom
+ * This software is distributed under the Apache 2.0 license,
+ * the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+ * or see the "LICENSE-2.0.txt" file for more details.
  *
- * contact: naoufel.chraiet@orange.com
+ * --------------------------------------------------------
+ * File Name   : ${NAME}
+ *
+ * Created     :
+ * Author(s)   : Remi Druilhe
+ *
+ * Description :
+ *
+ * --------------------------------------------------------
  */
 
 package com.orange.homenap.localmanager.upnp.holders;
@@ -24,57 +30,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.SecureRandom;
 
-/**
- * UUIDGenerator is the class that contains factory methods for
- * generating UUIDs using one of the three specified 'standard'
- * UUID generation methods:
- * (see <a href="http://www1.ics.uci.edu/~ejw/authoring/uuid-guid/draft-leach-uuids-guids-01.txt">draft-leach-uuids-guids-01.txt</a> for details)
- * <ul>
- * <li>Time-based generation generates UUID using spatial and
- *     temporal uniqueness. Spatial uniqueness is derived from
- *     ethernet address (MAC, 802.1); temporal from system clock.
- *     See the details from the explanation of
- *     {@link #generateTimeBasedUUID} function.
- * <li>Name-based method uses MD5 hash (or, optionally any user-specified
- *     digest method) of the string formed from
- *     a name space and name.
- * <li>Random method uses Java2 API's SecureRandom to produce
- *     cryptographically secure UUIDs.
- * <li>Tag URI - method uses a variation of name-based method; instead of
- *    using a name space UUID and name, a hash (MD5 by default) is calculated
- *    from URI-tag-prefix, 2 obligatory strings (URL, path) and one
- *    optional string (current date). The resulting UUID is still considered
- *    to be 'name-based UUID' as the specification does not have additional
- *    UUID type ids available.
- *    Note that this is a non-standard method and not strictly UUID-'standard'
- *    compliant.
- * </ul>
- *
- * Some comments about performance:
- * <ul>
- * <li>For non-performance critical generation, all methods with default
- *    arguments (default random number generator, default hash algorithm)
- *    should do just fine.
- * <li>When optimizing performance, it's better to use explicit random
- *    number generator and/or hash algorithm; this way global instance
- *    sharing need not be synchronized
- * <li>Which of the 3 methods is fastest? It depends, and the best way
- *    is to just measure performance, discarding the first UUID generated
- *    with the methods. With time-based method, main overhead comes from
- *    synchronization, with name-based (MD5-)hashing, and with random-based
- *    the speed of random-number generator. Additionally, all methods may
- *    imply some overhead when using the shared global random nunber
- *    generator or hash algorithm.
- * <li>When generating the first UUID with random-/time-based methods,
- *    there may be noticeable delay, as the random number generator is
- *    initialized. This can be avoided by either pre-initialising the
- *    random number generator passed (with random-based method), or by
- *    generating a dummy UUID on a separate thread, when starting a
- *    program needs to generate UUIDs at a later point.
- *
- * </ul>
- * @author Naoufel Chraiet, France Telecom R&D/DTL/ASR
- */
 public final class UUIDGenerator {
     private final static UUIDGenerator sSingleton = new UUIDGenerator();
 

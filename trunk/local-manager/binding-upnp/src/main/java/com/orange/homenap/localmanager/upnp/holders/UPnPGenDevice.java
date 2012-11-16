@@ -1,22 +1,25 @@
-/**
-##############################################################################
-# Copyright (C) 2004-2007 France Telecom R&D
-#
-# This library is free software; you can redistribute it and/or
-# modify it under the terms of the GNU Lesser General Public
-# License as published by the Free Software Foundation; either
-# version 2 of the License, or (at your option) any later version.
-#
-# This library is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public
-# License along with this library; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-##############################################################################
- * 
+/*
+ * --------------------------------------------------------
+ * Module Name : binding-upnp
+ * Version : 0.1-SNAPSHOT
+ *
+ * Software Name : HomeNap
+ * Version : 0.1-SNAPSHOT
+ *
+ * Copyright © 28/06/2012 – 31/12/2013 France Télécom
+ * This software is distributed under the Apache 2.0 license,
+ * the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+ * or see the "LICENSE-2.0.txt" file for more details.
+ *
+ * --------------------------------------------------------
+ * File Name   : ${NAME}
+ *
+ * Created     :
+ * Author(s)   : Remi Druilhe
+ *
+ * Description :
+ *
+ * --------------------------------------------------------
  */
 package com.orange.homenap.localmanager.upnp.holders;
 
@@ -34,10 +37,6 @@ import org.osgi.service.upnp.UPnPService;
 import org.osgi.service.upnp.UPnPStateVariable;
 
 
-/**
- * This class represnets an UPnP Device in a XML device decription
- * @author  Marius Legros TANKEU DE KUIGWA
- */
 public class UPnPGenDevice implements UPnPDevice{
 	
 	final public static String UUID_PREFIX = "uuid:";
@@ -279,7 +278,7 @@ public class UPnPGenDevice implements UPnPDevice{
 	public void addDevice(UPnPDevice device) {
         devices.add(device);
         System.out.println("Registering embedded Device " + device.getDescriptions("en").toString());
-        context.registerService((org.osgi.service.upnp.UPnPDevice.class).getName(),
+        context.registerService((UPnPDevice.class).getName(),
                 device, device.getDescriptions("en"));
     }
 

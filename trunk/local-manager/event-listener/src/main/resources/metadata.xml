@@ -25,12 +25,11 @@
     <component classname="com.orange.homenap.localmanager.eventlistener.EventListener" name="event-listener">
         <provides/>
 
-        <requires field="bundleManagerItf"/>
         <requires field="powerStateManagerItf" optional="true"/>
         <requires field="deviceInfoItf"/>
         <requires field="globalCoordinatorControlPointItf" optional="true"/>
-        <requires field="controlPointManagerItf" optional="true"/>
         <requires field="localDatabaseItf"/>
+        <requires field="localExecuterItf"/>
 
         <ev:subscriber name="powerStateSubscriber" callback="notifyPowerStateChange" topics="state"/>
 
