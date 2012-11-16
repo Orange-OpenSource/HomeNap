@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Module Name : controlpoint-factory
+  ~ Version : 0.1-SNAPSHOT
+  ~
+  ~ Software Name : HomeNap
+  ~ Version : 0.1-SNAPSHOT
+  ~
+  ~ Copyright © 28/06/2012 – 31/12/2013 France Télécom
+  ~ This software is distributed under the Apache 2.0 license,
+  ~ the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+  ~ or see the "LICENSE-2.0.txt" file for more details.
+  ~
+  ~ File Name   : metadata.xml
+  ~
+  ~ Created     : 13/11/2012
+  ~ Author(s)   : Remi Druilhe
+  ~
+  ~ Description :
+  ~
+  -->
+
+<ipojo>
+    <!-- ControlPointFactory -->
+    <component classname="com.orange.homenap.localmanager.controlpointfactory.ControlPointFactory" name="control-point-factory">
+        <provides specification="com.orange.homenap.localmanager.controlpointfactory.ControlPointFactoryItf" />
+
+        <requires field="factory" filter="(factory.name=local-manager-control-point)"/>
+
+        <callback transition="validate" method="start"/>
+    </component>
+
+    <!-- LocalManagerControlPoint -->
+    <component classname="com.orange.homenap.localmanager.controlpointfactory.LocalManagerControlPoint" name="local-manager-control-point">
+        <provides/>
+
+        <callback transition="validate" method="start"/>
+        <callback transition="invalidate" method="stop"/>
+
+        <requires field="wakeOnLanItf"/>
+
+        <properties>
+            <property field="udnLocalManager" mandatory="true"/>
+        </properties>
+    </component>
+
+    <instance component="control-point-factory"/>
+</ipojo>
