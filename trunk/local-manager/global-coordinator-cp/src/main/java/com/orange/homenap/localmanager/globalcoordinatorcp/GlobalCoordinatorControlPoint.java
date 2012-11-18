@@ -54,11 +54,6 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
         this.bundleContext = bc;
     }
 
-    public void start()
-    {
-        register();
-    }
-
     public void stop()
     {
         unRegister();
@@ -66,10 +61,10 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
 
     public void register()
     {
-        System.out.println("Registering Local Manager");
+        System.out.println("Registering: " + deviceInfoItf.getDevice().getId());
 
         // Register to GlobalCoordinator
-        if (gcExists() )
+        if (gcExists())
         {
             try {
                 UPnPService service = globalCoordinator.getService("urn:upnp-org:serviceId:GlobalCoordinator.1");
@@ -78,7 +73,7 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
                 Hashtable<String, Object> dico = new Hashtable<String, Object>();
 
                 Gson gson = new Gson();
-                
+
                 dico.put("DeviceInfo", gson.toJson(deviceInfoItf.getDevice()));
 
                 Dictionary<String, Boolean> result = action.invoke(dico);

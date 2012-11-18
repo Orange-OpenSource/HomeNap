@@ -3,7 +3,13 @@
 	"ip": "10.194.3.157",
 	"deviceState": "ON",
 	"statesSupported": ["ON","SLEEP","HIBERNATE","OFF"],
-	"consumptionOn": 105,
+	"consumptionOnMin": 80,
+	"consumptionOnMax": 120,
 	"consumptionOff": 5,
-	"resources": {"CPU":5984,"RAM":2059984,"ROM":274}
+	"resources":
+	[
+        {"name": "CPU", "value": 7200},
+        {"name": "RAM", "value": 2059984},
+        {"name": "ROM", "value": 274}
+    ]
 }

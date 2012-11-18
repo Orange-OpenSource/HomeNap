@@ -28,23 +28,21 @@ import com.google.gson.Gson;
 import com.orange.homenap.api.ILocalManagerService;
 import com.orange.homenap.localmanager.bundlemanager.BundleManagerItf;
 import com.orange.homenap.localmanager.deviceinfo.DeviceInfoItf;
-import com.orange.homenap.localmanager.eventlistener.MigrationEvent;
+import com.orange.homenap.localmanager.eventlistener.ActionsEvent;
 import com.orange.homenap.localmanager.upnp.devices.LocalManagerDevice;
 import com.orange.homenap.utils.*;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class LMDevice implements ILocalManagerService
 {
     // iPOJO requires
     private DeviceInfoItf deviceInfoItf;
-    private MigrationEvent migrationEvent;
+    private ActionsEvent actionsEvent;
     private BundleManagerItf bundleManagerItf;
 
     // iPOJO injection
@@ -66,6 +64,18 @@ public class LMDevice implements ILocalManagerService
         deviceInfoItf.setUDN((String) serviceRegistration.getReference().getProperty("UPnP.device.UDN"));
 
         System.out.println("My ID is: " + deviceInfoItf.getDevice().getId());
+
+        Action action = new Action();
+
+        action.setActionName(Action.ActionName.REGISTER);
+
+        Actions actions = new Actions();
+        List<Action> actionList = new ArrayList<Action>();
+
+        actionList.add(action);
+        actions.setActions(actionList);
+
+        actionsEvent.actionsToTake(actions);
     }
 
     public void stop()
@@ -113,8 +123,8 @@ public class LMDevice implements ILocalManagerService
             }
         }*/
 
-        migrationEvent.actionsToTake(actionList);
-        //migrationEvent.actionsToTake(actionList);
+        actionsEvent.actionsToTake(actionList);
+        //actionsEvent.actionsToTake(actionList);
     }
 
     private Object getProperties(Object object, String typeStr)

@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class Action
 {
-    public static enum ActionName {MIGRATE, STOP, START}
+    public static enum ActionName {MIGRATE, STOP, START, REGISTER, UNREGISTER}
 
     private ActionName actionName;
     private String fromDevice;

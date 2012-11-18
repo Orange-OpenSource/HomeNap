@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-*  Module Name : wakeonlan
+*  Module Name : device-info
 *  Version : 0.1-SNAPSHOT
 *
 *  Software Name : HomeNap
@@ -25,15 +25,7 @@
     <component classname="com.orange.homenap.localmanager.deviceinfo.DeviceInfo" name="device-info">
         <provides/>
 
-        <!--<requires field="gsonServiceItf"/>            -->
-
         <callback transition="validate" method="start"/>
-
-        <properties>
-            <property field="deviceInfoFile"
-                      value="DEVICE_FILE"
-                      mandatory="true"/>
-        </properties>
     </component>
 
     <instance component="device-info"/>

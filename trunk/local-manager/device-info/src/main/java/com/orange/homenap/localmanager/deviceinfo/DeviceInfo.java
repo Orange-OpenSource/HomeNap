@@ -25,6 +25,7 @@
 package com.orange.homenap.localmanager.deviceinfo;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.orange.homenap.utils.Device;
 import java.io.*;
 import java.net.NetworkInterface;
@@ -34,9 +35,6 @@ import java.util.Enumeration;
 
 public class DeviceInfo implements DeviceInfoItf
 {
-    // iPOJO properties
-    private String deviceInfoFile;
-
     // Global variables
     private Device device;
 
@@ -46,7 +44,7 @@ public class DeviceInfo implements DeviceInfoItf
         StringBuilder json = new StringBuilder();
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(deviceInfoFile));
+            BufferedReader reader = new BufferedReader(new FileReader(System.getenv("DEVICE_FILE")));
 
             String strLine;
 
@@ -60,9 +58,13 @@ public class DeviceInfo implements DeviceInfoItf
             e.printStackTrace();
         }
 
-        Gson gson = new Gson();
+        try {
+            Gson gson = new Gson();
 
-        this.device = gson.fromJson(json.toString(), Device.class);
+            this.device = gson.fromJson(json.toString(), Device.class);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setUDN(String udn)

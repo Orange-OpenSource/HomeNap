@@ -280,7 +280,16 @@ public class Optimizer implements OptimizerItf
         migrationConsumption);/*/
         IntegerExpressionVariable newConsumption = Choco.sum(devicesConsumption);//*/
 
-        IntegerVariable conso = Choco.makeIntVar("conso", 1, 1000000);
+        Integer consoSystemOff = 0;
+        Integer consoSystemMax = 0;
+
+        for(int i = 0; i < n; i++)
+        {
+            consoSystemOff += globalDatabaseItf.getDevice(i).getConsumptionOff();
+            consoSystemMax += globalDatabaseItf.getDevice(i).getConsumptionOnMax();
+        }
+
+        IntegerVariable conso = Choco.makeIntVar("conso", consoSystemOff, consoSystemMax);
 
         model.addConstraint(Choco.eq(newConsumption, conso));
 
@@ -353,6 +362,8 @@ public class Optimizer implements OptimizerItf
         Solver s = new CPSolver();
 
         s.read(model);
+
+        System.out.println(s.getVar(conso).getVal());
 
         // Solve and print values
         if (s.minimize(s.getVar(conso), false))

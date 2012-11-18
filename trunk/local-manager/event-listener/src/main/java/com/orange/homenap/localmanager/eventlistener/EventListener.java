@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class EventListener implements MigrationEvent, ArchitectureEvent, GlobalCoordinatorEvent
+public class EventListener implements ActionsEvent, ArchitectureEvent, GlobalCoordinatorEvent
 {
     // iPOJO requires
     private PowerStateManagerItf powerStateManagerItf;
@@ -169,6 +169,11 @@ public class EventListener implements MigrationEvent, ArchitectureEvent, GlobalC
                 case STOP:
                     stopAction.add(action);
                     break;
+                case REGISTER:
+                    globalCoordinatorControlPointItf.register();
+                    break;
+                case UNREGISTER:
+                    globalCoordinatorControlPointItf.unRegister();
                 default:
                     break;
             }
