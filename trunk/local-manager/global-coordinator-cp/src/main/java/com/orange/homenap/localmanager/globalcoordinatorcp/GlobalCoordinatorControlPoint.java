@@ -27,6 +27,7 @@ package com.orange.homenap.localmanager.globalcoordinatorcp;
 import com.google.gson.Gson;
 import com.orange.homenap.localmanager.deviceinfo.DeviceInfoItf;
 import com.orange.homenap.utils.Architecture;
+import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
 import org.osgi.framework.*;
 import org.osgi.service.upnp.UPnPAction;
@@ -77,17 +78,6 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
                 dico.put("DeviceInfo", gson.toJson(deviceInfoItf.getDevice()));
 
                 Dictionary<String, Boolean> result = action.invoke(dico);
-
-                /*System.out.println("Registration success: " + result.get("Success"));
-
-                if(!result.get("Success"))
-                {
-                    //TODO increment
-
-                    Thread.sleep(1000);
-
-                    register();
-                }*/
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -116,7 +106,7 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
         }
     }
 
-    public boolean startArchitecture(Architecture architecture)
+    public boolean startArchitecture(Architecture architecture, List<Component> components)
     {
         System.out.println("Sending architecture " + architecture.getName() + " to GC");
 
@@ -131,6 +121,7 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
                 Gson gson = new Gson();
 
                 dico.put("ServiceInfo", gson.toJson(architecture));
+                dico.put("ServiceComponents", gson.toJson(components));
                 dico.put("DeviceId", deviceInfoItf.getDevice().getId());
 
                 action.invoke(dico);

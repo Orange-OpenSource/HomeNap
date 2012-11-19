@@ -53,6 +53,9 @@ public class MigrationManager implements MigrationManagerItf
 
             Map<String, Object> propertiesMap = localDatabaseItf.getProperties(name);
 
+            if (!propertiesMap.isEmpty())
+                return propertiesMap;
+
             // List<Property> properties = localDatabaseItf.getProperties(name);
 
             /*if(!properties.isEmpty())

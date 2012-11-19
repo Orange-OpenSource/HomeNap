@@ -54,8 +54,6 @@ public class Migrater implements MigraterItf
             Component component = globalDatabaseItf.getComponent(j);
             int checkMigration = 0;
 
-            Architecture architecture = globalDatabaseItf.getParent(component);
-            
             Action action = new Action();
 
             action.setActionName(Action.ActionName.MIGRATE);

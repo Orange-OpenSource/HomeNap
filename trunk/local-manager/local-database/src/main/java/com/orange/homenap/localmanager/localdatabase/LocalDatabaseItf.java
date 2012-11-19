@@ -24,8 +24,8 @@
 
 package com.orange.homenap.localmanager.localdatabase;
 
+import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Component;
-import com.orange.homenap.utils.Property;
 
 import java.util.Collection;
 import java.util.List;
@@ -47,7 +47,7 @@ public interface LocalDatabaseItf
     
     //public Long getComponentId(String componentName);
 
-    //public Component getComponent(String componentName);
+    //public Component getComponents(String componentName);
     
     //public void put(String name, List<Property> properties);
     
@@ -56,4 +56,8 @@ public interface LocalDatabaseItf
     public void put(String name, Map<String, Object> properties);
         
     public Map<String, Object> getProperties(String name);
+
+    public void add(Architecture architecture);
+
+    public List<Architecture> getOfflineArchitectures();
 }

@@ -64,27 +64,23 @@ public class EventListener implements ActionsEvent, ArchitectureEvent, GlobalCoo
 
     public void stop() {}
 
-    public void startArchitecture(Architecture architecture)
+    public void startArchitecture(Architecture architecture, List<Component> componentList)
     {
-        boolean success = globalCoordinatorControlPointItf.startArchitecture(architecture);
+        boolean success = globalCoordinatorControlPointItf.startArchitecture(architecture, componentList);
 
         if(!success)
         {
             architectures.add(architecture);
 
-            Iterator<Component> it = architecture.getComponent().iterator();
             List<Action> actions = new ArrayList<Action>();
 
-            while(it.hasNext())
+            for(Component component : componentList)
             {
-                Component component = it.next();
-
                 Action action = new Action();
 
                 action.setActionName(Action.ActionName.START);
                 action.setComponent(component);
-                //action.setProperty(new ArrayList<Property>());
-                
+
                 actions.add(action);
             }
 
@@ -98,7 +94,7 @@ public class EventListener implements ActionsEvent, ArchitectureEvent, GlobalCoo
 
         //localDatabaseItf.remove(architectureName);
 
-/*        Iterator<Component> it = architecture.getComponent().iterator();
+/*        Iterator<Component> it = architecture.getComponents().iterator();
 
         boolean success = true;
 
@@ -115,7 +111,7 @@ public class EventListener implements ActionsEvent, ArchitectureEvent, GlobalCoo
 
     public void architectureStarted(Architecture architecture)
     {
-        globalCoordinatorControlPointItf.startArchitecture(architecture);
+        //globalCoordinatorControlPointItf.startArchitecture(architecture);
     }
 
     public void architectureStopped(Architecture architecture)
@@ -128,16 +124,22 @@ public class EventListener implements ActionsEvent, ArchitectureEvent, GlobalCoo
         globalCoordinatorControlPointItf.register();
 
         // Sending architecture because LM was offline
+
         if(!architectures.isEmpty())
         {
-            Iterator<Architecture> it = architectures.iterator();
-
-            while(it.hasNext())
+            for(Architecture architecture : architectures)
             {
-                globalCoordinatorControlPointItf.startArchitecture(it.next());
+                List<Component> componentsFromArchitecture = new ArrayList<Component>();
 
-                it.remove();
+                for(String str : architecture.getComponents())
+                    if(localDatabaseItf.get(str) != null)
+                        componentsFromArchitecture.add(localDatabaseItf.get(str));
+
+                globalCoordinatorControlPointItf.startArchitecture(architecture, componentsFromArchitecture);
+
+                architectures.remove(architecture);
             }
+
         }
     }
 
@@ -146,18 +148,14 @@ public class EventListener implements ActionsEvent, ArchitectureEvent, GlobalCoo
         //TODO
     }
 
-    public void actionsToTake(Actions actions)
+    public void actionsToTake(List<Action> actions)
     {
-        Iterator<Action> it = actions.getActions().iterator();
-
         List<Action> migrateAction = new ArrayList<Action>();
         List<Action> startAction = new ArrayList<Action>();
         List<Action> stopAction = new ArrayList<Action>();
 
-        while(it.hasNext())
+        for(Action action : actions)
         {
-            Action action = it.next();
-
             switch (action.getActionName())
             {
                 case MIGRATE:

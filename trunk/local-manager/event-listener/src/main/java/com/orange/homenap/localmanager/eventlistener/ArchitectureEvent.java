@@ -25,10 +25,13 @@
 package com.orange.homenap.localmanager.eventlistener;
 
 import com.orange.homenap.utils.Architecture;
+import com.orange.homenap.utils.Component;
+
+import java.util.List;
 
 public interface ArchitectureEvent
 {
-    public void startArchitecture(Architecture architecture);
+    public void startArchitecture(Architecture architecture, List<Component> components);
 
     public void stopArchitecture(String name);
 

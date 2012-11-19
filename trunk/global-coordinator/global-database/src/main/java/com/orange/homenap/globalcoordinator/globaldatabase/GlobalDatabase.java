@@ -94,31 +94,18 @@ public class GlobalDatabase implements GlobalDatabaseItf
         System.out.println("Adding architecture " + architecture.getName());
 
         architectures.add(architecture);
-
-        Iterator<Component> it = architecture.getComponent().iterator();
-
-        while(it.hasNext())
-            addComponent(it.next());
     }
 
     public void removeArchitecture(String name)
     {
         System.out.println("Removing architecture " + name);
 
-        Iterator<Architecture> it = architectures.iterator();
-
-        while(it.hasNext())
-        {
-            Architecture tmp = it.next();
-
-            if(tmp.getName().equals(name))
-            {
-                it.remove();
-            }
-        }
+        for(Architecture architecture : architectures)
+            if(architecture.getName().equals(name))
+                architectures.remove(architecture);
     }
 
-    private void addComponent(Component component)
+    public void addComponent(Component component)
     {
         System.out.println("Adding component " + component.getName());
 
@@ -127,19 +114,13 @@ public class GlobalDatabase implements GlobalDatabaseItf
         addRessources(component.getResources());
     }
 
-    private void removeComponent(String name)
+    public void removeComponent(String name)
     {
         System.out.println("-- Removing component " + name);
 
-        Iterator<Component> it = components.iterator();
-
-        while(it.hasNext())
-        {
-            Component tmp = it.next();
-
-            if(tmp.getName().equals(name))
-                it.remove();
-        }
+        for(Component component : components)
+            if(component.getName().equals(name))
+                components.remove(component);
     }
 
     private void addRessources(List<Resource> tmp)
@@ -218,7 +199,7 @@ public class GlobalDatabase implements GlobalDatabaseItf
         return component;
     }
 
-    public Architecture getParent(Component component)
+/*    public Architecture getParent(Component component)
     {
         Architecture architecture = null;
 
@@ -228,7 +209,7 @@ public class GlobalDatabase implements GlobalDatabaseItf
         {
             architecture = itArchi.next();
 
-            Iterator<Component> itComponent = architecture.getComponent().iterator();
+            Iterator<Component> itComponent = architecture.getComponents().iterator();
 
             boolean rightOne = false;
 
@@ -246,5 +227,5 @@ public class GlobalDatabase implements GlobalDatabaseItf
         }
 
         return architecture;
-    }
+    }*/
 }

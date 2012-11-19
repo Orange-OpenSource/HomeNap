@@ -25,8 +25,10 @@
 package com.orange.homenap.localmanager.globalcoordinatorcp;
 
 import com.orange.homenap.utils.Architecture;
+import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
 
+import java.util.List;
 import java.util.Map;
 
 public interface GlobalCoordinatorControlPointItf
@@ -35,7 +37,7 @@ public interface GlobalCoordinatorControlPointItf
 
     public void unRegister();
 
-    public boolean startArchitecture(Architecture architecture);
+    public boolean startArchitecture(Architecture architecture, List<Component> components);
 
     public void stopArchitecture(String name);
 

@@ -45,12 +45,8 @@ public class LocalExecuter implements LocalExecuterItf
     {
         Map<String, List<Action>> devicesActions = new HashMap<String, List<Action>>();
 
-        Iterator<Action> it = actions.iterator();
-
-        while (it.hasNext())
+        for(Action action : actions)
         {
-            Action action = it.next();
-
             Component component = action.getComponent();
 
             System.out.println(action.getActionName() + " " + component.getName() + " to " + action.getToDevice().getId());
@@ -93,33 +89,26 @@ public class LocalExecuter implements LocalExecuterItf
 
     public void start(List<Action> actions)
     {
-        Iterator<Action> it = actions.iterator();
-
-        while (it.hasNext())
+        for(Action action : actions)
         {
-            Action action = it.next();
             Component component = action.getComponent();
 
-            System.out.println(action.getActionName() + " " + action.getComponent().getName());
+            System.out.println(action.getActionName() + " " + component.getName());
 
-            localDatabaseItf.put(action.getComponent().getName(), action.getComponent());
+            localDatabaseItf.put(action.getComponent().getName(), component);
 
             localDatabaseItf.put(action.getComponent().getName(), action.getProperties());
 
-            deviceInfoItf.getDevice().getComponentsOnDevice().add(action.getComponent().getName());
+            deviceInfoItf.getDevice().getComponentsOnDevice().add(component.getName());
 
-            bundleManagerItf.start(action.getComponent().getUrl());
+            bundleManagerItf.start(component.getUrl());
         }
     }
 
     public void stop(List<Action> actions)
     {
-        Iterator<Action> it = actions.iterator();
-
-        while (it.hasNext())
+        for(Action action : actions)
         {
-            Action action = it.next();
-
             System.out.println(action.getActionName() + " " + action.getComponent().getName());
 
             bundleManagerItf.stop(action.getComponent().getName());

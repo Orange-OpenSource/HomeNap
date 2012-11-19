@@ -28,11 +28,13 @@
         <properties>
             <property field="componentMap"/>
             <property field="propertiesMap"/>
+            <property field="offlineArchitectures"/>
         </properties>
     </component>
 
     <instance component="local-db">
         <property name="componentMap" type="map"/>
         <property name="propertiesMap" type="map"/>
+        <property name="offlineArchitectures" type="list"/>
     </instance>
 </ipojo>

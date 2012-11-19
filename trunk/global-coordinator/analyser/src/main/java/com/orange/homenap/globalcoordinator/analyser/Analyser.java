@@ -184,7 +184,7 @@ public class Analyser implements AnalyserItf
 
             String line[] = new String[n + 1];
 
-            line[0] = globalDatabaseItf.getComponent(j).getName();
+            line[0] = globalDatabaseItf.getComponents(j).getName();
 
             for (int i = 0; i < n; i++)
             {

@@ -25,14 +25,18 @@
 package com.orange.homenap.globalcoordinator.upnpdevicemanager;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.orange.homenap.api.IGlobalCoordinatorService;
 import com.orange.homenap.globalcoordinator.analyser.AnalyserItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.globalcoordinator.upnp.devices.GlobalCoordinatorDevice;
 import com.orange.homenap.utils.Architecture;
+import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
+
+import java.util.List;
 
 public class GCDevice implements IGlobalCoordinatorService
 {
@@ -71,10 +75,14 @@ public class GCDevice implements IGlobalCoordinatorService
         Gson gson = new Gson();
         
         Device device = gson.fromJson(deviceInfo, Device.class);
-        
-        if(device.getId() == null)
-            return false;
 
+        for(int i = 0; i < globalDatabaseItf.getDevicesSize(); i++)
+            if(globalDatabaseItf.getDevice(i).getId().equals(device.getId()))
+            {
+                System.out.println("Device already registered");
+                return false;
+            }
+        
         globalDatabaseItf.addDevice(device);
 
         analyserItf.analyse();
@@ -91,7 +99,7 @@ public class GCDevice implements IGlobalCoordinatorService
         return true;
     }
 
-    public void startService(String architectureInfo, String deviceId) throws Exception
+    public void startService(String architectureInfo, String components, String deviceId) throws Exception
     {
         Gson gson = new Gson();
 
@@ -99,6 +107,11 @@ public class GCDevice implements IGlobalCoordinatorService
 
         globalDatabaseItf.addArchitecture(architecture);
 
+        List<Component> componentList = gson.fromJson(components, new TypeToken<List<Component>>(){}.getType());
+
+        for(Component component : componentList)
+            globalDatabaseItf.addComponent(component);
+        
         analyserItf.analyse();
 
         //System.out.println(gsonServiceItf.toJson(service));

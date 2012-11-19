@@ -25,8 +25,6 @@
     <component classname="com.orange.homenap.localmanager.wol.WakeOnLan" name="wake-on-lan">
         <provides specification="com.orange.homenap.localmanager.wol.WakeOnLanItf"/>
 
-        <!--<requires field="log"/>-->
-
         <properties>
             <property field="broadcast" value="192.168.1.255" mandatory="false"/>
             <property field="port" value="9" mandatory="false" type="integer"/>

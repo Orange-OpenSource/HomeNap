@@ -1,33 +1,31 @@
-/**
-##############################################################################
-# Copyright (C) 2004-2007 France Telecom R&D
-#
-# This library is free software; you can redistribute it and/or
-# modify it under the terms of the GNU Lesser General Public
-# License as published by the Free Software Foundation; either
-# version 2 of the License, or (at your option) any later version.
-#
-# This library is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public
-# License along with this library; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-##############################################################################
- * 
+/*
+ * --------------------------------------------------------
+ * Module Name : binding-upnp-gc
+ * Version : 0.1-SNAPSHOT
+ *
+ * Software Name : $projectName
+ * Version : 0.1-SNAPSHOT
+ *
+ * Copyright © 28/06/2012 – 31/12/2013 France Télécom
+ * This software is distributed under the Apache 2.0 license,
+ * the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+ * or see the "LICENSE-2.0.txt" file for more details.
+ *
+ * --------------------------------------------------------
+ * File Name   : ${NAME}
+ *
+ * Created     :
+ * Author(s)   : Remi Druilhe
+ *
+ * Description :
+ *
+ * --------------------------------------------------------
  */
 
 package com.orange.homenap.globalcoordinator.upnp.holders;
 
 
- /**
- * This class represents the aguments passed OUT (for an action)
- * @author Marius Legros TANKEU DE KUIGWA
- *
- */
-public class UPnPGenOutArgument extends UPnPGenArgument{
+ public class UPnPGenOutArgument extends UPnPGenArgument{
 
 	public UPnPGenOutArgument(String name, String relatedStateVariable) {
 		super(name, relatedStateVariable);
@@ -35,7 +33,7 @@ public class UPnPGenOutArgument extends UPnPGenArgument{
 	
 	/*
 	 *  (non-Javadoc)
-	 * @see com.francetelecom.upnpgen.tests.UPnPGenArgument#getDirection()
+	 * @see com.orange.upnpgen.tests.UPnPGenArgument#getDirection()
 	 */
 	public boolean getDirection() {
 		return UPnPGenArgument.OUT;

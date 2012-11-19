@@ -27,11 +27,11 @@ package com.orange.homenap.localmanager.architecturereader;
 import com.google.gson.Gson;
 import com.orange.homenap.localmanager.eventlistener.ArchitectureEvent;
 import com.orange.homenap.utils.Architecture;
+import com.orange.homenap.utils.Component;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArchitectureReader implements ArchitectureReaderItf
 {
@@ -39,12 +39,10 @@ public class ArchitectureReader implements ArchitectureReaderItf
 
     public void startService(String file)
     {
-        //TODO: should be set inside migration-service and only when this is not an optional architecture
-        //System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.orange.homenap.localmanager.migrationservice.handler:migration-handler");
-
         Architecture architecture = getArchitectureFromJson(file);
+        List<Component> components = getComponentsFromArchitecture(file, architecture.getComponents());
 
-        architectureEvent.startArchitecture(architecture);
+        architectureEvent.startArchitecture(architecture, components);
     }
 
     public void stopService(String name)
@@ -74,5 +72,38 @@ public class ArchitectureReader implements ArchitectureReaderItf
         Gson gson = new Gson();
 
         return gson.fromJson(json.toString(), Architecture.class);
+    }
+
+    private List<Component> getComponentsFromArchitecture(String fileStr, List<String> strList)
+    {
+        List<Component> components = new ArrayList<Component>();
+        Gson gson = new Gson();
+
+        File file = new File(fileStr);
+        String absolutePath = file.getAbsolutePath().replace(file.getName(), "");
+
+        for(String str : strList)
+        {
+            StringBuilder json = new StringBuilder();
+
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(absolutePath + str + ".json"));
+
+                String strLine;
+
+                while((strLine = reader.readLine()) != null)
+                    json.append(strLine);
+
+                reader.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            components.add(gson.fromJson(json.toString(), Component.class));
+        }
+
+        return components;
     }
 }

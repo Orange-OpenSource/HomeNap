@@ -321,7 +321,7 @@ public class Optimizer implements OptimizerItf
         // Mobility's management: a non migratable service -> aij = 1
         for (int j = 0; j < m; j++)
         {
-            //System.out.println("Component " + globalDatabaseItf.getComponent(j).getName() + " is " + globalDatabaseItf.getComponent(j).getMigrability());
+            //System.out.println("Component " + globalDatabaseItf.getComponents(j).getName() + " is " + globalDatabaseItf.getComponents(j).getMigrability());
 
             if (globalDatabaseItf.getComponent(j).getMigrability().equals(Component.Migrability.STATIC))
             {

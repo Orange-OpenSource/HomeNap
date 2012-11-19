@@ -38,6 +38,10 @@ public interface GlobalDatabaseItf
     public void addArchitecture(Architecture architecture);
 
     public void removeArchitecture(String architectureName);
+    
+    public void addComponent(Component component);
+    
+    public void removeComponent(String name);
 
     public List<Architecture> getArchitectures();
 
@@ -57,5 +61,5 @@ public interface GlobalDatabaseItf
 
     public Component getComponentByName(String name);
 
-    public Architecture getParent(Component component);
+    //public Architecture getParent(Component component);
 }

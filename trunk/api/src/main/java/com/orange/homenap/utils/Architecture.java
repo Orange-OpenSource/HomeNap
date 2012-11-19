@@ -34,7 +34,7 @@ public class Architecture
 
     private String name;
     private Status status;
-    private List<Component> component = new ArrayList<Component>();
+    private List<String> components = new ArrayList<String>();
     private Execution execution;
 
     public Architecture()
@@ -50,9 +50,9 @@ public class Architecture
 
     public void setStatus(Status status) { this.status = status; }
 
-    public List<Component> getComponent() { return component; }
+    public List<String> getComponents() { return components; }
 
-    public void setComponent(List<Component> component) {this.component = component; }
+    public void setComponents(List<String> components) { this.components = components; }
 
     public Execution getExecution() { return execution; }
 

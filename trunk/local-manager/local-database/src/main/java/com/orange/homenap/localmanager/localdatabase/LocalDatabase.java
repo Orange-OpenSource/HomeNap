@@ -24,19 +24,22 @@
 
 package com.orange.homenap.localmanager.localdatabase;
 
+import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Component;
-import com.orange.homenap.utils.Property;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class LocalDatabase implements LocalDatabaseItf
 {
     // iPOJO properties
     private Map<String, Component> componentMap;
-    //private Map<String, List<Property>> propertiesMap;
     private Map<String, Map<String, Object>> propertiesMap;
+    private List<Architecture> offlineArchitectures;
+    private Lock lockArchi = new ReentrantLock();
 
     public void put(String name, Component component) { componentMap.put(name, component); }
 
@@ -57,4 +60,29 @@ public class LocalDatabase implements LocalDatabaseItf
     public void put(String name, Map<String, Object> properties) { propertiesMap.put(name, properties); }
 
     public Map<String, Object> getProperties(String name) { return propertiesMap.get(name); }
+
+    public void add(Architecture architecture)
+    {
+        lockArchi.lock();
+
+        try {
+            offlineArchitectures.add(architecture);
+        } finally {
+            lockArchi.unlock();
+        }
+    }
+
+    public List<Architecture> getOfflineArchitectures()
+    {
+        List<Architecture> architectures;
+        lockArchi.lock();
+
+        try {
+            architectures = offlineArchitectures;
+        } finally {
+            lockArchi.unlock();
+        }
+        
+        return architectures;
+    }
 }

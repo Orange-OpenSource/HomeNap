@@ -26,11 +26,8 @@ package com.orange.homenap.utils;
 
 import org.osgi.framework.BundleEvent;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Component
 {
