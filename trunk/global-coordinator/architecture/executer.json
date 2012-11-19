@@ -1,0 +1,12 @@
+{
+    "name": "executer",
+    "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/executer/target/executer-0.1-SNAPSHOT.jar",
+    "require": ["global-database", "printer", "upnp-controlpoint-manager-gc"],
+    "deployment": "ALOCALIZED",
+    "migrability": "MIGRATABLE",
+    "state": "STATELESS",
+    "resources": [
+        {"name": "CPU", "value": 20},
+        {"name": "RAM", "value": 20}
+    ]
+}
