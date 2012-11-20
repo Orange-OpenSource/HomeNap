@@ -67,9 +67,11 @@ public class Migrater implements MigraterItf
                 {
                     case 1:
                         action.setToDevice(device);
+                        device.getComponentsOnDevice().add(component.getName());
                         break;
                     case -1:
                         action.setFromDevice(device.getId());
+                        device.getComponentsOnDevice().remove(component.getName());
                         break;
                     default:
                         break;

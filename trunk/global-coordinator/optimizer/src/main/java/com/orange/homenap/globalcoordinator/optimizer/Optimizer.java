@@ -363,8 +363,6 @@ public class Optimizer implements OptimizerItf
 
         s.read(model);
 
-        System.out.println(s.getVar(conso).getVal());
-
         // Solve and print values
         if (s.minimize(s.getVar(conso), false))
         {

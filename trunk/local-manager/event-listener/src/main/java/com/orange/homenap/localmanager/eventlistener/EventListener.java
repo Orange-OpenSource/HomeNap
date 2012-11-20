@@ -34,9 +34,8 @@ import org.osgi.service.event.Event;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class EventListener implements ActionsEvent, ArchitectureEvent, GlobalCoordinatorEvent
 {
@@ -59,7 +58,7 @@ public class EventListener implements ActionsEvent, ArchitectureEvent, GlobalCoo
 
         System.setProperty("ipojo.log.level", "info");
 
-        architectures = new ArrayList<Architecture>();
+        architectures = new CopyOnWriteArrayList<Architecture>();
     }
 
     public void stop() {}
@@ -127,19 +126,21 @@ public class EventListener implements ActionsEvent, ArchitectureEvent, GlobalCoo
 
         if(!architectures.isEmpty())
         {
-            for(Architecture architecture : architectures)
+            synchronized (architectures)
             {
-                List<Component> componentsFromArchitecture = new ArrayList<Component>();
+                for(Architecture architecture : architectures)
+                {
+                    List<Component> componentsFromArchitecture = new ArrayList<Component>();
 
-                for(String str : architecture.getComponents())
-                    if(localDatabaseItf.get(str) != null)
-                        componentsFromArchitecture.add(localDatabaseItf.get(str));
+                    for(String str : architecture.getComponents())
+                        if(localDatabaseItf.get(str) != null)
+                            componentsFromArchitecture.add(localDatabaseItf.get(str));
 
-                globalCoordinatorControlPointItf.startArchitecture(architecture, componentsFromArchitecture);
+                    globalCoordinatorControlPointItf.startArchitecture(architecture, componentsFromArchitecture);
 
-                architectures.remove(architecture);
+                    architectures.remove(architecture);
+                }
             }
-
         }
     }
 

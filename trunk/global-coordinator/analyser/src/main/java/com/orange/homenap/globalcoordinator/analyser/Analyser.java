@@ -27,13 +27,11 @@ package com.orange.homenap.globalcoordinator.analyser;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.globalcoordinator.optimizer.OptimizerItf;
 import com.orange.homenap.globalcoordinator.printer.PrinterItf;
-import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
 import com.orange.homenap.utils.Resource;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class Analyser implements AnalyserItf
@@ -147,57 +145,17 @@ public class Analyser implements AnalyserItf
     {
         int[][] plan = new int[n][m];
 
-        for (int j = 0; j < m; j++)
-            for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
                 if (globalDatabaseItf.getDevice(i).getComponentsOnDevice().contains(globalDatabaseItf.getComponent(j).getName()))
                     plan[i][j] = 1;
                 else
                     plan[i][j] = 0;
+            }
+        }
 
         return plan;
     }
-
-    /*private void printPlan(int n, int m)
-    {
-        int[][] plan = this.createPlan(n, m);
-
-        System.out.println("------------------------------");
-
-        StringBuffer header = new StringBuffer("%-30s |");
-        String[] devices = new String[n + 1];
-        devices[0] = "";
-
-        for(int i = 0; i + 1 < n + 1; i++)
-        {
-            header.append("%15s ");
-
-            devices[i + 1] = globalDatabaseItf.getDevice(i).getIp();
-        }
-
-        header.append("%n");
-
-        System.out.printf(header.toString(), devices);
-
-        for (int j = 0; j < m; j++)
-        {
-            StringBuffer data = new StringBuffer("%30s |");
-
-            String line[] = new String[n + 1];
-
-            line[0] = globalDatabaseItf.getComponents(j).getName();
-
-            for (int i = 0; i < n; i++)
-            {
-                data.append("%10s      ");
-
-                line[i + 1] = String.valueOf(plan[i][j]);
-            }
-
-            data.append("%n");
-
-            System.out.printf(data.toString(), line);
-        }
-
-        System.out.println("------------------------------");
-    }*/
 }

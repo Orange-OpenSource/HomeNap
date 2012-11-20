@@ -51,7 +51,18 @@ public class GlobalDatabase implements GlobalDatabaseItf
 
     public void addDevice(Device device)
     {
-        System.out.println("Adding device " + device.getId());
+        if (!devices.isEmpty())
+        {
+            for(Device tmpDevice : devices)
+                if(tmpDevice.getId().equals(device.getId()))
+                {
+                    System.out.println("Device already registered");
+
+                    devices.remove(tmpDevice);
+                }
+        }
+        else
+            System.out.println("Adding device " + device.getId());
 
         devices.add(device);
 
@@ -62,31 +73,9 @@ public class GlobalDatabase implements GlobalDatabaseItf
     {
         System.out.println("Removing device " + id);
 
-        Iterator<Device> it = devices.iterator();
-
-        System.out.println("toto");
-
-        System.out.println(devices.get(0).getId());
-
-        while(it.hasNext())
-        {
-            System.out.println("0");
-
-            Device device = it.next();
-
-            System.out.println("1");
-
-            System.out.println(device.getId());
-
+        for(Device device : devices)
             if(device.getId().equals(id))
-            {
-                System.out.println("Found");
-
-                it.remove();
-            }
-        }
-
-        System.out.println("Removed");
+                devices.remove(device);
     }
 
     public void addArchitecture(Architecture architecture)
@@ -116,42 +105,25 @@ public class GlobalDatabase implements GlobalDatabaseItf
 
     public void removeComponent(String name)
     {
-        System.out.println("-- Removing component " + name);
+        System.out.println("Removing component " + name);
 
         for(Component component : components)
             if(component.getName().equals(name))
                 components.remove(component);
     }
 
-    private void addRessources(List<Resource> tmp)
+    private void addRessources(List<Resource> resourceList)
     {
-        Iterator<Resource> it = tmp.iterator();
-
-        while(it.hasNext())
-        {
-            Resource resource = it.next();
-
+        for(Resource resource : resourceList)
             if (!resources.contains(resource.getName()))
                 resources.add(resource.getName());
-        }
     }
 
     public void addComponentOnDevice(String name, String deviceId)
     {
-        Iterator<Device> it = devices.iterator();
-
-        while(it.hasNext())
-        {
-            Device device = it.next();
-
+        for(Device device : devices)
             if(device.getId().equals(deviceId))
                 device.addComponent(name);
-        }
-    }
-
-    public void removeComponentFromDevice(String componentName, String deviceId)
-    {
-
     }
 
     public Component getComponent(int i) { return components.get(i); }

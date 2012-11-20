@@ -35,8 +35,6 @@
         <provides/>
 
         <requires field="localDatabaseItf"/>
-
-        <callback transition="validate" method="start"/>
     </component>
 
     <component classname="com.orange.homenap.localmanager.migrationservice.StateFileManager" name="state-file-manager">

@@ -3,7 +3,7 @@
  * Module Name : api
  * Version : 0.1-SNAPSHOT
  *
- * Software Name : $projectName
+ * Software Name : HomeNap
  * Version : 0.1-SNAPSHOT
  *
  * Copyright © 28/06/2012 – 31/12/2013 France Télécom
@@ -12,9 +12,9 @@
  * or see the "LICENSE-2.0.txt" file for more details.
  *
  * --------------------------------------------------------
- * File Name   : ${NAME}
+ * File Name   : ActionListAdapter.java
  *
- * Created     :
+ * Created     : 19/11/2012
  * Author(s)   : Remi Druilhe
  *
  * Description :

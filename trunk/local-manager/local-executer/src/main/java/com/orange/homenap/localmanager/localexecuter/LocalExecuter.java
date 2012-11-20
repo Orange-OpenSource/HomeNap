@@ -51,6 +51,7 @@ public class LocalExecuter implements LocalExecuterItf
 
             System.out.println(action.getActionName() + " " + component.getName() + " to " + action.getToDevice().getId());
 
+            deviceInfoItf.getDevice().getComponentsOnDevice().remove(component.getName());
             bundleManagerItf.stop(component.getName());
 
             Action newAction = new Action();

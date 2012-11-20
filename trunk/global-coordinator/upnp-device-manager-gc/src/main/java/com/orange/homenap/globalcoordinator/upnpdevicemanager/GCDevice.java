@@ -77,11 +77,13 @@ public class GCDevice implements IGlobalCoordinatorService
         Device device = gson.fromJson(deviceInfo, Device.class);
 
         for(int i = 0; i < globalDatabaseItf.getDevicesSize(); i++)
+        {
             if(globalDatabaseItf.getDevice(i).getId().equals(device.getId()))
             {
                 System.out.println("Device already registered");
                 return false;
             }
+        }
         
         globalDatabaseItf.addDevice(device);
 
