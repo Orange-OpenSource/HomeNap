@@ -73,7 +73,7 @@ public class GCDevice implements IGlobalCoordinatorService
         System.out.println(deviceInfo);
 
         Gson gson = new Gson();
-        
+
         Device device = gson.fromJson(deviceInfo, Device.class);
 
         for(int i = 0; i < globalDatabaseItf.getDevicesSize(); i++)
@@ -84,7 +84,7 @@ public class GCDevice implements IGlobalCoordinatorService
                 return false;
             }
         }
-        
+
         globalDatabaseItf.addDevice(device);
 
         analyserItf.analyse();
@@ -112,11 +112,22 @@ public class GCDevice implements IGlobalCoordinatorService
         List<Component> componentList = gson.fromJson(components, new TypeToken<List<Component>>(){}.getType());
 
         for(Component component : componentList)
+        {
             globalDatabaseItf.addComponent(component);
-        
-        analyserItf.analyse();
 
-        //System.out.println(gsonServiceItf.toJson(service));
+            boolean alreadyDeployed = false;
+
+            for(Device device : globalDatabaseItf.getDevices())
+                if(device.getComponentsOnDevice().contains(component.getName()))
+                    alreadyDeployed = true;
+
+            if(!alreadyDeployed)
+                for(Device device : globalDatabaseItf.getDevices())
+                    if(device.getId().equals("VirtualDevice"))
+                        device.getComponentsOnDevice().add(component.getName());
+        }
+
+        analyserItf.analyse();
     }
 
     public void stopService(String architectureName) throws Exception

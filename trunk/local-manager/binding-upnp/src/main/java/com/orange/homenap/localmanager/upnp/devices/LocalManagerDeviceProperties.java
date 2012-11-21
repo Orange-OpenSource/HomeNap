@@ -30,7 +30,7 @@ import java.util.Properties;
 import java.util.Random;
 
     public class LocalManagerDeviceProperties {
-	public final static String UDN               = "FTRD-MAPS-LocalManager-UPnPGEN";
+	public final static String UDN               = "LocalManager";
 	public static final String TYPE              = "urn:schemas-upnp-org:device:LocalManager:1";
 	public static final String MANUFACTURER      = "Orange";
 	public static final String MODEL_NAME        = "LocalManager";

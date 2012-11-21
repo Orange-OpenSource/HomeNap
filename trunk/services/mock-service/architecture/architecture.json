@@ -1,0 +1,5 @@
+{
+    "name": "mock-service",
+    "execution": "MANDATORY",
+    "components": ["component1","component2","component3"]
+}

@@ -28,6 +28,8 @@ import com.orange.homenap.localmanager.controlpointfactory.ControlPointFactoryIt
 import com.orange.homenap.localmanager.controlpointfactory.LocalManagerControlPointItf;
 import com.orange.homenap.utils.Action;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,10 +41,39 @@ public class Executer implements ExecuterItf
     {
         for(Map.Entry<String, List<Action>> entry : actions.entrySet())
         {
+            List<Action> actionList = entry.getValue();
+            
+            if(entry.getKey().equals("VirtualDevice"))               
+            {
+                Map<String, List<Action>> map = new HashMap<String, List<Action>>();
+                
+                for(Action action : actionList)
+                {
+                    if(map.containsKey(action.getToDevice().getId()))
+                    {
+                        action.setActionName(Action.ActionName.START);
+
+                        map.get(action.getToDevice().getId()).add(action);
+                    }
+                    else
+                    {
+                        List<Action> tmp = new ArrayList<Action>();
+                        
+                        action.setActionName(Action.ActionName.START);
+
+                        tmp.add(action);
+
+                        map.put(action.getToDevice().getId(), tmp);
+                    }
+                }
+
+                executeActions(map);
+            }
+
             LocalManagerControlPointItf lmcpi = controlPointFactoryItf.createCP(entry.getKey());
 
             if(lmcpi != null)
-                lmcpi.actions(entry.getValue());
+                lmcpi.actions(actionList);
         }
     }
 }

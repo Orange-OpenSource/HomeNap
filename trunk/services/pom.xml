@@ -39,5 +39,6 @@
     <modules>
         <module>download</module>
         <module>concatenate</module>
+        <module>mock-service</module>
     </modules>
 </project>

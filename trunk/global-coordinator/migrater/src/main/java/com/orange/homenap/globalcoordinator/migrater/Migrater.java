@@ -46,7 +46,6 @@ public class Migrater implements MigraterItf
 
         int n = migrationPlan.length;
         int m = migrationPlan[0].length;
-
         List<Action> actions = new ArrayList<Action>();
 
         for (int j = 0; j < m; j++)
@@ -55,14 +54,13 @@ public class Migrater implements MigraterItf
             int checkMigration = 0;
 
             Action action = new Action();
-
             action.setActionName(Action.ActionName.MIGRATE);
             action.setComponent(component);
-            
+
             for (int i = 0; i < n; i++)
             {
                 Device device = globalDatabaseItf.getDevice(i);
-                
+
                 switch (migrationPlan[i][j])
                 {
                     case 1:
@@ -80,23 +78,20 @@ public class Migrater implements MigraterItf
                 checkMigration += migrationPlan[i][j];
             }
 
+            if(action.getFromDevice() != null && action.getToDevice() != null)
+                actions.add(action);
+
             if(checkMigration != 0)
             {
                 System.out.println("Problem during migration!");
                 break;
             }
-
-            actions.add(action);
         }
 
         Map<String, List<Action>> actionsPerDevice = new HashMap<String, List<Action>>();
 
-        Iterator<Action> it = actions.iterator();
-        
-        while(it.hasNext())
+        for(Action action : actions)
         {
-            Action action = it.next();
-
             if(actionsPerDevice.containsKey(action.getFromDevice()))
             {
                 actionsPerDevice.get(action.getFromDevice()).add(action);
@@ -106,15 +101,11 @@ public class Migrater implements MigraterItf
                 List<Action> tmp = new ArrayList<Action>();
 
                 tmp.add(action);
-                
+
                 actionsPerDevice.put(action.getFromDevice(), tmp);
             }
         }
 
         executerItf.executeActions(actionsPerDevice);
-
-        //LocalManagerControlPointItf localManagerControlPointItf = controlPointManagerItf.createCP(device.getId());
-
-        //localManagerControlPointItf.migrateService(component.getName(), device.getId(), device.getMac());
     }
 }

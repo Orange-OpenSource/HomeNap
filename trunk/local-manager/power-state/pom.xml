@@ -58,10 +58,6 @@
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
                         <Private-Package>com.orange.homenap.localmanager.powerstate.*</Private-Package>
                         <Import-Package>*</Import-Package>
-                        <Deployment>localized</Deployment>
-                        <Migration>static</Migration>
-                        <State>stateless</State>
-                        <Execution>optional</Execution>
                     </instructions>
                 </configuration>
             </plugin>

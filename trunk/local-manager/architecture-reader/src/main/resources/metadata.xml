@@ -25,6 +25,7 @@
         <provides/>
 
         <requires field="architectureEvent"/>
+        <requires field="repositoryManagerItf"/>
     </component>
 
     <instance component="architecture-reader"/>

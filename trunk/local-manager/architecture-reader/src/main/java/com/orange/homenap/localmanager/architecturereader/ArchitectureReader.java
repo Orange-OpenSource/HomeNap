@@ -25,7 +25,9 @@
 package com.orange.homenap.localmanager.architecturereader;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.orange.homenap.localmanager.eventlistener.ArchitectureEvent;
+import com.orange.homenap.localmanager.repositorymanager.RepositoryManagerItf;
 import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Component;
 
@@ -36,13 +38,18 @@ import java.util.List;
 public class ArchitectureReader implements ArchitectureReaderItf
 {
     private ArchitectureEvent architectureEvent;
+    private RepositoryManagerItf repositoryManagerItf;
 
     public void startService(String file)
     {
         Architecture architecture = getArchitectureFromJson(file);
-        List<Component> components = getComponentsFromArchitecture(file, architecture.getComponents());
 
-        architectureEvent.startArchitecture(architecture, components);
+        if (architecture != null)
+        {
+            List<Component> components = getComponentsFromArchitecture(file, architecture.getComponents());
+
+            architectureEvent.startArchitecture(architecture, components);
+        }
     }
 
     public void stopService(String name)
@@ -71,7 +78,13 @@ public class ArchitectureReader implements ArchitectureReaderItf
 
         Gson gson = new Gson();
 
-        return gson.fromJson(json.toString(), Architecture.class);
+        try {
+            return gson.fromJson(json.toString(), Architecture.class);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     private List<Component> getComponentsFromArchitecture(String fileStr, List<String> strList)
@@ -101,7 +114,19 @@ public class ArchitectureReader implements ArchitectureReaderItf
                 e.printStackTrace();
             }
 
-            components.add(gson.fromJson(json.toString(), Component.class));
+            Component component = null;
+
+            try {
+                component = gson.fromJson(json.toString(), Component.class);
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+            }
+
+            String url = repositoryManagerItf.addBundleToRepository(component.getUrl());
+
+            component.setUrl(url);
+
+            components.add(component);
         }
 
         return components;

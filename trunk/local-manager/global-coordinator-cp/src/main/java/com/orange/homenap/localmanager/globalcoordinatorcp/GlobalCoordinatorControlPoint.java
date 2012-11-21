@@ -86,7 +86,7 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
 
     public void unRegister()
     {
-        System.out.println("Unregistering Local Manager");
+        System.out.println("Unregistering " + deviceInfoItf.getDevice().getId());
 
         // UnRegister from GlobalCoordinator
         if (gcExists())
@@ -142,7 +142,7 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
     {
         System.out.println("Updating services state");
 
-        if (globalCoordinator != null)
+        if (gcExists())
         {
             try {
                 UPnPService uPnPService = globalCoordinator.getService("urn:upnp-org:serviceId:GlobalCoordinator.1");
@@ -166,7 +166,7 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
     {
         System.out.println("Updating device state to " + state);
 
-        if (globalCoordinator != null)
+        if (gcExists())
         {
             try {
                 UPnPService service = globalCoordinator.getService("urn:upnp-org:serviceId:GlobalCoordinator.1");
@@ -191,6 +191,8 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
         String filter = "(&" + "(" + Constants.OBJECTCLASS + "=" + UPnPDevice.class.getName() + ")"
                 + "(" + UPnPDevice.TYPE + "=" + typeGlobalCoordinator + ")" + ")";
 
+        System.out.println("Filtering GC : " + filter);
+
         ServiceReference sr[] = null;
 
         try {
@@ -200,10 +202,23 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
         }
 
         if(sr != null)
+        {
             if(sr.length == 1)
+            {
                 globalCoordinator = (UPnPDevice) bundleContext.getService(sr[0]);
+
+                System.out.println("Global Coordinator exists");
+            }
             else
+            {
+                for(int i = 0; i < sr.length; i++)
+                    System.out.println(sr[i].getProperty("service.id") + " " + sr[i].getProperty("FT_ssdp_remote"));
+
                 System.out.println("Multiple GlobalCoordinator! Error!");
+            }
+        }
+        else
+            System.out.println("Global Coordinator does not exist");
 
         if(globalCoordinator != null)
             return true;

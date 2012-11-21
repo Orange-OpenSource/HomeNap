@@ -1,0 +1,12 @@
+{
+    "name": "component3",
+    "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/services/mock-service/component3/target/component3-0.1-SNAPSHOT.jar",
+    "require": ["component2"],
+    "deployment": "ALOCALIZED",
+    "migrability": "MIGRATABLE",
+    "state": "STATELESS",
+    "resources": [
+        {"name": "CPU", "value": 20},
+        {"name": "RAM", "value": 20}
+    ]
+}

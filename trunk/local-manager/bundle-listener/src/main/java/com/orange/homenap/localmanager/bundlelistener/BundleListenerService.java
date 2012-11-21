@@ -63,10 +63,10 @@ public class BundleListenerService implements BundleListener
 
         switch (be.getType()) {
             case BundleEvent.INSTALLED:
-                String bundleLocation = repositoryManagerItf.addBundleToRepository(be.getBundle().getLocation());
+                //String bundleLocation = repositoryManagerItf.addBundleToRepository(be.getBundle().getLocation());
 
                 component.setId(be.getBundle().getBundleId());
-                component.setUrl(bundleLocation);
+                //component.setUrl(bundleLocation);
                 component.setBundleEvent(BundleEvent.INSTALLED);
 
                 //stateFileManagerItf.load(component.getName());

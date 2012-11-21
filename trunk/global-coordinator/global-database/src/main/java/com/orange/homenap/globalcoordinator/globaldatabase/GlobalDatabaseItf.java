@@ -55,9 +55,13 @@ public interface GlobalDatabaseItf
 
     public int getDevicesSize();
 
+    public List<Device> getDevices();
+
     public String getResource(int i);
 
     public int getResourcesSize();
+
+    public List<String> getResources();
 
     public Component getComponentByName(String name);
 

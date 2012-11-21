@@ -65,9 +65,11 @@ public class GlobalCoordinatorListener implements ServiceListener
         switch (serviceEvent.getType())
         {
             case ServiceEvent.REGISTERED:
+                System.out.println("Global Coordinator appears");
                 globalCoordinatorEvent.globalCoordinatorAppear();
                 break;
             case ServiceEvent.UNREGISTERING:
+                System.out.println("Global Coordinator disappears");
                 globalCoordinatorEvent.globalCoordinatorDisappear();
                 break;
             case ServiceEvent.MODIFIED:

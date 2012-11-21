@@ -44,7 +44,7 @@ public class Printer implements PrinterItf
         {
             header.append("%15s ");
 
-            devices[i + 1] = globalDatabaseItf.getDevice(i).getIp();
+            devices[i + 1] = globalDatabaseItf.getDevice(i).getId();
         }
 
         header.append("%n");

@@ -38,7 +38,7 @@ public class Device
     private int consumptionOnMin;
     private int consumptionOnMax;
     private List<String> componentsOnDevice = new ArrayList<String>();
-    private List<Resource> resources;
+    private List<Resource> resources = new ArrayList<Resource>();
 
     public Device() {}
 

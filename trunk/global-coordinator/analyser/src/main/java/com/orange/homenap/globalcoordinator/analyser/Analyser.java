@@ -54,7 +54,7 @@ public class Analyser implements AnalyserItf
 
             printerItf.print(plan);
 
-            System.out.println("Current consumption is about " + currentConsumption + " W");
+            //System.out.println("Current consumption is about " + currentConsumption + " W");
 
             optimizerItf.optimize(currentConsumption, plan);
         }
@@ -93,8 +93,6 @@ public class Analyser implements AnalyserItf
 
             devicesConsumption[i] = activeDevices[i] * activeConsumption
                     + (1 - activeDevices[i]) * device.getConsumptionOff();
-
-            //System.out.println(devicesConsumption[i]);
         }
 
         float consumption = 0;

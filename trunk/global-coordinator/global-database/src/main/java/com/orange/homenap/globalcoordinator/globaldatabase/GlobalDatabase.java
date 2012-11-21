@@ -28,6 +28,7 @@ import com.orange.homenap.utils.Component;
 import com.orange.homenap.utils.Device;
 import com.orange.homenap.utils.Resource;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -47,26 +48,49 @@ public class GlobalDatabase implements GlobalDatabaseItf
         System.out.println("Resources size: " + resources.size());
         System.out.println("Architectures size: " + architectures.size());
         System.out.println("Components size: " + components.size());
+
+        Device device = new Device();
+
+        device.setId("VirtualDevice");
+        device.setConsumptionOff(0);
+        device.setConsumptionOnMin(500);
+        device.setConsumptionOnMax(1000);
+
+        List<Resource> resources = new ArrayList<Resource>();
+
+        Resource cpu = new Resource();
+        cpu.setName("CPU");
+        cpu.setValue(1);
+
+        resources.add(cpu);
+
+        device.setResources(resources);
+
+        addDevice(device);
     }
 
     public void addDevice(Device device)
     {
+        boolean deviceRegistered = false;
+
         if (!devices.isEmpty())
         {
             for(Device tmpDevice : devices)
                 if(tmpDevice.getId().equals(device.getId()))
-                {
-                    System.out.println("Device already registered");
-
-                    devices.remove(tmpDevice);
-                }
+                    deviceRegistered = true;
         }
+
+        if(deviceRegistered)
+            System.out.println("Device already registered");
         else
+        {
             System.out.println("Adding device " + device.getId());
 
-        devices.add(device);
+            devices.add(device);
 
-        addRessources(device.getResources());
+            if(!device.getResources().isEmpty())
+                addRessources(device.getResources());
+        }
     }
 
     public void removeDevice(String id)
