@@ -26,7 +26,6 @@ package com.orange.homenap.localmanager.bundlelistener;
 
 import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
 import com.orange.homenap.localmanager.migrationservice.StateFileManagerItf;
-import com.orange.homenap.localmanager.repositorymanager.RepositoryManagerItf;
 import com.orange.homenap.utils.Component;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
@@ -37,7 +36,6 @@ public class BundleListenerService implements BundleListener
     // iPOJO requires
     private LocalDatabaseItf localDatabaseItf;
     private StateFileManagerItf stateFileManagerItf;
-    private RepositoryManagerItf repositoryManagerItf;
 
     // iPOJO injection
     private BundleContext bundleContext;
@@ -63,10 +61,7 @@ public class BundleListenerService implements BundleListener
 
         switch (be.getType()) {
             case BundleEvent.INSTALLED:
-                //String bundleLocation = repositoryManagerItf.addBundleToRepository(be.getBundle().getLocation());
-
-                component.setId(be.getBundle().getBundleId());
-                //component.setUrl(bundleLocation);
+                //component.setId(be.getBundle().getBundleId());
                 component.setBundleEvent(BundleEvent.INSTALLED);
 
                 //stateFileManagerItf.load(component.getName());

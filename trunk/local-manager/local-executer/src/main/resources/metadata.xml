@@ -28,6 +28,7 @@
         <requires field="controlPointFactoryItf"/>
         <requires field="bundleManagerItf"/>
         <requires field="localDatabaseItf"/>
+        <requires field="repositoryManagerItf"/>
     </component>
 
     <instance component="local-executer"/>

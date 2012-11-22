@@ -29,6 +29,7 @@ import com.orange.homenap.localmanager.controlpointfactory.ControlPointFactoryIt
 import com.orange.homenap.localmanager.controlpointfactory.LocalManagerControlPointItf;
 import com.orange.homenap.localmanager.deviceinfo.DeviceInfoItf;
 import com.orange.homenap.localmanager.localdatabase.LocalDatabaseItf;
+import com.orange.homenap.localmanager.repositorymanager.RepositoryManagerItf;
 import com.orange.homenap.utils.Action;
 import com.orange.homenap.utils.Component;
 
@@ -40,6 +41,7 @@ public class LocalExecuter implements LocalExecuterItf
     private BundleManagerItf bundleManagerItf;
     private LocalDatabaseItf localDatabaseItf;
     private DeviceInfoItf deviceInfoItf;
+    private RepositoryManagerItf repositoryManagerItf;
 
     public void migrate(List<Action> actions)
     {
@@ -103,6 +105,10 @@ public class LocalExecuter implements LocalExecuterItf
             deviceInfoItf.getDevice().getComponentsOnDevice().add(component.getName());
 
             bundleManagerItf.start(component.getUrl());
+
+            String url = repositoryManagerItf.addBundleToRepository(component.getUrl());
+
+            component.setUrl(url);
         }
     }
 

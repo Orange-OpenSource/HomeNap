@@ -41,33 +41,38 @@ public class RepositoryManager implements RepositoryManagerItf
     {
         String fileName = url.split("/")[url.split("/").length - 1];
 
-        try
+        String httpUrlBundle = url;
+
+        if (!url.startsWith("http://" + deviceInfoItf.getDevice().getIp()))
         {
-            InputStream in = null;
+            try
+            {
+                InputStream in = null;
 
-            if(url.startsWith("file:/"))
-                in = new FileInputStream(new File(url.replace("file:", "")));
-            else if(url.startsWith("http://"))
-                in = (new URL(url)).openStream();
+                if(url.startsWith("file:/"))
+                    in = new FileInputStream(new File(url.replace("file:", "")));
+                else if(url.startsWith("http://"))
+                    in = (new URL(url)).openStream();
 
-            OutputStream out = new FileOutputStream(new File(repository + "/" + fileName));
+                OutputStream out = new FileOutputStream(new File(repository + "/" + fileName));
 
-            byte[] buffer = new byte[1024];
+                byte[] buffer = new byte[1024];
 
-            int length;
+                int length;
 
-            while ((length = in.read(buffer)) > 0)
-                out.write(buffer, 0, length);
+                while ((length = in.read(buffer)) > 0)
+                    out.write(buffer, 0, length);
 
-            in.close();
-            out.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+                in.close();
+                out.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            httpUrlBundle = "http://" + deviceInfoItf.getDevice().getIp() + "/repository/" + fileName;
         }
-
-        String httpUrlBundle = "http://" + deviceInfoItf.getDevice().getIp() + "/repository/" + fileName;
 
         return httpUrlBundle;
     }

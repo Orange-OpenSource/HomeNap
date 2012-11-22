@@ -27,7 +27,6 @@
 
         <requires field="localDatabaseItf"/>
         <requires field="stateFileManagerItf"/>
-        <requires field="repositoryManagerItf"/>
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>

@@ -35,7 +35,7 @@ public class Component
     public static enum Migrability { MIGRATABLE, STATIC }
     public static enum State { STATEFUL, STATELESS }
 
-    private Long id;
+    //private Long id;
     private String name;
     private String url;
     private Deployment deployment;
@@ -58,9 +58,9 @@ public class Component
         bundleEvent = BundleEvent.UNINSTALLED;
     }
 
-    public Long getId() { return id; }
+    /*public Long getId() { return id; }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) { this.id = id; }*/
 
     public String getName() { return name; }
 
