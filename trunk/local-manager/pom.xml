@@ -37,7 +37,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>bundle-listener</module>
         <module>bundle-manager</module>
         <module>device-info</module>
         <module>local-database</module>
