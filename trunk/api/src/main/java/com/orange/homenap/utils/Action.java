@@ -35,8 +35,7 @@ public class Action
     private Device toDevice;
     private Component component;
     private Map<String, Object> properties = new HashMap<String, Object>();
-    //private List<Property> properties = new ArrayList<Property>();
-    
+
     public Action() {}
 
     public ActionName getActionName() { return actionName; }
@@ -54,10 +53,6 @@ public class Action
     public Component getComponent() { return component; }
 
     public void setComponent(Component component) { this.component = component; }
-
-    /*public List<Property> getProperties() { return properties; }
-
-    public void setProperties(List<Property> properties) { this.properties = properties; }*/
 
     public Map<String, Object> getProperties() { return properties; }
 

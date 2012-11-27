@@ -24,8 +24,6 @@
 
 package com.orange.homenap.utils;
 
-import org.osgi.framework.BundleEvent;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,32 +33,17 @@ public class Component
     public static enum Migrability { MIGRATABLE, STATIC }
     public static enum State { STATEFUL, STATELESS }
 
-    //private Long id;
     private String name;
     private String url;
     private Deployment deployment;
     private Migrability migrability;
     private State state;
-    private int bundleEvent;
     private List<Resource> resources;
     private List<String> require = new ArrayList<String>();
-    //private Map<String, Object> properties = new HashMap<String, Object>();
-    //private List<Property> properties = new ArrayList<Property>();
-    //private Map<String , String> propertiesType = new HashMap<String, String>();
 
-    public Component()
-    {
-        bundleEvent = BundleEvent.UNINSTALLED;
-    }
+    public Component() { }
     
-    public Component(Long id, String name, String url, Deployment deployment, Migrability migrability, State state)
-    {
-        bundleEvent = BundleEvent.UNINSTALLED;
-    }
-
-    /*public Long getId() { return id; }
-
-    public void setId(Long id) { this.id = id; }*/
+    public Component(Long id, String name, String url, Deployment deployment, Migrability migrability, State state) {}
 
     public String getName() { return name; }
 
@@ -86,23 +69,7 @@ public class Component
 
     public void setState(State state) { this.state = state; }
 
-    public int getBundleEvent() { return bundleEvent; }
-
-    public void setBundleEvent(int bundleEvent) { this.bundleEvent = bundleEvent; }
-
     public void setResources(List<Resource> resources) { this.resources = resources; }
 
     public List<Resource> getResources() { return resources; }
-
-    /*public void setProperties(Map<String, Object> properties) { this.properties = properties; }
-
-    public Map<String, Object> getProperties() { return this.properties; }*/
-
-    /*public List<Property> getProperties() { return properties; }
-
-    public void setProperties(List<Property> properties) { this.properties = properties; }*/
-
-    /*    public void setPropertiesType(Map<String, String> propertiesType) { this.propertiesType = propertiesType; }
-
-public Map<String, String> getPropertiesType() { return propertiesType; }*/
 }
