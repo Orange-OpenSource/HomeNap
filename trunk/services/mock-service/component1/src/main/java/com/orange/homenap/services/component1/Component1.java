@@ -24,18 +24,12 @@
 
 package com.orange.homenap.services.component1;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-
-@Path(value="/component1/{name}")
 public class Component1 implements Component1Itf
 {
-    @GET
-    @Produces("application/json")
-    public String alert(@PathParam("name") String name)
+    public static final String text = "Hello";
+
+    public String getText1()
     {
-        return "Alert " + name;
+        return text;
     }
 }

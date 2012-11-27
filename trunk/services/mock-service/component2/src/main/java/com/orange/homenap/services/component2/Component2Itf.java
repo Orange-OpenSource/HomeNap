@@ -26,4 +26,5 @@ package com.orange.homenap.services.component2;
 
 public interface Component2Itf
 {
+    public String getText2();
 }

@@ -27,7 +27,6 @@
         <requires field="component2Itf"/>
 
         <callback transition="validate" method="start"/>
-        <callback transition="invalidate" method="stop"/>
     </component>
 
     <instance component="component3"/>

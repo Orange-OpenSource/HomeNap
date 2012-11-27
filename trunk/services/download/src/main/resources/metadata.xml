@@ -21,12 +21,6 @@
   -->
 
 <ipojo>
-
-    <!-- ============================================================== -->
-    <!--                           Components                           -->
-    <!-- ============================================================== -->
-
-    <!-- ServiceCoordinator -->
     <component classname="com.orange.homenap.services.download.ServiceCoordinator" name="service-coordinator">
         <provides/>
 
@@ -41,10 +35,6 @@
             <property field="fileList"/>
         </properties>
     </component>
-
-    <!-- ============================================================== -->
-    <!--                           Instances                            -->
-    <!-- ============================================================== -->
 
     <instance component="service-coordinator">
         <!--<property name="file-list"/>-->

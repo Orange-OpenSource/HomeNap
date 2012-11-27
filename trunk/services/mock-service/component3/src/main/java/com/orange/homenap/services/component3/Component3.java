@@ -32,11 +32,6 @@ public class Component3
 
     public void start()
     {
-
-    }
-
-    public void stop()
-    {
-
+        System.out.println(component2Itf.getText2());
     }
 }

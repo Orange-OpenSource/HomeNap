@@ -24,12 +24,7 @@
 
 package com.orange.homenap.services.component1;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
-
-@WebService
 public interface Component1Itf
 {
-    @WebMethod(operationName="alert")
-    public String alert(String name);
+    public String getText1();
 }

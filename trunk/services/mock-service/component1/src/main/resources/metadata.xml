@@ -22,12 +22,7 @@
 
 <ipojo>
     <component classname="com.orange.homenap.services.component1.Component1" name="component1">
-        <!--<provides />-->
-
-        <provides>
-            <property type="String[]" name="service.exported.configs" value="{json-rpc}"/>
-            <property type="String" name="endpoint.name" value="component1"/>
-        </provides>
+        <provides />
     </component>
 
     <instance component="component1"/>
