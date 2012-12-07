@@ -162,9 +162,9 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
             System.out.println("GlobalCoordinator not connected");
     }
 
-    public void updateDeviceState(String deviceId, Device.DeviceState state)
+    public void updateDeviceState()
     {
-        System.out.println("Updating device state to " + state);
+        System.out.println("Updating device state to " + deviceInfoItf.getDevice().getDeviceState());
 
         if (gcExists())
         {
@@ -174,8 +174,8 @@ public class GlobalCoordinatorControlPoint implements GlobalCoordinatorControlPo
 
                 Hashtable<String, Object> dico = new Hashtable<String, Object>();
 
-                dico.put("DeviceId", deviceId);
-                dico.put("State", state.toString());
+                dico.put("DeviceId", deviceInfoItf.getDevice().getId());
+                dico.put("State", deviceInfoItf.getDevice().getDeviceState());
 
                 action.invoke(dico);
             } catch (Exception e) {

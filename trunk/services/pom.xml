@@ -40,5 +40,6 @@
         <module>download</module>
         <module>concatenate</module>
         <module>mock-service</module>
+        <module>monolithic-service</module>
     </modules>
 </project>

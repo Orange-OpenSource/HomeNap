@@ -24,6 +24,8 @@
 
 package com.orange.homenap.utils;
 
+import org.osgi.service.remoteserviceadmin.EndpointDescription;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,7 @@ public class Component
     private Migrability migrability;
     private State state;
     private List<Resource> resources;
+    private EndpointDescription endpointDescription;
     private List<String> require = new ArrayList<String>();
 
     public Component() { }
@@ -52,6 +55,10 @@ public class Component
     public String getUrl() { return url; }
 
     public void setUrl(String url) { this.url = url; }
+
+    public EndpointDescription getEndpointDescription() { return endpointDescription; }
+
+    public void setEndpointDescription(EndpointDescription endpointDescription) { this.endpointDescription = endpointDescription; }
 
     public List<String> getRequire() { return require; }
 

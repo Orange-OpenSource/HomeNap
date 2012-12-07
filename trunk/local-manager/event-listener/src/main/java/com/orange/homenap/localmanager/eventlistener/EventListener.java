@@ -194,8 +194,6 @@ public class EventListener implements ActionsEvent, ArchitectureEvent, GlobalCoo
 
         deviceInfoItf.getDevice().setDeviceState(Device.DeviceState.SLEEP);
 
-        globalCoordinatorControlPointItf.updateDeviceState(
-                deviceInfoItf.getDevice().getId(),
-                deviceInfoItf.getDevice().getDeviceState());
+        globalCoordinatorControlPointItf.updateDeviceState();
     }
 }

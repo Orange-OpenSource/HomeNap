@@ -41,5 +41,5 @@ public interface GlobalCoordinatorControlPointItf
 
     public void stopArchitecture(String name);
 
-    public void updateDeviceState(String deviceId, Device.DeviceState state);
+    public void updateDeviceState();
 }

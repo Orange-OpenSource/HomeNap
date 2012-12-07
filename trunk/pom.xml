@@ -59,7 +59,7 @@
             </snapshots>
         </repository>
 
-<!--        <repository>
+        <!--        <repository>
             <id>HomeNap-snapshot</id>
             <name>HomeNap Snapshot Repository</name>
             <url>http://g-nerv/maven2</url>
@@ -89,6 +89,15 @@
             <id>codehaus-snapshots</id>
             <url>http://snapshots.repository.codehaus.org</url>
         </repository>
+
+<!--        <repository>
+            <id>cloudbees-rose-snapshot</id>
+            <name>Cloudbees Private Repository - RoSe - Snapshot</name>
+            <url>https://repository-barjo.forge.cloudbees.com/snapshot/</url>
+            <snapshots>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>-->
     </repositories>
 
     <!-- ================== -->

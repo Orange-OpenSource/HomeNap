@@ -53,5 +53,7 @@
         <module>global-coordinator-listener</module>
         <module>controlpoint-factory</module>
         <module>local-executer</module>
+        <module>rose-exporter</module>
+        <module>rose-importer</module>
     </modules>
 </project>

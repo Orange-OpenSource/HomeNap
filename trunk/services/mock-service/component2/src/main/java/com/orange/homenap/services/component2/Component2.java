@@ -31,7 +31,7 @@ public class Component2 implements Component2Itf
     private Component1Itf component1Itf;
     
     public static final String text = "World";
-    
+
     public String getText2()
     {
         return component1Itf.getText1() + " " + text;

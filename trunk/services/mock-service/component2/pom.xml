@@ -83,5 +83,12 @@
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <artifactId>rose-core</artifactId>
+            <groupId>org.ow2.chameleon.rose</groupId>
+            <version>1.0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>
