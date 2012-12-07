@@ -1,0 +1,5 @@
+{
+    "name": "archi-service1",
+    "execution": "MANDATORY",
+    "components": ["service1"]
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Module Name : monolithic-service
+  ~ Version : 0.1-SNAPSHOT
+  ~
+  ~ Software Name : HomeNap
+  ~ Version : 0.1-SNAPSHOT
+  ~
+  ~ Copyright © 28/06/2012 – 31/12/2013 France Télécom
+  ~ This software is distributed under the Apache 2.0 license,
+  ~ the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+  ~ or see the "LICENSE-2.0.txt" file for more details.
+  ~
+  ~ File Name   : pom.xml
+  ~
+  ~ Created     : 28/11/2012
+  ~ Author(s)   : Remi Druilhe
+  ~
+  ~ Description :
+  ~
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>monolithic-service</artifactId>
+    <groupId>com.orange.homenap.services</groupId>
+    <version>0.1-SNAPSHOT</version>
+    <name>Monolithic Services</name>
+
+    <parent>
+        <artifactId>services</artifactId>
+        <groupId>com.orange.homenap.services</groupId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>service1</module>
+    </modules>
+</project>
