@@ -1,0 +1,12 @@
+{
+    "machine" : {
+        "id" : "component3",
+        "host" : "localhost",
+        "connection" : [ {
+            "in" : { "endpoint_filter" : "(endpoint.id=*)" }
+        } ],
+        "component" : [ {
+            "factory" : "RoSe_importer.jabsorb"
+        } ]
+    }
+}
