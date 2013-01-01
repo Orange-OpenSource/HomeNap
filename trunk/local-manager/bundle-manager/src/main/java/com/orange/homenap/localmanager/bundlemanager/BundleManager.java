@@ -60,7 +60,7 @@ public class BundleManager implements BundleManagerItf
             return false;
         }
 
-        //System.out.println("Bundle " + bundle.getSymbolicName() + " started");
+        System.out.println("Bundle " + bundle.getSymbolicName() + " started");
 
         return true;
     }

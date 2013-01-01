@@ -45,5 +45,6 @@
         <module>analyser</module>
         <module>printer</module>
         <module>executer</module>
+        <module>constraint-manager</module>
     </modules>
 </project>

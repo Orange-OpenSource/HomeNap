@@ -89,7 +89,7 @@
             <url>http://snapshots.repository.codehaus.org</url>
         </repository>
 
-<!--        <repository>
+        <!--        <repository>
             <id>cloudbees-rose-snapshot</id>
             <name>Cloudbees Private Repository - RoSe - Snapshot</name>
             <url>https://repository-barjo.forge.cloudbees.com/snapshot/</url>
@@ -160,6 +160,31 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>bundle-dependencies</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.felix</groupId>
+                        <artifactId>maven-bundle-plugin</artifactId>
+                        <version>${maven.bundle.plugin.version}</version>
+                        <extensions>true</extensions>
+                        <executions>
+                            <execution>
+                                <id>wrap-dependency</id>
+                                <goals>
+                                    <goal>wrap</goal>
+                                </goals>
+                                <configuration>
+                                    <wrapImportPackage>;</wrapImportPackage>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <!-- ======= -->
@@ -171,5 +196,6 @@
         <module>api</module>
         <module>global-coordinator</module>
         <module>services</module>
+        <module>constraints</module>
     </modules>
 </project>
