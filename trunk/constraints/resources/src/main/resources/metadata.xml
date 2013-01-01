@@ -24,7 +24,7 @@
     <component classname="com.orange.homenap.csp.resources.ResourcesConstraint" name="resources">
         <provides/>
 
-        <requires field="constraintManagerItf"/>
+        <requires field="cspPluginManagerItf"/>
         <requires field="globalDatabaseItf"/>
 
         <callback transition="validate" method="start"/>

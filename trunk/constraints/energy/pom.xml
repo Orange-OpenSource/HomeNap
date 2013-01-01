@@ -97,7 +97,7 @@
 
         <dependency>
             <groupId>com.orange.homenap.globalcoordinator</groupId>
-            <artifactId>constraint-manager</artifactId>
+            <artifactId>csp-plugin-manager</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

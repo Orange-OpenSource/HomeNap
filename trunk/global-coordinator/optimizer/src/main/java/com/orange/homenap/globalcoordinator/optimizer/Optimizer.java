@@ -32,6 +32,7 @@ import choco.kernel.model.constraints.Constraint;
 import choco.kernel.model.variables.integer.IntegerExpressionVariable;
 import choco.kernel.model.variables.integer.IntegerVariable;
 import choco.kernel.solver.Solver;
+import com.orange.homenap.globalcoordinator.csp.CSPPluginManagerItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.globalcoordinator.migrater.MigraterItf;
 import com.orange.homenap.utils.Component;
@@ -45,6 +46,7 @@ public class Optimizer implements OptimizerItf
     // iPOJO requires
     private GlobalDatabaseItf globalDatabaseItf;
     private MigraterItf migraterItf;
+    private CSPPluginManagerItf cspPluginManagerItf;
 
     public void optimize(int currentConsumption, int[][] planInt)
     {

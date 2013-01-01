@@ -27,7 +27,7 @@ import choco.Choco;
 import choco.kernel.model.Model;
 import choco.kernel.model.variables.integer.IntegerExpressionVariable;
 import com.orange.homenap.csp.utils.CSPConstraint;
-import com.orange.homenap.globalcoordinator.constraintmanager.ConstraintManagerItf;
+import com.orange.homenap.globalcoordinator.csp.CSPPluginManagerItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.utils.Resource;
 
@@ -36,17 +36,17 @@ import java.util.Map;
 
 public class ResourcesConstraint extends CSPConstraint
 {
-    private ConstraintManagerItf constraintManagerItf;
+    private CSPPluginManagerItf cspPluginManagerItf;
     private GlobalDatabaseItf globalDatabaseItf;
 
     public void start()
     {
-        constraintManagerItf.registerConstraint(this);
+        cspPluginManagerItf.registerConstraint(this);
     }
 
     public void stop()
     {
-        constraintManagerItf.unRegisterConstraint(this);
+        cspPluginManagerItf.unRegisterConstraint(this);
     }
 
     public Model addConstraint(Model model)

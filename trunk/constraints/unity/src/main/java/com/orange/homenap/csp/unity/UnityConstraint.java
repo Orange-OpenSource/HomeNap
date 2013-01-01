@@ -28,26 +28,37 @@ import choco.kernel.model.Model;
 import choco.kernel.model.constraints.Constraint;
 import choco.kernel.model.variables.integer.IntegerVariable;
 import com.orange.homenap.csp.utils.CSPConstraint;
-import com.orange.homenap.globalcoordinator.constraintmanager.ConstraintManagerItf;
+import com.orange.homenap.globalcoordinator.csp.CSPPluginManagerItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
+
+import java.util.Iterator;
 
 public class UnityConstraint extends CSPConstraint
 {
-    private ConstraintManagerItf constraintManagerItf;
+    private CSPPluginManagerItf cspPluginManagerItf;
     private GlobalDatabaseItf globalDatabaseItf;
 
     public void start()
     {
-        constraintManagerItf.registerConstraint(this);
+        cspPluginManagerItf.registerConstraint(this);
     }
 
     public void stop()
     {
-        constraintManagerItf.unRegisterConstraint(this);
+        cspPluginManagerItf.unRegisterConstraint(this);
     }
 
     public Model addConstraint(Model model)
     {
+        Iterator<IntegerVariable> it = model.getIntVarIterator();
+
+        while(it.hasNext())
+        {
+            IntegerVariable intVar = it.next();
+
+            System.out.println(intVar.pretty());
+        }
+
         int n = globalDatabaseItf.getDevicesSize();
         int m = globalDatabaseItf.getComponentsSize();
 

@@ -26,7 +26,7 @@ package com.orange.homenap.csp.migrability;
 import choco.Choco;
 import choco.kernel.model.Model;
 import com.orange.homenap.csp.utils.CSPConstraint;
-import com.orange.homenap.globalcoordinator.constraintmanager.ConstraintManagerItf;
+import com.orange.homenap.globalcoordinator.csp.CSPPluginManagerItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.utils.Component;
 
@@ -34,17 +34,17 @@ import java.util.List;
 
 public class MigrabilityConstraint extends CSPConstraint
 {
-    private ConstraintManagerItf constraintManagerItf;
+    private CSPPluginManagerItf cspPluginManagerItf;
     private GlobalDatabaseItf globalDatabaseItf;
 
     public void start()
     {
-        constraintManagerItf.registerConstraint(this);
+        cspPluginManagerItf.registerConstraint(this);
     }
 
     public void stop()
     {
-        constraintManagerItf.unRegisterConstraint(this);
+        cspPluginManagerItf.unRegisterConstraint(this);
     }
 
     public Model applyConstraint(Model model)

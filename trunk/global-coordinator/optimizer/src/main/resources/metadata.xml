@@ -27,6 +27,7 @@
 
         <requires field="globalDatabaseItf" />
         <requires field="migraterItf" />
+        <requires field="cspPluginManagerItf" />
     </component>
 
     <instance component="optimizer"/>

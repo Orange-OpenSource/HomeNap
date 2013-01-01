@@ -24,7 +24,7 @@
     <component classname="com.orange.homenap.csp.unity.UnityConstraint" name="unity">
         <provides/>
 
-        <requires field="constraintManagerItf"/>
+        <requires field="cspPluginManagerItf"/>
         <requires field="globalDatabaseItf"/>
 
         <callback transition="validate" method="start"/>

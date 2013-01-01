@@ -25,7 +25,7 @@
         <provides/>
 
         <requires field="globalDatabaseItf"/>
-        <requires field="constraintManagerItf"/>
+        <requires field="cspPluginManagerItf"/>
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>

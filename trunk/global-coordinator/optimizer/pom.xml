@@ -110,6 +110,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.orange.homenap.globalcoordinator</groupId>
+            <artifactId>csp-plugin-manager</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Choco -->
         <dependency>
             <groupId>choco</groupId>

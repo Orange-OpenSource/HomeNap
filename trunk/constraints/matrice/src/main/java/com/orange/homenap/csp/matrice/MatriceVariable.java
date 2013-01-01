@@ -27,22 +27,22 @@ import choco.Choco;
 import choco.kernel.model.Model;
 import choco.kernel.model.variables.integer.IntegerVariable;
 import com.orange.homenap.csp.utils.CSPVariable;
-import com.orange.homenap.globalcoordinator.constraintmanager.ConstraintManagerItf;
+import com.orange.homenap.globalcoordinator.csp.CSPPluginManagerItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 
 public class MatriceVariable extends CSPVariable
 {
+    private CSPPluginManagerItf cspPluginManagerItf;
     private GlobalDatabaseItf globalDatabaseItf;
-    private ConstraintManagerItf constraintManagerItf;
 
     public void start()
     {
-        constraintManagerItf.registerVariable(this);
+        cspPluginManagerItf.registerVariable(this);
     }
 
     public void stop()
     {
-        constraintManagerItf.unRegisterVariable(this);
+        cspPluginManagerItf.unRegisterVariable(this);
     }
 
     public Model addVariable(Model model)
