@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~  Module Name : energy
+  ~  Version : 0.1-SNAPSHOT
+  ~
+  ~  Software Name : HomeNap
+  ~  Version : 0.1-SNAPSHOT
+  ~
+  ~  Copyright © 28/06/2012 – 28/06/2012 France Télécom
+  ~  This software is distributed under the Apache 2.0 license,
+  ~  the text of which is available at http://www.apache.org/licenses/LICENSE-2.0.html
+  ~  or see the "LICENSE-2.0.txt" file for more details.
+  ~
+  ~  File Name   : pom.xml
+  ~
+  ~  Created     : 30/12/2012
+  ~  Author(s)   : Remi Druilhe
+  ~
+  ~  Description :
+  ~
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>energy</artifactId>
+    <groupId>com.orange.homenap.csp</groupId>
+    <version>${parent.version}</version>
+    <name>Constraint on Migrability</name>
+
+    <parent>
+        <artifactId>constraints</artifactId>
+        <groupId>com.orange.homenap.csp</groupId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
+
+    <packaging>bundle</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${maven.bundle.plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+                        <Export-Package>com.orange.homenap.globalcoordinator.energy.*</Export-Package>
+                        <Import-Package>*</Import-Package>
+                        <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
+                        <Embed-Transitive>true</Embed-Transitive>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-ipojo-plugin</artifactId>
+                <version>${maven.ipojo.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>ipojo-bundle</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.orange.homenap</groupId>
+            <artifactId>api</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.homenap.globalcoordinator</groupId>
+            <artifactId>global-database</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.homenap.globalcoordinator</groupId>
+            <artifactId>constraint-manager</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>choco</groupId>
+            <artifactId>choco-kernel</artifactId>
+            <version>${choco.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
