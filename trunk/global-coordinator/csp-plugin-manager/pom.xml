@@ -28,7 +28,7 @@
     <artifactId>csp-plugin-manager</artifactId>
     <groupId>com.orange.homenap.globalcoordinator</groupId>
     <version>${parent.version}</version>
-    <name>Constraint Manager</name>
+    <name>CSP Plugin Manager</name>
 
     <parent>
         <artifactId>global-coordinator</artifactId>

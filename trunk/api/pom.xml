@@ -59,7 +59,8 @@
                         <Export-Package>
                             com.orange.homenap.api.*,
                             com.orange.homenap.gson.*,
-                            com.orange.homenap.utils.*
+                            com.orange.homenap.utils.*,
+                            com.orange.homenap.csp.utils.*
                         </Export-Package>
                         <Import-Package>*</Import-Package>
                     </instructions>

@@ -24,21 +24,12 @@
 package com.orange.homenap.csp.utils;
 
 import choco.kernel.model.Model;
-import com.orange.homenap.globalcoordinator.constraintmanager.ConstraintManagerItf;
 
 public abstract class CSPVariable
 {
-    private ConstraintManagerItf constraintManagerItf;
+    public void start() {}
 
-    public void start()
-    {
-        constraintManagerItf.registerVariable(this);
-    }
-
-    public void stop()
-    {
-        constraintManagerItf.unRegisterVariable(this);
-    }
+    public void stop() {}
     
     public Model addVariable(Model model)
     {

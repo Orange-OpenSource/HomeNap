@@ -1,6 +1,6 @@
 {
     "name": "global-coordinator",
     "execution": "MANDATORY",
-    "components": ["global-database","printer","binding-upnp-gc","executer","migrater","optimizer","analyser","upnp-device-manager-gc"]
+    "components": ["global-database","printer","csp-plugin-manager","binding-upnp-gc","executer","migrater","optimizer","analyser","upnp-device-manager-gc"]
 }
 
