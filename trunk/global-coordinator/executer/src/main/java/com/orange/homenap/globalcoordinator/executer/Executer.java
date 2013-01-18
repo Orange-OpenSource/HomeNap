@@ -39,40 +39,50 @@ public class Executer implements ExecuterItf
 
     public void executeActions(Map<String, List<Action>> actions)
     {
+        if(actions.get("VirtualDevice") != null)
+        {
+            for(Action action : actions.get("VirtualDevice"))
+            {
+                if(actions.containsKey(action.getToDevice().getId()))
+                {
+                    action.setActionName(Action.ActionName.START);
+
+                    actions.get(action.getToDevice().getId()).add(action);
+                }
+                else
+                {
+                    List<Action> tmp = new ArrayList<Action>();
+
+                    action.setActionName(Action.ActionName.START);
+
+                    tmp.add(action);
+
+                    actions.put(action.getToDevice().getId(), tmp);
+                }
+            }
+
+            actions.remove("VirtualDevice");
+        }
+
         for(Map.Entry<String, List<Action>> entry : actions.entrySet())
         {
             List<Action> actionList = entry.getValue();
-            
-            if(entry.getKey().equals("VirtualDevice"))               
-            {
-                Map<String, List<Action>> map = new HashMap<String, List<Action>>();
-                
-                for(Action action : actionList)
-                {
-                    if(map.containsKey(action.getToDevice().getId()))
-                    {
-                        action.setActionName(Action.ActionName.START);
-
-                        map.get(action.getToDevice().getId()).add(action);
-                    }
-                    else
-                    {
-                        List<Action> tmp = new ArrayList<Action>();
-                        
-                        action.setActionName(Action.ActionName.START);
-
-                        tmp.add(action);
-
-                        map.put(action.getToDevice().getId(), tmp);
-                    }
-                }
-
-                executeActions(map);
-            }
 
             LocalManagerControlPointItf lmcpi = controlPointFactoryItf.createCP(entry.getKey());
 
-            if(lmcpi != null)
+            while (!lmcpi.deviceExist())
+            {
+                System.out.println("Control Point is not ready. Waiting 1 sec.");
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(lmcpi.deviceExist())
+            //if(lmcpi != null)
                 lmcpi.actions(actionList);
         }
     }

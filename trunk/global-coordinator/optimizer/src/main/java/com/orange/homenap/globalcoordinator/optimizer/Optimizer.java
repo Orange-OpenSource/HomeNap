@@ -173,7 +173,7 @@ public class Optimizer implements OptimizerItf
         {
             Map<String, Integer> map = new HashMap<String, Integer>();
             //Beginning of test
-            com.orange.homenap.utils.Constraint constraint = null;
+            /*com.orange.homenap.utils.Constraint constraint = null;
 
             for(com.orange.homenap.utils.Constraint tmp : globalDatabaseItf.getComponent(j).getConstraints())
             {
@@ -189,8 +189,8 @@ public class Optimizer implements OptimizerItf
             //Resource[] resources = gson.fromJson(constraint.getValue(), Resource[].class);
             List<Resource> resources = gson.fromJson(constraint.getValue(), new TypeToken<List<Resource>>(){}.getType());
 
-            for(Resource resource : resources) // End of new test
-            //for(Resource resource : globalDatabaseItf.getComponent(j).getResources())
+            for(Resource resource : resources) */// End of new test
+            for(Resource resource : globalDatabaseItf.getComponent(j).getResources())
                 map.put(resource.getName(), resource.getValue());
 
             for (int k = 0; k < r; k++)
