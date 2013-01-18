@@ -32,6 +32,10 @@ import choco.kernel.model.constraints.Constraint;
 import choco.kernel.model.variables.integer.IntegerExpressionVariable;
 import choco.kernel.model.variables.integer.IntegerVariable;
 import choco.kernel.solver.Solver;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.orange.homenap.csp.utils.CSPConstraint;
+import com.orange.homenap.csp.utils.CSPVariable;
 import com.orange.homenap.globalcoordinator.csp.CSPPluginManagerItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.globalcoordinator.migrater.MigraterItf;
@@ -47,6 +51,67 @@ public class Optimizer implements OptimizerItf
     private GlobalDatabaseItf globalDatabaseItf;
     private MigraterItf migraterItf;
     private CSPPluginManagerItf cspPluginManagerItf;
+
+/*    public void optimize(int currentConsumption, int[][] planInt)
+    {
+        // Size of matrix
+        int n = globalDatabaseItf.getDevicesSize();
+        int m = globalDatabaseItf.getComponentsSize();
+
+        *//**
+         * Model
+         *//*
+
+        Model model = new CPModel();
+
+        // Matrix creation
+        // Variable aij = 1 if component j is on device i, 0 else
+        // This is the only variable that should be used to reduce energy consumption
+        IntegerVariable[][] a = new IntegerVariable[n][m];
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                a[i][j] = Choco.makeIntVar("a" + i + j, 0, 1);
+
+                model.addVariable(a[i][j]);
+            }
+        }
+        
+        List<CSPVariable> cspVariables = cspPluginManagerItf.getVariables();
+
+
+        
+        List<CSPConstraint> cspConstraints = cspPluginManagerItf.getConstraints();
+        
+        for(CSPConstraint cspConstraint : cspConstraints)
+        {
+            cspConstraint.addConstraint(model, a);
+        }
+
+        Solver solver = new CPSolver();
+
+        solver.read(model);
+
+        // Solve
+        if(solver.minimize(solver.getVar(conso), false))
+        {
+            System.out.println("Solution found: " + solver.getVar(conso).getVal() + " W");
+
+            int[][] delta = new int[n][m];
+
+            for (int j = 0; j < m; j++)
+                for (int i = 0; i < n; i++)
+                    delta[i][j] = solver.getVar(a[i][j]).getVal() - planInt[i][j];
+
+            migraterItf.migrate(delta);
+        }
+        else
+        {
+            System.out.println("No better solution found (" + currentConsumption + " W)");
+        }
+    }*/
 
     public void optimize(int currentConsumption, int[][] planInt)
     {
@@ -107,8 +172,25 @@ public class Optimizer implements OptimizerItf
         for (int j = 0; j < m; j++)
         {
             Map<String, Integer> map = new HashMap<String, Integer>();
+            //Beginning of test
+            com.orange.homenap.utils.Constraint constraint = null;
 
-            for(Resource resource : globalDatabaseItf.getComponent(j).getResources())
+            for(com.orange.homenap.utils.Constraint tmp : globalDatabaseItf.getComponent(j).getConstraints())
+            {
+                if(tmp.getName().equals("resources"))
+                {
+                    constraint = tmp;
+                    break;
+                }
+            }
+
+            Gson gson = new Gson();
+
+            //Resource[] resources = gson.fromJson(constraint.getValue(), Resource[].class);
+            List<Resource> resources = gson.fromJson(constraint.getValue(), new TypeToken<List<Resource>>(){}.getType());
+
+            for(Resource resource : resources) // End of new test
+            //for(Resource resource : globalDatabaseItf.getComponent(j).getResources())
                 map.put(resource.getName(), resource.getValue());
 
             for (int k = 0; k < r; k++)

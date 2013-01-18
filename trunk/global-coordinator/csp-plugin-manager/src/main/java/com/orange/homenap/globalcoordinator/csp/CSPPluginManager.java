@@ -26,6 +26,7 @@ package com.orange.homenap.globalcoordinator.csp;
 import com.orange.homenap.csp.utils.CSPConstraint;
 import com.orange.homenap.csp.utils.CSPVariable;
 import java.util.List;
+import java.util.Map;
 
 public class CSPPluginManager implements CSPPluginManagerItf
 {

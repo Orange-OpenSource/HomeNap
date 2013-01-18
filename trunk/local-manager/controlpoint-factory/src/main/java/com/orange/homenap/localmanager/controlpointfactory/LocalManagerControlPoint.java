@@ -25,12 +25,7 @@
 package com.orange.homenap.localmanager.controlpointfactory;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.orange.homenap.gson.ArchitectureListAdapter;
-import com.orange.homenap.gson.ComponentListAdapter;
-import com.orange.homenap.gson.DeviceListAdapter;
-import com.orange.homenap.gson.ResourceListAdapter;
 import com.orange.homenap.localmanager.wol.WakeOnLanItf;
 import com.orange.homenap.utils.*;
 import org.osgi.framework.*;
@@ -133,16 +128,6 @@ public class LocalManagerControlPoint implements ServiceListener, LocalManagerCo
 
                 Hashtable<String, Object> dico = new Hashtable<String, Object>();
 
-                //Actions actionList = new Actions();
-                //actionList.setActions(actions);
-
-                /*GsonBuilder gsonBuilder = new GsonBuilder();
-                gsonBuilder.registerTypeAdapter((new TypeToken<List<Component>>() {}).getType(), new ComponentListAdapter());
-                gsonBuilder.registerTypeAdapter((new TypeToken<List<Device>>() {}).getType(), new DeviceListAdapter());
-                gsonBuilder.registerTypeAdapter((new TypeToken<List<Architecture>>() {}).getType(), new ArchitectureListAdapter());
-                gsonBuilder.registerTypeAdapter((new TypeToken<List<Resource>>() {}).getType(), new ResourceListAdapter());
-                Gson gson = gsonBuilder.create();*/
-                
                 Gson gson  = new Gson();
 
                 dico.put("Actions", gson.toJson(actions, (new TypeToken<List<Action>>() {}).getType()));

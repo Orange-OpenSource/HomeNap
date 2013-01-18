@@ -25,11 +25,14 @@
 package com.orange.homenap.localmanager.architecturereader;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import com.orange.homenap.gson.ConstraintAdapter;
 import com.orange.homenap.localmanager.eventlistener.ArchitectureEvent;
 import com.orange.homenap.localmanager.repositorymanager.RepositoryManagerItf;
 import com.orange.homenap.utils.Architecture;
 import com.orange.homenap.utils.Component;
+import com.orange.homenap.utils.Constraint;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -90,7 +93,11 @@ public class ArchitectureReader implements ArchitectureReaderItf
     private List<Component> getComponentsFromArchitecture(String fileStr, List<String> strList)
     {
         List<Component> components = new ArrayList<Component>();
-        Gson gson = new Gson();
+        //Gson gson = new Gson();
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Constraint.class, new ConstraintAdapter());
+        Gson gson = gsonBuilder.create();
 
         File file = new File(fileStr);
         String absolutePath = file.getAbsolutePath().replace(file.getName(), "");
@@ -119,8 +126,14 @@ public class ArchitectureReader implements ArchitectureReaderItf
             try {
                 component = gson.fromJson(json.toString(), Component.class);
             } catch (JsonSyntaxException e) {
+                System.out.println(json.toString());
                 e.printStackTrace();
             }
+
+/*            System.out.println("-> " + component.getName() + " (" + component.getConstraints().size() + " constraints)");
+
+            for(int i = 0; i < component.getConstraints().size(); i++)
+                System.out.println(component.getConstraints().get(i).getName() + ": " + component.getConstraints().get(i).getValue());*/
 
             String url = repositoryManagerItf.addBundleToRepository(component.getUrl());
 
