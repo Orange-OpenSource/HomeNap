@@ -1,0 +1,11 @@
+{
+    "name": "gui-example",
+    "url" : "http://ls-wxla26/mock-service/gui-example.jar",
+    "migrability": "MIGRATABLE",
+    "state": "STATELESS",
+    "resources": [
+        {"name": "CPU", "value": 20},
+        {"name": "RAM", "value": 20},
+        {"name": "SCR", "value": 1}
+    ]
+}
