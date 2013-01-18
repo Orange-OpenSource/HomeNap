@@ -34,10 +34,12 @@
     <component classname="com.orange.homenap.localmanager.migrationservice.MigrationManager" name="migration-manager">
         <provides/>
 
+        <callback transition="validate" method="start"/>
+
         <requires field="localDatabaseItf"/>
     </component>
 
-    <component classname="com.orange.homenap.localmanager.migrationservice.StateFileManager" name="state-file-manager">
+    <!--<component classname="com.orange.homenap.localmanager.migrationservice.StateFileManager" name="state-file-manager">
         <provides/>
 
         <requires field="localDatabaseItf"/>
@@ -48,8 +50,8 @@
         <properties>
             <property field="directory" mandatory="true" value="/tmp/homenap"/>
         </properties>
-    </component>
+    </component>-->
 
     <instance component="migration-manager"/>
-    <instance component="state-file-manager"/>
+    <!--<instance component="state-file-manager"/>-->
 </ipojo>

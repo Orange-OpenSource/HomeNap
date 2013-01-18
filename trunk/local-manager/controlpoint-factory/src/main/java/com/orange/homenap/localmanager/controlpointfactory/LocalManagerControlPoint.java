@@ -63,8 +63,13 @@ public class LocalManagerControlPoint implements ServiceListener, LocalManagerCo
     public void start()
     {
         // Add service listener
-        String filter = "(&" + "(" + Constants.OBJECTCLASS + "=" + UPnPDevice.class.getName() + ")"
-                + "(" + UPnPDevice.UDN + "=" + udnLocalManager + ")" + ")";
+        String filter = "(&"
+                    + "(" + Constants.OBJECTCLASS + "=" + UPnPDevice.class.getName() + ")"
+                    + "(|"
+                        + "(" + UPnPDevice.UDN + "=" + udnLocalManager + ")"
+                        + "(" + UPnPDevice.UDN + "=uuid:" + udnLocalManager + ")"
+                    + ")"
+                + ")";
 
         //System.out.println("Filtering on " + filter);
 
@@ -83,18 +88,8 @@ public class LocalManagerControlPoint implements ServiceListener, LocalManagerCo
         }
 
         if(sr != null)
-        {
             if(sr.length == 1)
                 localManagerDevice = (UPnPDevice) bundleContext.getService(sr[0]);
-        }
-        else
-        {
-            if(!udnLocalManager.contains("uuid:"))
-            {
-                udnLocalManager = "uuid:" + udnLocalManager;
-                start();
-            }
-        }
     }
 
     public void stop()
@@ -104,57 +99,53 @@ public class LocalManagerControlPoint implements ServiceListener, LocalManagerCo
 
     public void serviceChanged(ServiceEvent serviceEvent)
     {
-        localManagerDevice = (UPnPDevice) bundleContext.getService(serviceEvent.getServiceReference());
-
-        //System.out.println(localManagerDevice.getDescriptions(null).get("UPnP.device.UDN"));
+        //localManagerDevice = (UPnPDevice) bundleContext.getService(serviceEvent.getServiceReference());
 
         switch (serviceEvent.getType())
         {
             case ServiceEvent.REGISTERED:
+                localManagerDevice = (UPnPDevice) bundleContext.getService(serviceEvent.getServiceReference());
                 break;
             case ServiceEvent.UNREGISTERING:
                 localManagerDevice = null;
-
                 break;
             case ServiceEvent.MODIFIED:
+                localManagerDevice = (UPnPDevice) bundleContext.getService(serviceEvent.getServiceReference());
                 break;
             default:
+                localManagerDevice = (UPnPDevice) bundleContext.getService(serviceEvent.getServiceReference());
                 break;
         }
     }
 
     public boolean actions(List<Action> actions)
     {
-        if(localManagerDevice != null)
-        {
-            try {
-                UPnPService service = localManagerDevice.getService("urn:upnp-org:serviceId:LocalManager.1");
-                UPnPAction action = service.getAction("ActionsToTake");
+        try {
+            UPnPService service = localManagerDevice.getService("urn:upnp-org:serviceId:LocalManager.1");
+            UPnPAction action = service.getAction("ActionsToTake");
 
-                Hashtable<String, Object> dico = new Hashtable<String, Object>();
+            Hashtable<String, Object> dico = new Hashtable<String, Object>();
 
-                //Actions actionList = new Actions();
-                //actionList.setActions(actions);
+            Gson gson  = new Gson();
 
-                /*GsonBuilder gsonBuilder = new GsonBuilder();
-                gsonBuilder.registerTypeAdapter((new TypeToken<List<Component>>() {}).getType(), new ComponentListAdapter());
-                gsonBuilder.registerTypeAdapter((new TypeToken<List<Device>>() {}).getType(), new DeviceListAdapter());
-                gsonBuilder.registerTypeAdapter((new TypeToken<List<Architecture>>() {}).getType(), new ArchitectureListAdapter());
-                gsonBuilder.registerTypeAdapter((new TypeToken<List<Resource>>() {}).getType(), new ResourceListAdapter());
-                Gson gson = gsonBuilder.create();*/
-                
-                Gson gson  = new Gson();
+            dico.put("Actions", gson.toJson(actions, (new TypeToken<List<Action>>() {}).getType()));
 
-                dico.put("Actions", gson.toJson(actions, (new TypeToken<List<Action>>() {}).getType()));
+            System.out.println("Sending " + actions.size() + " actions to " + udnLocalManager);
 
-                action.invoke(dico);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return true;
+            action.invoke(dico);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
 
-        return false;
+        return true;
+    }
+
+    public boolean deviceExist()
+    {
+        if(localManagerDevice == null)
+            return false;
+        else
+            return true;
     }
 }

@@ -24,16 +24,17 @@
 
 package com.orange.homenap.services.component2;
 
-import com.orange.homenap.services.component1.Component1Itf;
+//import com.orange.homenap.services.component1.Component1Itf;
 
 public class Component2 implements Component2Itf
 {
-    private Component1Itf component1Itf;
+    //private Component1Itf component1Itf;
     
     public static final String text = "World";
 
     public String getText2()
     {
-        return component1Itf.getText1() + " " + text;
+        //return component1Itf.getText1() + " " + text;
+        return "text";
     }
 }

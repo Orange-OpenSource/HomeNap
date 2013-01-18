@@ -40,5 +40,6 @@
         <module>component1</module>
         <module>component2</module>
         <module>component3</module>
+        <module>gui-example</module>
     </modules>
 </project>

@@ -24,14 +24,14 @@
 
 package com.orange.homenap.services.component3;
 
-import com.orange.homenap.services.component2.Component2Itf;
+//import com.orange.homenap.services.component2.Component2Itf;
 
 public class Component3
 {
-    private Component2Itf component2Itf;
+    //private Component2Itf component2Itf;
 
     public void start()
     {
-        System.out.println(component2Itf.getText2());
+        //System.out.println(component2Itf.getText2());
     }
 }

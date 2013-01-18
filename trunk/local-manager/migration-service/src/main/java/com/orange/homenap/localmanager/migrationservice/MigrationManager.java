@@ -34,6 +34,11 @@ public class MigrationManager implements MigrationManagerItf
     // iPOJO requires
     private LocalDatabaseItf localDatabaseItf;
 
+    public void start()
+    {
+        System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.orange.homenap.localmanager.migrationservice.handler:migration-handler");
+    }
+
     public Map<String, Object> registerComponent(String name)
     {
         Component component = localDatabaseItf.get(name);

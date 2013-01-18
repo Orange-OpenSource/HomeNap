@@ -30,4 +30,6 @@ import java.util.List;
 public interface LocalManagerControlPointItf
 {
     public boolean actions(List<Action> actions);
+
+    public boolean deviceExist();
 }

@@ -24,7 +24,7 @@
     <component classname="com.orange.homenap.services.component2.Component2" name="component2">
         <provides />
 
-        <requires field="component1Itf"/>
+        <!--<requires field="component1Itf"/>-->
     </component>
 
     <instance component="component2"/>

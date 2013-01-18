@@ -74,6 +74,7 @@ public class LMDevice implements ILocalManagerService
         action.setActionName(Action.ActionName.REGISTER);
 
         List<Action> actionList = new ArrayList<Action>();
+        actionList.add(action);
 
         actionsEvent.actionsToTake(actionList);
     }
@@ -92,13 +93,13 @@ public class LMDevice implements ILocalManagerService
 
     public void actionsToTake(String actions) throws Exception
     {
-        System.out.println("Receiving actions to take");
-
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter((new TypeToken<List<Action>>() {}).getType(), new ActionListAdapter());
         Gson gson = gsonBuilder.create();
 
         List<Action> actionList = gson.fromJson(actions, (new TypeToken<List<Action>>() {}).getType());
+
+        System.out.println("Receiving " + actionList.size() + " actions to take");
 
         actionsEvent.actionsToTake(actionList);
     }
