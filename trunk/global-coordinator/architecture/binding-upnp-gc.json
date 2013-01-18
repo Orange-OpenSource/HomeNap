@@ -1,12 +1,19 @@
 {
     "name": "binding-upnp-gc",
     "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/binding-upnp-gc/target/binding-upnp-gc-0.1-SNAPSHOT.jar",
-    "deployment": "ALOCALIZED",
     "migrability": "MIGRATABLE",
     "state": "STATELESS",
     "resources": [
         {"name": "CPU", "value": 20},
         {"name": "RAM", "value": 20},
         {"name": "NIC", "value": 200}
+    ],
+    "constraints": [
+        {"resources": [
+            {"name": "CPU", "value": 20},
+            {"name": "RAM", "value": 20},
+            {"name": "NIC", "value": 200}
+        ]},
+        {"migratable": true}
     ]
 }

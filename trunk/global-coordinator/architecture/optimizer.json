@@ -2,11 +2,17 @@
     "name": "optimizer",
     "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/optimizer/target/optimizer-0.1-SNAPSHOT.jar",
     "require": ["global-database", "migrater"],
-    "deployment": "ALOCALIZED",
     "migrability": "MIGRATABLE",
     "state": "STATELESS",
     "resources": [
         {"name": "CPU", "value": 20},
         {"name": "RAM", "value": 20}
+    ],
+    "constraints": [
+        {"resources": [
+            {"name": "CPU", "value": 20},
+            {"name": "RAM", "value": 20}
+        ]},
+        {"migratable": true}
     ]
 }
