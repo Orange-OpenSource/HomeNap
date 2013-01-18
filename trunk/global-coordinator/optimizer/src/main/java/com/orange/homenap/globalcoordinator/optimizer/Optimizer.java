@@ -436,7 +436,13 @@ public class Optimizer implements OptimizerItf
 
         Solver solver = new CPSolver();
 
+        long startTime = System.currentTimeMillis();
+
         solver.read(model);
+
+        boolean success = solver.minimize(solver.getVar(conso), false);
+
+        System.out.println("Optimization done in: " + (System.currentTimeMillis() - startTime) + " ms");
 
 /*        if (solver.solveAll())
         {
@@ -449,7 +455,7 @@ public class Optimizer implements OptimizerItf
             System.out.println("Retry Again");*/
 
         // Solve
-        if(solver.minimize(solver.getVar(conso), false))
+        if(success)
         {
             System.out.println("Solution found: " + solver.getVar(conso).getVal() + " W");
 

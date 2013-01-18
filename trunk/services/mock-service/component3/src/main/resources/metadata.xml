@@ -24,7 +24,7 @@
     <component classname="com.orange.homenap.services.component3.Component3" name="component3">
         <provides />
 
-        <requires field="component2Itf"/>
+        <!--<requires field="component2Itf"/>-->
 
         <callback transition="validate" method="start"/>
     </component>

@@ -1,6 +1,6 @@
 /*
  * --------------------------------------------------------
- * Module Name : component3
+ * Module Name : gui-example
  * Version : 0.1-SNAPSHOT
  *
  * Software Name : HomeNap
@@ -12,9 +12,9 @@
  * or see the "LICENSE-2.0.txt" file for more details.
  *
  * --------------------------------------------------------
- * File Name   : Component3.java
+ * File Name   : GUIExample.java
  *
- * Created     : 20/11/2012
+ * Created     : 17/01/2013
  * Author(s)   : Remi Druilhe
  *
  * Description :
@@ -22,16 +22,12 @@
  * --------------------------------------------------------
  */
 
-package com.orange.homenap.services.component3;
+package com.orange.homenap.services.gui;
 
-//import com.orange.homenap.services.component2.Component2Itf;
-
-public class Component3
+public class GUIExample
 {
-    //private Component2Itf component2Itf;
-
     public void start()
     {
-        //System.out.println(component2Itf.getText2());
+        System.out.println("This is the GUI component");
     }
 }

@@ -42,7 +42,7 @@ public class BundleManager implements BundleManagerItf
     {
         Bundle bundle = null;
 
-        System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.orange.homenap.localmanager.migrationservice.handler:migration-handler");
+        //System.setProperty("org.apache.felix.ipojo.handler.auto.primitive", "com.orange.homenap.localmanager.migrationservice.handler:migration-handler");
 
         try {
             bundle = bundleContext.installBundle(url);
@@ -60,7 +60,7 @@ public class BundleManager implements BundleManagerItf
             return false;
         }
 
-        System.out.println("Bundle " + bundle.getSymbolicName() + " started");
+        //System.out.println("Bundle " + bundle.getSymbolicName() + " started");
 
         return true;
     }

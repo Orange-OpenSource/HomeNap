@@ -62,7 +62,7 @@ public class ControlPointFactory implements ControlPointFactoryItf
 
         if (!lMcontrolPointMap.containsKey(id))
         {
-            System.out.println("Creating CP: " + id);
+            System.out.println("Creating CP for " + id);
 
             Properties properties = new Properties();
 
@@ -84,6 +84,8 @@ public class ControlPointFactory implements ControlPointFactoryItf
         }
         else
         {
+            System.out.println("CP already created");
+
             localManagerInstance = lMcontrolPointMap.get(id);
         }
 

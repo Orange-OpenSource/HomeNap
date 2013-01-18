@@ -1,6 +1,6 @@
 {
-    "name": "component3",
-    "url" : "http://ls-wxla26/maven2/com/orange/homenap/services/component3/0.1-SNAPSHOT/component3-0.1-SNAPSHOT.jar",
+    "name": "gui-example",
+    "url" : "http://ls-wxla26/mock-service/gui-example.jar",
     "migrability": "MIGRATABLE",
     "state": "STATELESS",
     "resources": [

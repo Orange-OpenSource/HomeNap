@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Module Name : component2
+  ~ Module Name : gui-example
   ~ Version : 0.1-SNAPSHOT
   ~
   ~ Software Name : HomeNap
@@ -13,7 +13,7 @@
   ~
   ~ File Name   : metadata.xml
   ~
-  ~ Created     : 20/11/2012
+  ~ Created     : 17/01/2013
   ~ Author(s)   : Remi Druilhe
   ~
   ~ Description :
@@ -21,11 +21,13 @@
   -->
 
 <ipojo>
-    <component classname="com.orange.homenap.services.component2.Component2" name="component2">
+    <component classname="com.orange.homenap.services.gui.GUIExample" name="gui">
         <provides />
 
-        <!--<requires field="component1Itf"/>-->
+        <!--<requires field="component2Itf"/>-->
+
+        <callback transition="validate" method="start"/>
     </component>
 
-    <instance component="component2"/>
+    <instance component="gui"/>
 </ipojo>

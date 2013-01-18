@@ -79,14 +79,21 @@ public class LocalExecuter implements LocalExecuterItf
 
         for(Map.Entry<String, List<Action>> map : devicesActions.entrySet())
         {
-            System.out.println("Sending " + map.getValue().size() + " actions to " + map.getKey());
-
             LocalManagerControlPointItf lmcpi = controlPointFactoryItf.createCP(map.getKey());
 
-            if(lmcpi != null)
+            while (!lmcpi.deviceExist())
             {
-                lmcpi.actions(map.getValue());
+                System.out.println("Control Point is not ready. Waiting 1 sec.");
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
+            if(lmcpi.deviceExist())
+                lmcpi.actions(map.getValue());
         }
     }
 
