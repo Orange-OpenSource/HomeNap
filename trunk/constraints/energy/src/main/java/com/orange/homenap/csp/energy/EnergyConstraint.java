@@ -3,6 +3,7 @@ package com.orange.homenap.csp.energy;
 import choco.Choco;
 import choco.Options;
 import choco.kernel.model.Model;
+import choco.kernel.model.constraints.Constraint;
 import choco.kernel.model.variables.integer.IntegerExpressionVariable;
 import choco.kernel.model.variables.integer.IntegerVariable;
 import com.orange.homenap.csp.utils.CSPConstraint;
@@ -20,6 +21,8 @@ public class EnergyConstraint extends CSPConstraint
     private CSPPluginManagerItf cspPluginManagerItf;
     private GlobalDatabaseItf globalDatabaseItf;
 
+    private String keyword;
+    
     public void start()
     {
         cspPluginManagerItf.registerConstraint(this);
@@ -30,7 +33,7 @@ public class EnergyConstraint extends CSPConstraint
         cspPluginManagerItf.unRegisterConstraint(this);
     }
     
-    public Model addConstraint(Model model)
+    public Model addConstraint(Model model, IntegerVariable[][] a)
     {
         // Period between two events (in seconds)
         // TODO: learn from habit patterns of household.
@@ -221,6 +224,10 @@ public class EnergyConstraint extends CSPConstraint
         model.addConstraint(Choco.lt(
                 Choco.plus(Choco.mult(newConsumption, periodBetweenEvents), migrationConsumption),
                 Choco.mult(oldConsumption, periodBetweenEvents)));
+
+        Constraint constraint = Choco.lt(
+                Choco.plus(Choco.mult(newConsumption, periodBetweenEvents), migrationConsumption),
+                Choco.mult(oldConsumption, periodBetweenEvents));
 
         return model;
     }

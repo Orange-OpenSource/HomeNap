@@ -25,10 +25,12 @@ package com.orange.homenap.csp.migrability;
 
 import choco.Choco;
 import choco.kernel.model.Model;
+import choco.kernel.model.variables.integer.IntegerVariable;
 import com.orange.homenap.csp.utils.CSPConstraint;
 import com.orange.homenap.globalcoordinator.csp.CSPPluginManagerItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
 import com.orange.homenap.utils.Component;
+import com.orange.homenap.utils.Constraint;
 
 import java.util.List;
 
@@ -36,6 +38,8 @@ public class MigrabilityConstraint extends CSPConstraint
 {
     private CSPPluginManagerItf cspPluginManagerItf;
     private GlobalDatabaseItf globalDatabaseItf;
+
+    private String keyword;
 
     public void start()
     {
@@ -47,7 +51,7 @@ public class MigrabilityConstraint extends CSPConstraint
         cspPluginManagerItf.unRegisterConstraint(this);
     }
 
-    public Model applyConstraint(Model model)
+    public Model addConstraint(Model model, IntegerVariable[][] a)
     {
         int n = globalDatabaseItf.getDevicesSize();
         int m = globalDatabaseItf.getComponentsSize();
@@ -57,7 +61,21 @@ public class MigrabilityConstraint extends CSPConstraint
         {
             //System.out.println("Component " + globalDatabaseItf.getComponents(j).getName() + " is " + globalDatabaseItf.getComponents(j).getMigrability());
 
-            if (globalDatabaseItf.getComponent(j).getMigrability().equals(Component.Migrability.STATIC))
+            Component component = globalDatabaseItf.getComponent(j);
+            Constraint constraint = null;
+
+            for(Constraint tmp : component.getConstraints())
+            {
+                if(tmp.getName().equals(keyword))
+                {
+                    constraint = tmp;
+                    break;
+                }
+            }
+
+            boolean migratable = Boolean.valueOf(constraint.getValue());
+
+            if (!migratable)
             {
                 for (int i = 0; i < n; i++)
                 {
@@ -73,7 +91,7 @@ public class MigrabilityConstraint extends CSPConstraint
                 }
             }
         }
-        
+
         return model;
     }
 }

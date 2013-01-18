@@ -38,6 +38,8 @@ public class UnityConstraint extends CSPConstraint
     private CSPPluginManagerItf cspPluginManagerItf;
     private GlobalDatabaseItf globalDatabaseItf;
 
+    private String keyword;
+
     public void start()
     {
         cspPluginManagerItf.registerConstraint(this);
@@ -48,7 +50,7 @@ public class UnityConstraint extends CSPConstraint
         cspPluginManagerItf.unRegisterConstraint(this);
     }
 
-    public Model addConstraint(Model model)
+    public Model addConstraint(Model model, IntegerVariable[][] a)
     {
         Iterator<IntegerVariable> it = model.getIntVarIterator();
 

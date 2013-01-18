@@ -26,18 +26,26 @@ package com.orange.homenap.csp.resources;
 import choco.Choco;
 import choco.kernel.model.Model;
 import choco.kernel.model.variables.integer.IntegerExpressionVariable;
+import choco.kernel.model.variables.integer.IntegerVariable;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.orange.homenap.csp.utils.CSPConstraint;
 import com.orange.homenap.globalcoordinator.csp.CSPPluginManagerItf;
 import com.orange.homenap.globalcoordinator.globaldatabase.GlobalDatabaseItf;
+import com.orange.homenap.utils.Component;
+import com.orange.homenap.utils.Constraint;
 import com.orange.homenap.utils.Resource;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ResourcesConstraint extends CSPConstraint
 {
     private CSPPluginManagerItf cspPluginManagerItf;
     private GlobalDatabaseItf globalDatabaseItf;
+    
+    private String keyword;
 
     public void start()
     {
@@ -49,7 +57,7 @@ public class ResourcesConstraint extends CSPConstraint
         cspPluginManagerItf.unRegisterConstraint(this);
     }
 
-    public Model addConstraint(Model model)
+    public Model addConstraint(Model model, IntegerVariable[][] a)
     {
         int n = globalDatabaseItf.getDevicesSize();
         int m = globalDatabaseItf.getComponentsSize();
@@ -94,7 +102,24 @@ public class ResourcesConstraint extends CSPConstraint
         {
             Map<String, Integer> map = new HashMap<String, Integer>();
 
-            for(Resource resource : globalDatabaseItf.getComponent(j).getResources())
+            Component component = globalDatabaseItf.getComponent(j);
+            Constraint constraint = null;
+
+            for(Constraint tmp : component.getConstraints())
+            {
+                if(tmp.getName().equals(keyword))
+                {
+                    constraint = tmp;
+                    break;
+                }
+            }
+
+            Gson gson = new Gson();
+
+            //Resource[] resources = gson.fromJson(constraint.getValue(), Resource[].class);
+            List<Resource> resources = gson.fromJson(constraint.getValue(), new TypeToken<List<Resource>>(){}.getType());
+
+            for(Resource resource : resources)
                 map.put(resource.getName(), resource.getValue());
 
             for (int k = 0; k < r; k++)

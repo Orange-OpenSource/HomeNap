@@ -29,6 +29,10 @@
 
         <callback transition="validate" method="start"/>
         <callback transition="invalidate" method="stop"/>
+
+        <properties>
+            <property field="keyword" value="energy"/>
+        </properties>
     </component>
 
     <instance component="energy"/>
