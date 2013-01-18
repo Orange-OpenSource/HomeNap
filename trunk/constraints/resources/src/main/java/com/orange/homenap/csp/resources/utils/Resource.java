@@ -1,5 +1,5 @@
 /*--------------------------------------------------------
-* Module Name : constraint-manager
+* Module Name : API
 * Version : 0.1-SNAPSHOT
 *
 * Software Name : HomeNap
@@ -11,9 +11,9 @@
 * or see the "LICENSE-2.0.txt" file for more details.
 *
 *--------------------------------------------------------
-* File Name   : CSPConstraint.java
+* File Name   : Resource.java
 *
-* Created     : 30/12/2012
+* Created     : 06/11/2012
 * Author(s)   : Remi Druilhe
 *
 * Description :
@@ -21,16 +21,20 @@
 *--------------------------------------------------------
 */
 
-package com.orange.homenap.csp.utils;
+package com.orange.homenap.csp.resources.utils;
 
-import choco.kernel.model.Model;
-import choco.kernel.model.variables.integer.IntegerVariable;
-
-public abstract class CSPConstraint
+public class Resource
 {
-    public abstract void start();
+    private String name;
+    private Integer value;
 
-    public abstract void stop();
-    
-    public abstract Model addConstraint(Model model, IntegerVariable[][] a);
+    public Resource() {}
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+    public Integer getValue() { return value; }
+
+    public void setValue(Integer value) { this.value = value; }
 }

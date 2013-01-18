@@ -82,5 +82,5 @@ public class Device
 
     public List<Resource> getResources() { return resources; }
 
-    //TODO: stocker la politique de mise en veille ?
+    //TODO: store power state change policy ?
 }

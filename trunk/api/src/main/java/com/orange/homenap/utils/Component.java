@@ -31,22 +31,23 @@ import java.util.List;
 
 public class Component
 {
-    public static enum Deployment { LOCALIZED, ALOCALIZED }
+    //public static enum Deployment { LOCALIZED, ALOCALIZED }
     public static enum Migrability { MIGRATABLE, STATIC }
     public static enum State { STATEFUL, STATELESS }
 
     private String name;
     private String url;
-    private Deployment deployment;
+    //private Deployment deployment;
     private Migrability migrability;
     private State state;
     private List<Resource> resources;
     private EndpointDescription endpointDescription;
     private List<String> require = new ArrayList<String>();
+    private List<Constraint> constraints;
 
     public Component() { }
     
-    public Component(Long id, String name, String url, Deployment deployment, Migrability migrability, State state) {}
+    public Component(Long id, String name, String url, Migrability migrability, State state) {}
 
     public String getName() { return name; }
 
@@ -64,9 +65,9 @@ public class Component
 
     public void setRequire(List<String> require) { this.require = require; }
 
-    public Deployment getDeployment() { return deployment; }
+    /*public Deployment getDeployment() { return deployment; }
 
-    public void setDeployment(Deployment deployment) { this.deployment = deployment; }
+    public void setDeployment(Deployment deployment) { this.deployment = deployment; }*/
 
     public Migrability getMigrability() { return migrability; }
 
@@ -79,4 +80,8 @@ public class Component
     public void setResources(List<Resource> resources) { this.resources = resources; }
 
     public List<Resource> getResources() { return resources; }
+
+    public List<Constraint> getConstraints() { return constraints; }
+
+    public void setConstraints(List<Constraint> constraints) { this.constraints = constraints; }
 }
