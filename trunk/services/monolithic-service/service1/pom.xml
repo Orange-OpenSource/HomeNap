@@ -55,7 +55,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-                        <Private-Package>com.orange.homenap.services.component1.*</Private-Package>
+                        <Private-Package>com.orange.homenap.services.camera.*</Private-Package>
                         <Import-Package>*</Import-Package>
                     </instructions>
                 </configuration>

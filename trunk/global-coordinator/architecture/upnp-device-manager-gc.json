@@ -1,6 +1,6 @@
-{
+{                 The more devices that can execute the component, the more the component is mobile.
     "name": "upnp-device-manager-gc",
-    "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/upnp-device-manager-gc/target/upnp-device-manager-gc-0.1-SNAPSHOT.jar",
+    "url": "http://ls-wxla26/maven2/com/orange/homenap/globalcoordinator/upnp-device-manager-gc/0.1-SNAPSHOT/upnp-device-manager-gc-0.1-SNAPSHOT.jar",
     "require": ["global-database", "analyser"],
     "migrability": "MIGRATABLE",
     "state": "STATELESS",

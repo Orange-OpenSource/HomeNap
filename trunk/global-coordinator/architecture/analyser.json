@@ -1,6 +1,6 @@
 {
     "name": "analyser",
-    "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/analyser/target/analyser-0.1-SNAPSHOT.jar",
+    "url": "http://ls-wxla26/maven2/com/orange/homenap/globalcoordinator/analyser/0.1-SNAPSHOT/analyser-0.1-SNAPSHOT.jar",
     "require": ["global-database", "optimizer", "printer"],
     "migrability": "MIGRATABLE",
     "state": "STATELESS",

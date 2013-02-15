@@ -37,9 +37,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>component1</module>
-        <module>component2</module>
-        <module>component3</module>
+        <module>camera</module>
+        <module>processing</module>
+        <module>alarm</module>
         <module>gui-example</module>
     </modules>
 </project>

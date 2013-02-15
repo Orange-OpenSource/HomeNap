@@ -1,6 +1,6 @@
 {
     "name": "executer",
-    "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/executer/target/executer-0.1-SNAPSHOT.jar",
+    "url": "http://ls-wxla26/maven2/com/orange/homenap/globalcoordinator/executer/0.1-SNAPSHOT/executer-0.1-SNAPSHOT.jar",
     "require": ["global-database", "printer", "upnp-controlpoint-manager-gc"],
     "migrability": "MIGRATABLE",
     "state": "STATELESS",

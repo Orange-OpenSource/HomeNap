@@ -1,6 +1,6 @@
 {
     "name": "csp-plugin-manager",
-    "url": "file:/home/kxzj6354/workspace/These/homenap/ipojo-impl/homenap/trunk/global-coordinator/csp-plugin-manager/target/csp-plugin-manager-0.1-SNAPSHOT.jar",
+    "url": "http://ls-wxla26/maven2/com/orange/homenap/globalcoordinator/csp-plugin-manager/0.1-SNAPSHOT/csp-plugin-manager-0.1-SNAPSHOT.jar",
     "migrability": "MIGRATABLE",
     "state": "STATELESS",
     "resources": [
