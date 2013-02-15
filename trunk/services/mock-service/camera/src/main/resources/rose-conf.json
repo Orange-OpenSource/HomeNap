@@ -1,0 +1,13 @@
+{
+    "machine" : {
+        "id" : "component1",
+        "host" : "localhost",
+        "connection" : [ {
+            "out" : { "service_filter" : "(objectClass=com.orange.homenap.services.camera.CameraItf)" }
+        } ],
+        "component" : [ {
+            "factory" : "RoSe_exporter.jabsorb",
+            "properties" : { "jsonrpc.servlet.name" : "/jsonrpc" }
+        } ]
+    }
+}

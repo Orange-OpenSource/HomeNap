@@ -1,0 +1,19 @@
+{
+    "machine" : {
+        "id" : "component2",
+        "host" : "localhost",
+        "connection" : [ {
+            "out" : { "service_filter" : "(objectClass=com.orange.homenap.services.processing.ProcessingItf)" }
+        },
+        {
+            "in" : { "endpoint_filter" : "(endpoint.id=*)" }
+        } ],
+        "component" : [ {
+            "factory" : "RoSe_exporter.jabsorb",
+            "properties" : { "jsonrpc.servlet.name" : "/jsonrpc" }
+        },
+        {
+            "factory" : "RoSe_importer.jabsorb"
+        } ]
+    }
+}

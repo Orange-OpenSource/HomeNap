@@ -1,0 +1,11 @@
+{
+    "name": "alarm",
+    "url" : "http://ls-wxla26/maven2/com/orange/homenap/services/alarm/0.1-SNAPSHOT/alarm-0.1-SNAPSHOT.jar",
+    "migrability": "MIGRATABLE",
+    "state": "STATELESS",
+    "resources": [
+        {"name": "CPU", "value": 20},
+        {"name": "RAM", "value": 20},
+        {"name": "SCR", "value": 1}
+    ]
+}

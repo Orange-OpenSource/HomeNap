@@ -1,0 +1,7 @@
+{
+    "name": "monolithic-service",
+    "execution": "MANDATORY",
+    "components": [
+        "monolithic-element"
+    ]
+}
